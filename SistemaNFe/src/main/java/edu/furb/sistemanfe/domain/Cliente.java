@@ -15,12 +15,12 @@ import javax.persistence.TableGenerator;
 @Table(name = "TBCLIENTES")
 @TableGenerator(name = "GenCliente", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "CLIENTESSEQ", valueColumnName = "VLSEQUENCIA")
 public class Cliente implements Serializable {
-	
+
 	private static final long serialVersionUID = -2811351774276705991L;
 
 	@Id
 	@Column(name = "IDCLIENTES")
-	@GeneratedValue(generator = "Gencliente", strategy = GenerationType.TABLE)
+	@GeneratedValue(generator = "GenCliente", strategy = GenerationType.TABLE)
 	private Long id;
 	@Column(name = "NRDOCUMENTO", length = 20)
 	private String documento;
@@ -32,42 +32,55 @@ public class Cliente implements Serializable {
 	private String email;
 	@Embedded
 	private Endereco endereco;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getDocumento() {
 		return documento;
 	}
+
 	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getInscricaoEstadual() {
 		return inscricaoEstadual;
 	}
+
 	public void setInscricaoEstadual(String inscricaoEstadual) {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
+
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -85,6 +98,7 @@ public class Cliente implements Serializable {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -126,6 +140,5 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
 }
