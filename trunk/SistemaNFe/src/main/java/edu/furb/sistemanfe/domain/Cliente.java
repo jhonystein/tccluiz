@@ -32,6 +32,17 @@ public class Cliente implements Serializable {
 	private String nome;
 	@Column(name = "NRINSCESTADUAL", length = 20)
 	private String inscricaoEstadual;
+	@Column(name = "NRFONE", length = 14)
+	private String fone;
+	
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+
 	@Column(name = "DSEMAIL", length = 60)
 	private String email;
 	@Embedded
@@ -94,6 +105,7 @@ public class Cliente implements Serializable {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((fone == null) ? 0 : fone.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime
 				* result
@@ -127,6 +139,11 @@ public class Cliente implements Serializable {
 				return false;
 		} else if (!endereco.equals(other.endereco))
 			return false;
+		if (fone == null) {
+			if (other.fone != null)
+				return false;
+		} else if (!fone.equals(other.fone))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -144,5 +161,6 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+	
 
 }
