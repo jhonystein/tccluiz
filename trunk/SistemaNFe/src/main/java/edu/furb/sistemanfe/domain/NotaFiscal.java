@@ -22,7 +22,7 @@ public class NotaFiscal implements Serializable {
 	private Long id;
 	@Column(name = "NRCHAVE", length = 44)
 	private String chaveNfe;
-	@Column(name = "DSNATOPER", length = 20)
+	@Column(name = "DSNATOPER", length = 60)
 	private String naturezaOperacao;
 	@Column(name = "DSMODELO", length = 2)
 	private String modelo;
@@ -32,7 +32,7 @@ public class NotaFiscal implements Serializable {
 	private String numero;
 	@Column(name = "DTEMISSAO", length = 20)
 	private String dataEmissao;
-	@Column(name = "DSTIPOEMISSAO", length = 20)
+	@Column(name = "DSTIPOEMISSAO", length = 2)
 	private String tipoEmissao;
 	@Column(name = "NRVALORTOTALNOTA", length = 20)
 	private Double valorTotalNota;

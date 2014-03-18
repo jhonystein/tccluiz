@@ -27,15 +27,15 @@ public class ItemNotaFiscal implements Serializable{
 	private Integer ordem;
 	@Column(name = "NRCFOP", length = 4)
 	private String cfop;
-	@Column(name = "DSUNIDADE", length = 4)
+	@Column(name = "DSUNIDADE", length = 6)
 	private String unidade;
 	@Column(name = "VLQUANTIDADE", length = 11)
 	private Double quantidade;
-	@Column(name = "VLUNITARIO", length = 11)
+	@Column(name = "VLUNITARIO", length = 13)
 	private Double valorUnitario;
-	@Column(name = "VLTOTAL", length = 11)
+	@Column(name = "VLTOTAL", length = 13)
 	private Double valorTotal;
-	@Column(name = "VLTOTALTRIBUTOS", length = 11)
+	@Column(name = "VLTOTALTRIBUTOS", length = 13)
 	private Double valorTotalTributos;
 	public Long getId() {
 		return id;
