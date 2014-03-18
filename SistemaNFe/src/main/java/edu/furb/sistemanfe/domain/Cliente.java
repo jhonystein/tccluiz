@@ -20,6 +20,8 @@ public class Cliente implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8667477979944114262L;
+	
+	
 	@Id
 	@Column(name = "IDCLIENTES")
 	@GeneratedValue(generator = "GenCliente", strategy = GenerationType.TABLE)
