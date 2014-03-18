@@ -1,5 +1,7 @@
 package edu.furb.sistemanfe.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,7 @@ import javax.persistence.TableGenerator;
 @Entity
 @Table(name = "TBITEMNOTAFISCAL")
 @TableGenerator(name = "GenItemNotaFiscal", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "ITEMNOTAFISCALSEQ", valueColumnName = "VLSEQUENCIA")
-public class ItemNotaFiscal {
+public class ItemNotaFiscal implements Serializable{
 
 	private static final long serialVersionUID = -2811351774276705991L;
 	
