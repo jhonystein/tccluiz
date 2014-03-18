@@ -8,6 +8,8 @@
 	<persistence-unit name="bookmark-ds" transaction-type="RESOURCE_LOCAL">
 
 		<class>edu.furb.sistemanfe.domain.Bookmark</class>
+		<class>edu.furb.sistemanfe.domain.Estado</class>
+		<class>edu.furb.sistemanfe.domain.Pais</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
