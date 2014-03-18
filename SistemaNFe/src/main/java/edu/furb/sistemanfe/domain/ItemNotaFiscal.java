@@ -14,9 +14,11 @@ import javax.persistence.TableGenerator;
 @Table(name = "TBITEMNOTAFISCAL")
 @TableGenerator(name = "GenItemNotaFiscal", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "ITEMNOTAFISCALSEQ", valueColumnName = "VLSEQUENCIA")
 public class ItemNotaFiscal implements Serializable{
-
-	private static final long serialVersionUID = -2811351774276705991L;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2271036933097231871L;
 	@Id
 	@Column(name = "IDITEMNOTAFISCAL")
 	@GeneratedValue(generator = "GenItemNotaFiscal", strategy = GenerationType.TABLE)
