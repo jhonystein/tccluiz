@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import org.hibernate.annotations.Cache;
-
 @Entity
 @Table(name = "TBPRODUTOS")
 @TableGenerator(name = "GenProduto", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "PRODUTOSSEQ", valueColumnName = "VLSEQUENCIA")
