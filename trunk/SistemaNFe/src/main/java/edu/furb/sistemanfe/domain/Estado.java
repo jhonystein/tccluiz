@@ -33,6 +33,20 @@ public class Estado implements Serializable{
 	@JoinColumn(name="IDPAIS")
 	private Pais pais;
 	
+	public Estado() {
+		
+	}
+	
+	public Estado(String sigla, String nome, String codigoIbge) {
+		this.nome = nome;
+		this.sigla = sigla;
+	}
+	
+	public Estado(String sigla, String nome, String codigoIbge, Pais pais) {
+		this(sigla, nome,codigoIbge);
+		this.pais = pais;
+	}
+	
 	public Long getId() {
 		return id;
 	}
