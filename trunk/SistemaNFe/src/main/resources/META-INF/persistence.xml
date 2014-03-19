@@ -11,6 +11,7 @@
 		<class>edu.furb.sistemanfe.domain.Bookmark</class>
 		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Pais</class>
+		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
 
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
