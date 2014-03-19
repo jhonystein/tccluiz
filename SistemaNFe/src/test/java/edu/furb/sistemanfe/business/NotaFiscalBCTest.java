@@ -22,6 +22,9 @@ public class NotaFiscalBCTest {
 	
 	@Before
 	public void before() {
+		for (NotaFiscal notaFiscal : notaFiscalBC.findAll()) {
+			notaFiscalBC.delete(notaFiscal.getId());
+		}
 	}
 
 	@Test
@@ -32,5 +35,19 @@ public class NotaFiscalBCTest {
 		List<NotaFiscal> listaPais = notaFiscalBC.findAll();
 		assertNotNull(listaPais);
 		assertEquals(1, listaPais.size());
+	}
+	
+	@Test
+	public void deleteInsert() {
+		NotaFiscal notaFiscal = new NotaFiscal();
+		notaFiscal.setChaveNfe("321654987032165498703216549870321654987011");
+		notaFiscalBC.insert(notaFiscal);
+		List<NotaFiscal> listaNotaFiscal = notaFiscalBC.findAll();
+		assertNotNull("A lista não pode estar nula", listaNotaFiscal);
+		assertEquals("Apos a inclusão, a lista deve conter 1 registro.", 1, listaNotaFiscal.size());
+		notaFiscal = listaNotaFiscal.get(0);
+		assertNotNull("Nota obtida para exclusão não pode ser null.", notaFiscal);
+		notaFiscalBC.delete(notaFiscal.getId());
+		assertEquals("Apos a exclusão, a lista deve estar vazia.", 0, listaNotaFiscal.size());
 	}
 }
