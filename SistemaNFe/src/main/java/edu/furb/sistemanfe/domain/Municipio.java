@@ -32,10 +32,19 @@ public class Municipio implements Serializable {
 	@JoinColumn(name="IDESTADO")
 	private Estado estado;
 	
-	public Long getId() {
-		return id;
+	
+	//Agora com o consytutor criado não vai dar mais erro no teste
+	public Municipio(String codigoIbge, String nome, Estado estado) {
+		super();
+		this.codigoIbge = codigoIbge;
+		this.nome = nome;
+		this.estado = estado;
 	}
 	
+	public Long getId() {
+		return id;
+	}	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
