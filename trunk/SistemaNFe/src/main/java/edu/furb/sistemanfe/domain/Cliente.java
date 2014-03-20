@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -20,8 +22,7 @@ public class Cliente implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8667477979944114262L;
-	
-	
+
 	@Id
 	@Column(name = "IDCLIENTES")
 	@GeneratedValue(generator = "GenCliente", strategy = GenerationType.TABLE)
@@ -34,6 +35,8 @@ public class Cliente implements Serializable {
 	private String inscricaoEstadual;
 	@Column(name = "NRFONE", length = 14)
 	private String fone;
+	@Embedded
+	private Endereco endereco2;
 	
 	public String getFone() {
 		return fone;
@@ -161,6 +164,5 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
 
 }

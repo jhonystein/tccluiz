@@ -13,7 +13,13 @@
 		<class>edu.furb.sistemanfe.domain.Pais</class>
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
 
-		<properties>
+	
+		<class>edu.furb.sistemanfe.domain.Produto</class>
+		<class>edu.furb.sistemanfe.domain.Cliente</class>
+		<class>edu.furb.sistemanfe.domain.Emitente</class>
+		<class>edu.furb.sistemanfe.domain.ItemNotaFiscal</class>
+		<class>edu.furb.sistemanfe.domain.Municipio</class>
+<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
