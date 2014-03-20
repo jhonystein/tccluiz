@@ -6,12 +6,12 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import edu.furb.sistemanfe.domain.*;
 import java.util.*;
 import javax.faces.model.*;
-import edu.furb.sistemanfe.persistence.EstadoDAO;
+import edu.furb.sistemanfe.persistence.MunicipioDAO;
 
 // To remove unused imports press: Ctrl+Shift+o
 
 @BusinessController
-public class EstadoBC extends DelegateCrud<Estado, Long, EstadoDAO> {
+public class MunicipioBC extends DelegateCrud<Municipio, Long, MunicipioDAO> {
 	private static final long serialVersionUID = 1L;
 	
 	

@@ -1,23 +1,21 @@
+
+
 package edu.furb.sistemanfe.business;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
+import static org.junit.Assert.*;
+import java.util.*;
 import javax.inject.Inject;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.business.NotaFiscalBC;
 
 @RunWith(DemoiselleRunner.class)
 public class NotaFiscalBCTest {
-	
-	@Inject
+
+    @Inject
 	private NotaFiscalBC notaFiscalBC;
 	
 	@Before
@@ -25,29 +23,55 @@ public class NotaFiscalBCTest {
 		for (NotaFiscal notaFiscal : notaFiscalBC.findAll()) {
 			notaFiscalBC.delete(notaFiscal.getId());
 		}
-	}
-
+	}	
+	
+	
 	@Test
 	public void testInsert() {
-		NotaFiscal notaFiscal = new NotaFiscal();
-		notaFiscal.setChaveNfe("321654987032165498703216549870321654987011");
+				
+		// modifique para inserir dados conforme o construtor
+		NotaFiscal notaFiscal = new NotaFiscal("chaveNfe","naturezaOperacao","modelo","serie","numero",new Date(),"tipoEmissao",null,null,null,null);
 		notaFiscalBC.insert(notaFiscal);
-		List<NotaFiscal> listaPais = notaFiscalBC.findAll();
-		assertNotNull(listaPais);
-		assertEquals(1, listaPais.size());
+		List<NotaFiscal> listOfNotaFiscal = notaFiscalBC.findAll();
+		assertNotNull(listOfNotaFiscal);
+		assertEquals(1, listOfNotaFiscal.size());
+	}	
+	
+	@Test
+	public void testDelete() {
+		
+		// modifique para inserir dados conforme o construtor
+		NotaFiscal notaFiscal = new NotaFiscal("chaveNfe","naturezaOperacao","modelo","serie","numero",new Date(),"tipoEmissao",null,null,null,null);
+		notaFiscalBC.insert(notaFiscal);
+		
+		List<NotaFiscal> listOfNotaFiscal = notaFiscalBC.findAll();
+		assertNotNull(listOfNotaFiscal);
+		assertEquals(1, listOfNotaFiscal.size());
+		
+		notaFiscalBC.delete(notaFiscal.getId());
+		listOfNotaFiscal = notaFiscalBC.findAll();
+		assertEquals(0, listOfNotaFiscal.size());
 	}
 	
 	@Test
-	public void deleteInsert() {
-		NotaFiscal notaFiscal = new NotaFiscal();
-		notaFiscal.setChaveNfe("321654987032165498703216549870321654987011");
+	public void testUpdate() {
+		// modifique para inserir dados conforme o construtor
+		NotaFiscal notaFiscal = new NotaFiscal("chaveNfe","naturezaOperacao","modelo","serie","numero",new Date(),"tipoEmissao",null,null,null,null);
 		notaFiscalBC.insert(notaFiscal);
-		List<NotaFiscal> listaNotaFiscal = notaFiscalBC.findAll();
-		assertNotNull("A lista não pode estar nula", listaNotaFiscal);
-		assertEquals("Apos a inclusão, a lista deve conter 1 registro.", 1, listaNotaFiscal.size());
-		notaFiscal = listaNotaFiscal.get(0);
-		assertNotNull("Nota obtida para exclusão não pode ser null.", notaFiscal);
-		notaFiscalBC.delete(notaFiscal.getId());
-		assertEquals("Apos a exclusão, a lista deve estar vazia.", 0, listaNotaFiscal.size());
+		
+		List<NotaFiscal> listOfNotaFiscal = notaFiscalBC.findAll();
+		NotaFiscal notaFiscal2 = (NotaFiscal)listOfNotaFiscal.get(0);
+		assertNotNull(listOfNotaFiscal);
+
+		// alterar para tratar uma propriedade existente na Entidade NotaFiscal
+		// notaFiscal2.setUmaPropriedade("novo valor");
+		notaFiscalBC.update(notaFiscal2);
+		
+		listOfNotaFiscal = notaFiscalBC.findAll();
+		NotaFiscal notaFiscal3 = (NotaFiscal)listOfNotaFiscal.get(0);
+		
+		// alterar para tratar uma propriedade existente na Entidade NotaFiscal
+		// assertEquals("novo valor", notaFiscal3.getUmaPropriedade());
 	}
+
 }

@@ -1,12 +1,16 @@
 package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -30,82 +34,129 @@ public class NotaFiscal implements Serializable {
 	private String serie;
 	@Column(name = "NRNOTA", length = 9)
 	private String numero;
+
 	@Column(name = "DTEMISSAO", length = 20)
-	private String dataEmissao;
+	private Date dataEmissao;
 	@Column(name = "DSTIPOEMISSAO", length = 2)
 	private String tipoEmissao;
 	@Column(name = "NRVALORTOTALNOTA", length = 20)
-	private Double valorTotalNota;
+	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
-	private Double valorTotalTributos;
+	private BigDecimal valorTotalTributos;
+	@ManyToOne
+	@JoinColumn(name = "IDEMITENTE")
+	private Emitente emitente;
+	@ManyToOne
+	@JoinColumn(name = "IDCLIENTE")
+	private Cliente cliente;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getChaveNfe() {
 		return chaveNfe;
 	}
+
 	public void setChaveNfe(String chaveNfe) {
 		this.chaveNfe = chaveNfe;
 	}
+
 	public String getNaturezaOperacao() {
 		return naturezaOperacao;
 	}
+
 	public void setNaturezaOperacao(String naturezaOperacao) {
 		this.naturezaOperacao = naturezaOperacao;
 	}
+
 	public String getModelo() {
 		return modelo;
 	}
+
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+
 	public String getSerie() {
 		return serie;
 	}
+
 	public void setSerie(String serie) {
 		this.serie = serie;
 	}
+
 	public String getNumero() {
 		return numero;
 	}
+
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public String getDataEmissao() {
-		return dataEmissao;
-	}
-	public void setDataEmissao(String dataEmissao) {
-		this.dataEmissao = dataEmissao;
-	}
+
 	public String getTipoEmissao() {
 		return tipoEmissao;
 	}
+
 	public void setTipoEmissao(String tipoEmissao) {
 		this.tipoEmissao = tipoEmissao;
+	}	
+
+	public Date getDataEmissao() {
+		return dataEmissao;
 	}
-	public Double getValorTotalNota() {
+
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+
+	public BigDecimal getValorTotalNota() {
 		return valorTotalNota;
 	}
-	public void setValorTotalNota(Double valorTotalNota) {
+
+	public void setValorTotalNota(BigDecimal valorTotalNota) {
 		this.valorTotalNota = valorTotalNota;
 	}
-	public Double getValorTotalTributos() {
+
+	public BigDecimal getValorTotalTributos() {
 		return valorTotalTributos;
 	}
-	public void setValorTotalTributos(Double valorTotalTributos) {
+
+	public void setValorTotalTributos(BigDecimal valorTotalTributos) {
 		this.valorTotalTributos = valorTotalTributos;
 	}
+
+	public Emitente getEmitente() {
+		return emitente;
+	}
+
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((chaveNfe == null) ? 0 : chaveNfe.hashCode());
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result
 				+ ((dataEmissao == null) ? 0 : dataEmissao.hashCode());
+		result = prime * result
+				+ ((emitente == null) ? 0 : emitente.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((modelo == null) ? 0 : modelo.hashCode());
 		result = prime
@@ -123,6 +174,7 @@ public class NotaFiscal implements Serializable {
 						.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -137,10 +189,20 @@ public class NotaFiscal implements Serializable {
 				return false;
 		} else if (!chaveNfe.equals(other.chaveNfe))
 			return false;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
 		if (dataEmissao == null) {
 			if (other.dataEmissao != null)
 				return false;
 		} else if (!dataEmissao.equals(other.dataEmissao))
+			return false;
+		if (emitente == null) {
+			if (other.emitente != null)
+				return false;
+		} else if (!emitente.equals(other.emitente))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -183,8 +245,6 @@ public class NotaFiscal implements Serializable {
 		} else if (!valorTotalTributos.equals(other.valorTotalTributos))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 
 }

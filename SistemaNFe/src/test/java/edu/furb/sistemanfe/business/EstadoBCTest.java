@@ -1,55 +1,77 @@
+
+
 package edu.furb.sistemanfe.business;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
+import static org.junit.Assert.*;
+import java.util.*;
 import javax.inject.Inject;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 import edu.furb.sistemanfe.domain.Estado;
-import edu.furb.sistemanfe.domain.Pais;
+import edu.furb.sistemanfe.business.EstadoBC;
 
 @RunWith(DemoiselleRunner.class)
 public class EstadoBCTest {
-	@Inject
+
+    @Inject
 	private EstadoBC estadoBC;
-	@Inject
-	private PaisBC paisBC;
 	
 	@Before
 	public void before() {
 		for (Estado estado : estadoBC.findAll()) {
 			estadoBC.delete(estado.getId());
 		}
-		paisBC.load();
-	}
-
-	@Test
-	public void testLoad() {
-		estadoBC.load();
-		List<Estado> listaEstados = estadoBC.findAll();
-		assertNotNull(listaEstados);
-		assertEquals(2, listaEstados.size());
-	}
+	}	
+	
 	
 	@Test
 	public void testInsert() {
-		Pais pais = paisBC.findAll().get(0);
 				
-		Estado estado = new Estado("SC", "Santa Catarina", "123", pais);
+		// modifique para inserir dados conforme o construtor
+		Estado estado = new Estado("sigla","nome","codigoIbge",null);
 		estadoBC.insert(estado);
-		List<Estado> listaEstados = estadoBC.findAll();
-		//Identifica se a lista não esta fazia.
-		assertNotNull(listaEstados);
-		//Deve exitir somenete um registro;
-		assertEquals(1, listaEstados.size());
-		//Garante que o país do estado obtido é o mesmo do inserido(relacionamento);
-		assertEquals(pais.getId(), listaEstados.get(0).getPais().getId());
+		List<Estado> listOfEstado = estadoBC.findAll();
+		assertNotNull(listOfEstado);
+		assertEquals(1, listOfEstado.size());
+	}	
+	
+	@Test
+	public void testDelete() {
+		
+		// modifique para inserir dados conforme o construtor
+		Estado estado = new Estado("sigla","nome","codigoIbge",null);
+		estadoBC.insert(estado);
+		
+		List<Estado> listOfEstado = estadoBC.findAll();
+		assertNotNull(listOfEstado);
+		assertEquals(1, listOfEstado.size());
+		
+		estadoBC.delete(estado.getId());
+		listOfEstado = estadoBC.findAll();
+		assertEquals(0, listOfEstado.size());
 	}
+	
+	@Test
+	public void testUpdate() {
+		// modifique para inserir dados conforme o construtor
+		Estado estado = new Estado("sigla","nome","codigoIbge",null);
+		estadoBC.insert(estado);
+		
+		List<Estado> listOfEstado = estadoBC.findAll();
+		Estado estado2 = (Estado)listOfEstado.get(0);
+		assertNotNull(listOfEstado);
+
+		// alterar para tratar uma propriedade existente na Entidade Estado
+		// estado2.setUmaPropriedade("novo valor");
+		estadoBC.update(estado2);
+		
+		listOfEstado = estadoBC.findAll();
+		Estado estado3 = (Estado)listOfEstado.get(0);
+		
+		// alterar para tratar uma propriedade existente na Entidade Estado
+		// assertEquals("novo valor", estado3.getUmaPropriedade());
+	}
+
 }

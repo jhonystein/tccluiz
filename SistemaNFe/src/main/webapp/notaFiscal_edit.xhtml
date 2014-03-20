@@ -1,0 +1,119 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{notaFiscalEditMB.insert}"
+						rendered="#{!notaFiscalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{notaFiscalEditMB.update}"
+						rendered="#{notaFiscalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{notaFiscalEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{notaFiscalEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['notaFiscal.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsnotaFiscal" columns="3">
+				
+					<h:outputLabel value="#{messages['notaFiscal.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{notaFiscalEditMB.bean.id}" />
+					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.chaveNfe']}: " for="chaveNfe" styleClass="text-input" />
+					
+					<h:inputText id="chaveNfe" value="#{notaFiscalEditMB.bean.chaveNfe}"
+						title="#{messages['notaFiscal.alt.chaveNfe']}" />
+					
+					<p:message for="chaveNfe" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.naturezaOperacao']}: " for="naturezaOperacao" styleClass="text-input" />
+					
+					<h:inputText id="naturezaOperacao" value="#{notaFiscalEditMB.bean.naturezaOperacao}"
+						title="#{messages['notaFiscal.alt.naturezaOperacao']}" />
+					
+					<p:message for="naturezaOperacao" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.modelo']}: " for="modelo" styleClass="text-input" />
+					
+					<h:inputText id="modelo" value="#{notaFiscalEditMB.bean.modelo}"
+						title="#{messages['notaFiscal.alt.modelo']}" />
+					
+					<p:message for="modelo" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.serie']}: " for="serie" styleClass="text-input" />
+					
+					<h:inputText id="serie" value="#{notaFiscalEditMB.bean.serie}"
+						title="#{messages['notaFiscal.alt.serie']}" />
+					
+					<p:message for="serie" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.numero']}: " for="numero" styleClass="text-input" />
+					
+					<h:inputText id="numero" value="#{notaFiscalEditMB.bean.numero}"
+						title="#{messages['notaFiscal.alt.numero']}" />
+					
+					<p:message for="numero" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.dataEmissao']}: " for="dataEmissao" styleClass="text-input" />
+					
+					<p:calendar id="dataEmissao" value="#{notaFiscalEditMB.bean.dataEmissao}"
+					   pattern="#{messages['label.date.pattern']}" navigator="true" showButtonPanel="true"
+					   locale="#{locales.currentLocale}" title="#{messages['notaFiscal.alt.dataEmissao']}" />
+							 
+					<p:message for="dataEmissao" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.tipoEmissao']}: " for="tipoEmissao" styleClass="text-input" />
+					
+					<h:inputText id="tipoEmissao" value="#{notaFiscalEditMB.bean.tipoEmissao}"
+						title="#{messages['notaFiscal.alt.tipoEmissao']}" />
+					
+					<p:message for="tipoEmissao" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.valorTotalNota']}: " for="valorTotalNota" styleClass="text-input" />
+					
+					<h:inputText id="valorTotalNota" value="#{notaFiscalEditMB.bean.valorTotalNota}"
+						title="#{messages['notaFiscal.alt.valorTotalNota']}" />
+					
+					<p:message for="valorTotalNota" />
+						
+					<h:outputLabel value="#{messages['notaFiscal.label.valorTotalTributos']}: " for="valorTotalTributos" styleClass="text-input" />
+					
+					<h:inputText id="valorTotalTributos" value="#{notaFiscalEditMB.bean.valorTotalTributos}"
+						title="#{messages['notaFiscal.alt.valorTotalTributos']}" />
+					
+					<p:message for="valorTotalTributos" />
+						
+					<h:outputLabel value="#{messages['emitente.label']}: " for="emitente" styleClass="text-input" />
+				    <p:selectOneMenu id="emitente" value="#{notaFiscalEditMB.bean.emitente}"  effect="fade" converter="ConversorEmitente">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{notaFiscalEditMB.emitenteList}" var="varEmitente" itemLabel="#{varEmitente.id}"  itemValue="#{varEmitente}" />						
+					</p:selectOneMenu>
+					<p:message for="emitente" />								  
+								 
+					<h:outputLabel value="#{messages['cliente.label']}: " for="cliente" styleClass="text-input" />
+				    <p:selectOneMenu id="cliente" value="#{notaFiscalEditMB.bean.cliente}"  effect="fade" converter="ConversorCliente">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{notaFiscalEditMB.clienteList}" var="varCliente" itemLabel="#{varCliente.id}"  itemValue="#{varCliente}" />						
+					</p:selectOneMenu>
+					<p:message for="cliente" />								  
+								 
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

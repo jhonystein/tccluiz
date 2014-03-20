@@ -1,0 +1,90 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{clienteEditMB.insert}"
+						rendered="#{!clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{clienteEditMB.update}"
+						rendered="#{clienteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{clienteEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clienteEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['cliente.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldscliente" columns="3">
+				
+					<h:outputLabel value="#{messages['cliente.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{clienteEditMB.bean.id}" />
+					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['cliente.label.documento']}: " for="documento" styleClass="text-input" />
+					
+					<h:inputText id="documento" value="#{clienteEditMB.bean.documento}"
+						title="#{messages['cliente.alt.documento']}" />
+					
+					<p:message for="documento" />
+						
+					<h:outputLabel value="#{messages['cliente.label.nome']}: " for="nome" styleClass="text-input" />
+					
+					<h:inputText id="nome" value="#{clienteEditMB.bean.nome}"
+						title="#{messages['cliente.alt.nome']}" />
+					
+					<p:message for="nome" />
+						
+					<h:outputLabel value="#{messages['cliente.label.inscricaoEstadual']}: " for="inscricaoEstadual" styleClass="text-input" />
+					
+					<h:inputText id="inscricaoEstadual" value="#{clienteEditMB.bean.inscricaoEstadual}"
+						title="#{messages['cliente.alt.inscricaoEstadual']}" />
+					
+					<p:message for="inscricaoEstadual" />
+						
+					<h:outputLabel value="#{messages['cliente.label.fone']}: " for="fone" styleClass="text-input" />
+					
+					<h:inputText id="fone" value="#{clienteEditMB.bean.fone}"
+						title="#{messages['cliente.alt.fone']}" />
+					
+					<p:message for="fone" />
+						
+					<h:outputLabel value="#{messages['cliente.label.endereco2']}: " for="endereco2" styleClass="text-input" />
+					
+					<h:inputText id="endereco2" value="#{clienteEditMB.bean.endereco2}"
+						title="#{messages['cliente.alt.endereco2']}" />
+					
+					<p:message for="endereco2" />
+						
+					<h:outputLabel value="#{messages['cliente.label.email']}: " for="email" styleClass="text-input" />
+					
+					<h:inputText id="email" value="#{clienteEditMB.bean.email}"
+						title="#{messages['cliente.alt.email']}" />
+					
+					<p:message for="email" />
+						
+					<h:outputLabel value="#{messages['cliente.label.endereco']}: " for="endereco" styleClass="text-input" />
+					
+					<h:inputText id="endereco" value="#{clienteEditMB.bean.endereco}"
+						title="#{messages['cliente.alt.endereco']}" />
+					
+					<p:message for="endereco" />
+						
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

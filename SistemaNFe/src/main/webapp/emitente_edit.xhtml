@@ -1,0 +1,69 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{emitenteEditMB.insert}"
+						rendered="#{!emitenteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{emitenteEditMB.update}"
+						rendered="#{emitenteEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{emitenteEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{emitenteEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['emitente.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsemitente" columns="3">
+				
+					<h:outputLabel value="#{messages['emitente.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{emitenteEditMB.bean.id}" />
+					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['emitente.label.documento']}: " for="documento" styleClass="text-input" />
+					
+					<h:inputText id="documento" value="#{emitenteEditMB.bean.documento}"
+						title="#{messages['emitente.alt.documento']}" />
+					
+					<p:message for="documento" />
+						
+					<h:outputLabel value="#{messages['emitente.label.nome']}: " for="nome" styleClass="text-input" />
+					
+					<h:inputText id="nome" value="#{emitenteEditMB.bean.nome}"
+						title="#{messages['emitente.alt.nome']}" />
+					
+					<p:message for="nome" />
+						
+					<h:outputLabel value="#{messages['emitente.label.inscricaoEstadual']}: " for="inscricaoEstadual" styleClass="text-input" />
+					
+					<h:inputText id="inscricaoEstadual" value="#{emitenteEditMB.bean.inscricaoEstadual}"
+						title="#{messages['emitente.alt.inscricaoEstadual']}" />
+					
+					<p:message for="inscricaoEstadual" />
+						
+					<h:outputLabel value="#{messages['emitente.label.endereco']}: " for="endereco" styleClass="text-input" />
+					
+					<h:inputText id="endereco" value="#{emitenteEditMB.bean.endereco}"
+						title="#{messages['emitente.alt.endereco']}" />
+					
+					<p:message for="endereco" />
+						
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

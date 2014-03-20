@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -25,7 +27,17 @@ public class Produto implements Serializable {
 	private String codigo;
 	@Column(name = "NMPRODUTO", length = 100)
 	private String nome;
-	
+	@ManyToOne
+	@JoinColumn(name = "IDEMITENTE")
+	private Emitente emitente;
+
+	public Emitente getEmitente() {
+		return emitente;
+	}
+
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
+	}
 
 	public Long getId() {
 		return id;
@@ -56,6 +68,8 @@ public class Produto implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result
+				+ ((emitente == null) ? 0 : emitente.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
@@ -75,6 +89,11 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
+		if (emitente == null) {
+			if (other.emitente != null)
+				return false;
+		} else if (!emitente.equals(other.emitente))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -87,5 +106,9 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+
+	
+
+	
 
 }

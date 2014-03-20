@@ -1,0 +1,96 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{itemNotaFiscalListMB.getNextView}"
+						actionListener="#{itemNotaFiscalListMB.clear}" ajax="false" />
+
+					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
+						type="button" immediate="true" ajax="false" />
+
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemNotaFiscalListMB.deleteSelection}"
+							actionListener="#{itemNotaFiscalListMB.clear}" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:dataTable id="list" var="bean" value="#{itemNotaFiscalListMB.resultList}">
+				<f:facet name="header">#{messages['itemNotaFiscal.list.table.title']}</f:facet>
+				<p:column style="width:2%;">
+					<h:selectBooleanCheckbox value="#{itemNotaFiscalListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column style="width:5%;" sortBy="#{bean.id}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.id']}</f:facet>
+					<h:outputText value="#{bean.id}" />
+				</p:column>
+						
+				<p:column sortBy="#{bean.ordem}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.ordem']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.ordem}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.cfop}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.cfop']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.cfop}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.unidade}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.unidade']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.unidade}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.quantidade}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.quantidade']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.quantidade}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.valorUnitario}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.valorUnitario']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.valorUnitario}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.valorTotal}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.valorTotal']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.valorTotal}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+				<p:column sortBy="#{bean.valorTotalTributos}">
+					<f:facet name="header">#{messages['itemNotaFiscal.label.valorTotalTributos']}</f:facet>
+					<h:commandLink action="#{itemNotaFiscalListMB.getNextView}" actionListener="#{itemNotaFiscalListMB.clear}">
+						<h:outputText value="#{bean.valorTotalTributos}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+					
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
