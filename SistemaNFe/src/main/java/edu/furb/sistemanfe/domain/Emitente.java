@@ -31,6 +31,19 @@ public class Emitente implements Serializable {
 	@Embedded
 	private Endereco endereco;
 	
+	public Emitente(){
+		
+	}
+	
+	public Emitente(String documento, String nome, String inscricaoEstadual,
+			Endereco endereco) {
+		super();
+		this.documento = documento;
+		this.nome = nome;
+		this.inscricaoEstadual = inscricaoEstadual;
+		this.endereco = endereco;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-@Entity
+@Entity 
 @Table(name = "TBPRODUTOS")
 @TableGenerator(name = "GenProduto", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "PRODUTOSSEQ", valueColumnName = "VLSEQUENCIA")
 public class Produto implements Serializable {
@@ -30,6 +30,16 @@ public class Produto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
+	
+	public Produto() {
+	}
+
+	public Produto(String codigo, String nome, Emitente emitente) {
+		super();
+		this.codigo = codigo;
+		this.nome = nome;
+		this.emitente = emitente;
+	}
 
 	public Emitente getEmitente() {
 		return emitente;
