@@ -30,7 +30,7 @@ public class ClienteBCTest {
 	public void testInsert() {
 				
 		// modifique para inserir dados conforme o construtor
-		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,null,"email",null);
+		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,"email",null);
 		clienteBC.insert(cliente);
 		List<Cliente> listOfCliente = clienteBC.findAll();
 		assertNotNull(listOfCliente);
@@ -41,7 +41,7 @@ public class ClienteBCTest {
 	public void testDelete() {
 		
 		// modifique para inserir dados conforme o construtor
-		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,null,"email",null);
+		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,"email",null);
 		clienteBC.insert(cliente);
 		
 		List<Cliente> listOfCliente = clienteBC.findAll();
@@ -56,7 +56,7 @@ public class ClienteBCTest {
 	@Test
 	public void testUpdate() {
 		// modifique para inserir dados conforme o construtor
-		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,null,"email",null);
+		Cliente cliente = new Cliente("documento","nome","inscricaoEstadual","fone",null,"email",null);
 		clienteBC.insert(cliente);
 		
 		List<Cliente> listOfCliente = clienteBC.findAll();

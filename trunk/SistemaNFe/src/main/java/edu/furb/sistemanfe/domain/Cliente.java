@@ -35,8 +35,8 @@ public class Cliente implements Serializable {
 	private String inscricaoEstadual;
 	@Column(name = "NRFONE", length = 14)
 	private String fone;
-	@Embedded
-	private Endereco endereco2;
+	//@Embedded
+	//private Endereco endereco2;
 	@ManyToOne
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
@@ -50,14 +50,14 @@ public class Cliente implements Serializable {
 	}
 
 	public Cliente(String documento, String nome, String inscricaoEstadual,
-			String fone, Endereco endereco2, Emitente emitente, String email,
+			String fone, Emitente emitente, String email,
 			Endereco endereco) {
 		super();
 		this.documento = documento;
 		this.nome = nome;
 		this.inscricaoEstadual = inscricaoEstadual;
 		this.fone = fone;
-		this.endereco2 = endereco2;
+		//this.endereco2 = endereco2;
 		this.emitente = emitente;
 		this.email = email;
 		this.endereco = endereco;
@@ -118,13 +118,13 @@ public class Cliente implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public Endereco getEndereco2() {
-		return endereco2;
-	}
-
-	public void setEndereco2(Endereco endereco2) {
-		this.endereco2 = endereco2;
-	}
+//	public Endereco getEndereco2() {
+//		return endereco2;
+//	}
+//
+//	public void setEndereco2(Endereco endereco2) {
+//		this.endereco2 = endereco2;
+//	}
 
 	public Emitente getEmitente() {
 		return emitente;
@@ -145,8 +145,8 @@ public class Cliente implements Serializable {
 				+ ((emitente == null) ? 0 : emitente.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result
-				+ ((endereco2 == null) ? 0 : endereco2.hashCode());
+//		result = prime * result
+//				+ ((endereco2 == null) ? 0 : endereco2.hashCode());
 		result = prime * result + ((fone == null) ? 0 : fone.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime
@@ -186,11 +186,11 @@ public class Cliente implements Serializable {
 				return false;
 		} else if (!endereco.equals(other.endereco))
 			return false;
-		if (endereco2 == null) {
-			if (other.endereco2 != null)
-				return false;
-		} else if (!endereco2.equals(other.endereco2))
-			return false;
+//		if (endereco2 == null) {
+//			if (other.endereco2 != null)
+//				return false;
+//		} else if (!endereco2.equals(other.endereco2))
+//			return false;
 		if (fone == null) {
 			if (other.fone != null)
 				return false;
