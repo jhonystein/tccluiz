@@ -33,7 +33,9 @@ public class Municipio implements Serializable {
 	private Estado estado;
 	
 	
-	//Agora com o consytutor criado não vai dar mais erro no teste
+	public Municipio() {
+	}
+	
 	public Municipio(String codigoIbge, String nome, Estado estado) {
 		super();
 		this.codigoIbge = codigoIbge;

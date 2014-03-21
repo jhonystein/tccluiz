@@ -31,6 +31,7 @@ public class MunicipioBCTest {
 				
 		// modifique para inserir dados conforme o construtor
 		Municipio municipio = new Municipio("codigoIbge","nome",null);
+		
 		municipioBC.insert(municipio);
 		List<Municipio> listOfMunicipio = municipioBC.findAll();
 		assertNotNull(listOfMunicipio);
