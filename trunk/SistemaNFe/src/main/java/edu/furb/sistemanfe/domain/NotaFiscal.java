@@ -2,7 +2,7 @@ package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,6 +49,29 @@ public class NotaFiscal implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "IDCLIENTE")
 	private Cliente cliente;
+	
+	public NotaFiscal(){
+		
+	}
+
+	public NotaFiscal(String chaveNfe, String naturezaOperacao, String modelo,
+			String serie, String numero, Date dataEmissao, String tipoEmissao,
+			BigDecimal valorTotalNota, BigDecimal valorTotalTributos,
+			Emitente emitente, Cliente cliente) {
+		super();
+		this.chaveNfe = chaveNfe;
+		this.naturezaOperacao = naturezaOperacao;
+		this.modelo = modelo;
+		this.serie = serie;
+		this.numero = numero;
+		this.dataEmissao = dataEmissao;
+		this.tipoEmissao = tipoEmissao;
+		this.valorTotalNota = valorTotalNota;
+		this.valorTotalTributos = valorTotalTributos;
+		this.emitente = emitente;
+		this.cliente = cliente;
+	}
+	
 
 	public Long getId() {
 		return id;

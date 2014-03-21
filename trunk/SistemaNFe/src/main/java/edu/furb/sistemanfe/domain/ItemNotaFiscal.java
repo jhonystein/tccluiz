@@ -46,6 +46,26 @@ public class ItemNotaFiscal implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "IDPRODUTO")
 	private Produto produto;
+	
+	public ItemNotaFiscal(){
+		
+	}
+
+	public ItemNotaFiscal(Integer ordem, String cfop, String unidade,
+			String quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
+			BigDecimal valorTotalTributos, NotaFiscal notafiscal,
+			Produto produto) {
+		super();
+		this.ordem = ordem;
+		this.cfop = cfop;
+		this.unidade = unidade;
+		this.quantidade = quantidade;
+		this.valorUnitario = valorUnitario;
+		this.valorTotal = valorTotal;
+		this.valorTotalTributos = valorTotalTributos;
+		this.notafiscal = notafiscal;
+		this.produto = produto;
+	}
 
 	public Long getId() {
 		return id;

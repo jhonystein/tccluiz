@@ -64,14 +64,14 @@ public class ItemNotaFiscalBCTest {
 		assertNotNull(listOfItemNotaFiscal);
 
 		// alterar para tratar uma propriedade existente na Entidade ItemNotaFiscal
-		// itemNotaFiscal2.setUmaPropriedade("novo valor");
+		itemNotaFiscal2.setCfop("novo valor");
 		itemNotaFiscalBC.update(itemNotaFiscal2);
 		
 		listOfItemNotaFiscal = itemNotaFiscalBC.findAll();
 		ItemNotaFiscal itemNotaFiscal3 = (ItemNotaFiscal)listOfItemNotaFiscal.get(0);
 		
 		// alterar para tratar uma propriedade existente na Entidade ItemNotaFiscal
-		// assertEquals("novo valor", itemNotaFiscal3.getUmaPropriedade());
+		assertEquals("novo valor", itemNotaFiscal3.getCfop());
 	}
 
 }
