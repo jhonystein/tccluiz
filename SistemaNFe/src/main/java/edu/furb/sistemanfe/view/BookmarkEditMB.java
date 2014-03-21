@@ -39,10 +39,15 @@ public class BookmarkEditMB extends AbstractEditPageBean<Bookmark, Long> {
 		this.bookmarkBC.update(getBean());
 		return getPreviousView();
 	}
+//
+//	@Override
+//	protected void handleLoad() {
+//		setBean(this.bookmarkBC.load(getId()));
+//	}
 
 	@Override
-	protected void handleLoad() {
-		setBean(this.bookmarkBC.load(getId()));
+	protected Bookmark handleLoad(Long id) {
+		return this.bookmarkBC.load(id);
 	}
 
 }

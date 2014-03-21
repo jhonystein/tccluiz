@@ -64,14 +64,14 @@ public class EstadoBCTest {
 		assertNotNull(listOfEstado);
 
 		// alterar para tratar uma propriedade existente na Entidade Estado
-		// estado2.setUmaPropriedade("novo valor");
+		estado2.setNome("novo valor");
 		estadoBC.update(estado2);
 		
 		listOfEstado = estadoBC.findAll();
 		Estado estado3 = (Estado)listOfEstado.get(0);
 		
 		// alterar para tratar uma propriedade existente na Entidade Estado
-		// assertEquals("novo valor", estado3.getUmaPropriedade());
+		assertEquals("novo valor", estado3.getNome());
 	}
 
 }

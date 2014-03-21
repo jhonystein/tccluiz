@@ -1,19 +1,18 @@
 
 package edu.furb.sistemanfe.view;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import edu.furb.sistemanfe.business.*;
-import edu.furb.sistemanfe.domain.*;
-import javax.faces.model.*;
-import org.primefaces.event.TransferEvent;
-import org.primefaces.model.DualListModel;
-import java.util.*;
-
-// To remove unused imports press: Ctrl+Shift+o
+import edu.furb.sistemanfe.business.EmitenteBC;
+import edu.furb.sistemanfe.business.ProdutoBC;
+import edu.furb.sistemanfe.domain.Emitente;
+import edu.furb.sistemanfe.domain.Produto;
 
 @ViewController
 @PreviousView("./produto_list.jsf")

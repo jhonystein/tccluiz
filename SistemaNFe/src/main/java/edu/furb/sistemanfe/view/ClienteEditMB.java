@@ -2,16 +2,13 @@
 package edu.furb.sistemanfe.view;
 
 import javax.inject.Inject;
+
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import edu.furb.sistemanfe.business.*;
-import edu.furb.sistemanfe.domain.*;
-import javax.faces.model.*;
-import org.primefaces.event.TransferEvent;
-import org.primefaces.model.DualListModel;
-import java.util.*;
+import edu.furb.sistemanfe.business.ClienteBC;
+import edu.furb.sistemanfe.domain.Cliente;
 
 // To remove unused imports press: Ctrl+Shift+o
 
@@ -50,5 +47,5 @@ public class ClienteEditMB extends AbstractEditPageBean<Cliente, Long> {
 	@Override
 	protected Cliente handleLoad(Long id) {
 		return this.clienteBC.load(id);
-	}	
+	}
 }
