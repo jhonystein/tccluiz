@@ -1,12 +1,11 @@
 package edu.furb.sistemanfe.domain;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -18,7 +17,7 @@ public class Bookmark implements Serializable {
 	 *  If you are using Glassfish then remove the strategy attribute
 	 */
 	@Id
-	@GeneratedValue(strategy = SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	@Column
