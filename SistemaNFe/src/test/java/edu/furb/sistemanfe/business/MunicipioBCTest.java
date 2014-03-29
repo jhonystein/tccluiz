@@ -27,7 +27,7 @@ public class MunicipioBCTest {
 	public void testInsert() {
 
 		// modifique para inserir dados conforme o construtor
-		Municipio municipio = new Municipio("codigoIbge", "nome", null);
+		Municipio municipio = new Municipio("000002", "nome", null);
 
 		municipioBC.insert(municipio);
 		List<Municipio> listOfMunicipio = municipioBC.findAll();
@@ -39,7 +39,7 @@ public class MunicipioBCTest {
 	public void testDelete() {
 
 		// modifique para inserir dados conforme o construtor
-		Municipio municipio = new Municipio("codigoIbge", "nome", null);
+		Municipio municipio = new Municipio("000001", "nome", null);
 		municipioBC.insert(municipio);
 
 		List<Municipio> listOfMunicipio = municipioBC.findAll();
@@ -54,7 +54,7 @@ public class MunicipioBCTest {
 	@Test
 	public void testUpdate() {
 		// modifique para inserir dados conforme o construtor
-		Municipio municipio = new Municipio("codigoIbge", "nome", null);
+		Municipio municipio = new Municipio("00002", "nome", null);
 		municipioBC.insert(municipio);
 
 		List<Municipio> listOfMunicipio = municipioBC.findAll();

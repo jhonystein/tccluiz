@@ -11,19 +11,12 @@
 		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Pais</class>
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
-
 		<class>edu.furb.sistemanfe.domain.Estado</class>
-
 		<class>edu.furb.sistemanfe.domain.Produto</class>
-
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
-
 		<class>edu.furb.sistemanfe.domain.Cliente</class>
-
 		<class>edu.furb.sistemanfe.domain.Emitente</class>
-
 		<class>edu.furb.sistemanfe.domain.ItemNotaFiscal</class>
-
 		<class>edu.furb.sistemanfe.domain.Municipio</class>
 
 		<properties>
@@ -31,15 +24,16 @@
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/test" />
-			
+
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="create-update" /> 
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode" value="database" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="database" />
 		</properties>
 	</persistence-unit>
 
