@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,10 +44,10 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
 	private BigDecimal valorTotalTributos;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "IDCLIENTE")
 	private Cliente cliente;
 	
