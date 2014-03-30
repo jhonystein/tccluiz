@@ -2,6 +2,7 @@ package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -26,27 +27,24 @@ public class Cliente implements Serializable {
 	@Id
 	@Column(name = "IDCLIENTES")
 	@GeneratedValue(generator = "GenCliente", strategy = GenerationType.TABLE)
-	private Long id;
+	private Long id = null;
 	@Column(name = "NRDOCUMENTO", length = 20)
-	private String documento;
+	private String documento = null;
 	@Column(name = "NMEMITENTE", length = 100)
-	private String nome;
+	private String nome = null;
 	@Column(name = "NRINSCESTADUAL", length = 20)
-	private String inscricaoEstadual;
+	private String inscricaoEstadual = null;
 	@Column(name = "NRFONE", length = 14)
-	private String fone;
-	//@Embedded
-	//private Endereco endereco2;
-	@ManyToOne
+	private String fone = null;
+	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "IDEMITENTE")
-	private Emitente emitente;
+	private Emitente emitente = null;
 	@Column(name = "DSEMAIL", length = 60)
-	private String email;
+	private String email = null;
 	@Embedded
-	private Endereco endereco;
+	private Endereco endereco = null;
 	
-	public Cliente(){
-		
+	public Cliente(){		
 	}
 
 	public Cliente(String documento, String nome, String inscricaoEstadual,
@@ -57,7 +55,6 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.inscricaoEstadual = inscricaoEstadual;
 		this.fone = fone;
-		//this.endereco2 = endereco2;
 		this.emitente = emitente;
 		this.email = email;
 		this.endereco = endereco;
@@ -118,14 +115,6 @@ public class Cliente implements Serializable {
 		this.endereco = endereco;
 	}
 
-//	public Endereco getEndereco2() {
-//		return endereco2;
-//	}
-//
-//	public void setEndereco2(Endereco endereco2) {
-//		this.endereco2 = endereco2;
-//	}
-
 	public Emitente getEmitente() {
 		return emitente;
 	}
@@ -145,8 +134,6 @@ public class Cliente implements Serializable {
 				+ ((emitente == null) ? 0 : emitente.hashCode());
 		result = prime * result
 				+ ((endereco == null) ? 0 : endereco.hashCode());
-//		result = prime * result
-//				+ ((endereco2 == null) ? 0 : endereco2.hashCode());
 		result = prime * result + ((fone == null) ? 0 : fone.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime
@@ -186,11 +173,6 @@ public class Cliente implements Serializable {
 				return false;
 		} else if (!endereco.equals(other.endereco))
 			return false;
-//		if (endereco2 == null) {
-//			if (other.endereco2 != null)
-//				return false;
-//		} else if (!endereco2.equals(other.endereco2))
-//			return false;
 		if (fone == null) {
 			if (other.fone != null)
 				return false;
@@ -213,9 +195,4 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
-	
-
 }
