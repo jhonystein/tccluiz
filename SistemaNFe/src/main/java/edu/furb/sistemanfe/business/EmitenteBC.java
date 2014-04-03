@@ -10,5 +10,4 @@ import edu.furb.sistemanfe.persistence.EmitenteDAO;
 public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 	private static final long serialVersionUID = 1L;
 	
-	
 }

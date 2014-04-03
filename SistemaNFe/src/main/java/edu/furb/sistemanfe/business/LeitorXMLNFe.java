@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.jdom2.input.SAXBuilder;
 
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.domain.ClienteNotaFiscal;
+import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
 import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.ItemNotaFiscal;
@@ -36,6 +38,8 @@ public class LeitorXMLNFe {
 	private MunicipioBC municipioBC;
 	@Inject
 	private EstadoBC estadoBC;
+	private Emitente emitente;
+	
 
 	public class Ide {
 
@@ -112,11 +116,24 @@ public class LeitorXMLNFe {
 			}
 		}
 		return false;
+	}
+	
+	public Emitente getEmitente() {
+		return emitente;
+	}
 
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
 	}
 
 	@Transactional
 	public List<NotaFiscal> readXml(String pathFile) {
+		
+		//deve ter um emitente
+		if(emitente == null){
+			return null;
+		}
+		
 		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
 		File f = new File(pathFile);
 		if (!f.exists()) {
@@ -136,15 +153,11 @@ public class LeitorXMLNFe {
 			Namespace ns = Namespace
 					.getNamespace("http://www.portalfiscal.inf.br/nfe");
 
-			// String versaoProt = nfeProc.getAttribute("versao",
-			// ns).getValue();
-			//
-			// if(versaoProt == "2.00"){
-			//
-			// }
+			
+			
 
 			Element root = d.getRootElement();
-			Element nfeElement = null;
+			//Element nfeElement = null;
 
 			System.out.println("Nome da root: " + root.getName());
 
@@ -154,52 +167,74 @@ public class LeitorXMLNFe {
 
 			// imprime o nome dos elements da root
 			for (Element elementNFeProc : elementsNFeProc) {
-				System.out.println("Filho de root nome:"
-						+ elementNFeProc.getName());
-				if (elementNFeProc.getName().trim().toUpperCase().equals("NFE")) {
-					NotaFiscal nf = new NotaFiscal();
+				if (ehTag(elementNFeProc, "NFE")) {
+					NotaFiscal nf = null;
 					List<Element> elementsNFe = elementNFeProc.getChildren();
+					//Achar a chave da NFE.
 					for (Element elementNFe : elementsNFe) {
-						if (elementNFe.getName().trim().toUpperCase()
-								.equals("INFNFE")) {
+						if (ehTag(elementNFe, "INFNFE")) {
 							String chaveNfe = elementNFe.getAttribute("Id")
 									.getValue();
+							 String versaoProt = elementNFe.getAttribute("versao").getValue();			
+//							 if(versaoProt == "2.00"){
+//							
+//							 }
+							
+							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
+							if(nf==null){
+								nf = new NotaFiscal();
+							}
+							//Guarda só a parte numérica
 							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
 									.replaceAll("NFE", ""));
+							nf.setVersao(versaoProt);
+							nf.setDataImportacao(Calendar.getInstance().getTime());
+							break;
+						}
+					}
+					if(nf==null){
+						//TODO: deve gerar exception pq não achou a TAG;
+					}
+					//Trata os demais campos do XML;
+					for (Element elementNFe : elementsNFe) {
+						if (ehTag(elementNFe, "INFNFE")) {
+//							String chaveNfe = elementNFe.getAttribute("Id")
+//									.getValue();
+//							
+//							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
+//							if(nf==null){
+//								new NotaFiscal();
+//							}
+//							
+//							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
+//									.replaceAll("NFE", ""));
 
 							List<Element> elementsInfNFe = elementNFe
 									.getChildren();
 							for (Element elementInfNFe : elementsInfNFe) {
-								if (elementInfNFe.getName().trim()
-										.toUpperCase().equals("IDE")) {
+								if (ehTag(elementInfNFe, "IDE")) {
 									// Lendo dados da capa da nota.
 									List<Element> elementsIde = elementInfNFe
 											.getChildren();
 									for (Element elementIde : elementsIde) {
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("MOD")) {
+										if (ehTag(elementIde, "MOD")) {
 											nf.setModelo(elementIde.getValue());
 										}
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("NNF")) {
+										if (ehTag(elementIde, "NNF")) {
 											nf.setNumero(elementIde.getValue());
 										}
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("NATOP")) {
+										if (ehTag(elementIde, "NATOP")) {
 											nf.setNaturezaOperacao(elementIde
 													.getValue());
 										}
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("SERIE")) {
+										if (ehTag(elementIde, "SERIE")) {
 											nf.setSerie(elementIde.getValue());
 										}
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("TPEMIS")) {
+										if (ehTag(elementIde, "TPEMIS")) {
 											nf.setTipoEmissao(elementIde
 													.getValue());
 										}
-										if (elementIde.getName().trim()
-												.toUpperCase().equals("DEMI")) {
+										if (ehTag(elementIde, "DEMI")) {
 											DateFormat formatter = new SimpleDateFormat(
 													"yyyy-MM-dd");
 											Date date = (Date) formatter

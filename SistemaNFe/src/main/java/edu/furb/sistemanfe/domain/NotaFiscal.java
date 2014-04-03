@@ -41,7 +41,7 @@ public class NotaFiscal implements Serializable {
 	private String serie;
 	@Column(name = "NRNOTA", length = 9)
 	private String numero;
-	@Column(name = "DTEMISSAO", length = 20)
+	@Column(name = "DTEMISSAO")
 	private Date dataEmissao;
 	@Column(name = "DSTIPOEMISSAO", length = 2)
 	private String tipoEmissao;
@@ -49,7 +49,8 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
 	private BigDecimal valorTotalTributos;
-
+	@Column(name = "NRVERSAO", length = 12)
+	private String versao;
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
@@ -60,7 +61,9 @@ public class NotaFiscal implements Serializable {
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="IDNOTAFISCAL_id")
     private List<ItemNotaFiscal> itemNotaFiscal;
-
+	@Column(name = "DTIMPORTACAO")
+	private Date dataImportacao;
+	
 	public void addItem(ItemNotaFiscal itemNotaFiscal){
 		if(this.itemNotaFiscal== null){
 			this.itemNotaFiscal = new ArrayList<ItemNotaFiscal>();
@@ -200,6 +203,22 @@ public class NotaFiscal implements Serializable {
 
 	public void setItemNotaFiscal(List<ItemNotaFiscal> itemNotaFiscal) {
 		this.itemNotaFiscal = itemNotaFiscal;
+	}
+
+	public String getVersao() {
+		return versao;
+	}
+
+	public void setVersao(String versao) {
+		this.versao = versao;
+	}	
+
+	public Date getDataImportacao() {
+		return dataImportacao;
+	}
+
+	public void setDataImportacao(Date dataImportacao) {
+		this.dataImportacao = dataImportacao;
 	}
 
 	@Override
