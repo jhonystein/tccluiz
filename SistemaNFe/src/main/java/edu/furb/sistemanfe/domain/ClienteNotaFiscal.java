@@ -2,26 +2,12 @@ package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
 @Embeddable
 public class ClienteNotaFiscal implements Serializable {
-
-					
-		/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6410749536032852773L;
+		private static final long serialVersionUID = -6410749536032852773L;
 	
 		@Column(name = "NRDOCUMENTO", length = 20)
 		private String documento = null;
