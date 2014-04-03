@@ -15,9 +15,14 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 @Embeddable
-public class ClienteNotaFiscal  {
+public class ClienteNotaFiscal implements Serializable {
 
 					
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6410749536032852773L;
+	
 		@Column(name = "NRDOCUMENTO", length = 20)
 		private String documento = null;
 		@Column(name = "NMDESTINATARIO", length = 100)
@@ -28,6 +33,7 @@ public class ClienteNotaFiscal  {
 		private String fone = null;
 		@Column(name = "DSEMAIL", length = 60)
 		private String email = null;
+		
 		public String getDocumento() {
 			return documento;
 		}

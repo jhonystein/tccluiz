@@ -2,17 +2,22 @@ package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -44,25 +49,45 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
 	private BigDecimal valorTotalTributos;
-		
-	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
-	//@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
-	//@JoinColumn(name = "IDCLIENTE")
+	// @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
+	// @JoinColumn(name = "IDCLIENTE")
 	@Embedded
-	private ClienteNotaFiscal clientenotafiscal;
+	private ClienteNotaFiscal clienteNotaFiscal;
 	@Embedded
 	private Endereco endereco;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JoinTable(name = "NOTAFISCAL_HAS_ITEMNOTAFISCAL", joinColumns = { @JoinColumn(name = "IDNOTAFISCAL", referencedColumnName = "IDNOTAFISCAL") }, inverseJoinColumns = { @JoinColumn(name = "IDITEMNOTAFISCAL", referencedColumnName = "IDITEMNOTAFISCAL") })
+	//@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="grupo")
+    //@Fetch(FetchMode.JOIN)
+    private List<ItemNotaFiscal> itemNotaFiscal;
+
+	public List<ItemNotaFiscal> getItemNotaFiscal() {
+		return itemNotaFiscal;
+	}
+
+	public void setItemNotaFiscal(List<ItemNotaFiscal> itemNotaFiscal) {
+		this.itemNotaFiscal = itemNotaFiscal;
+	}
 	
-	public NotaFiscal(){
-		
+	public void addItem(ItemNotaFiscal itemNotaFiscal){
+		if(this.itemNotaFiscal== null){
+			this.itemNotaFiscal = new ArrayList<ItemNotaFiscal>();
+		}
+		this.itemNotaFiscal.add(itemNotaFiscal);
+	}
+
+	public NotaFiscal() {
+
 	}
 
 	public NotaFiscal(String chaveNfe, String naturezaOperacao, String modelo,
 			String serie, String numero, Date dataEmissao, String tipoEmissao,
 			BigDecimal valorTotalNota, BigDecimal valorTotalTributos,
-			Emitente emitente, Cliente cliente) {
+			Emitente emitente, ClienteNotaFiscal cliente) {
 		super();
 		this.chaveNfe = chaveNfe;
 		this.naturezaOperacao = naturezaOperacao;
@@ -74,9 +99,8 @@ public class NotaFiscal implements Serializable {
 		this.valorTotalNota = valorTotalNota;
 		this.valorTotalTributos = valorTotalTributos;
 		this.emitente = emitente;
-		//this.cliente = cliente;
+		this.clienteNotaFiscal = cliente;
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -132,7 +156,7 @@ public class NotaFiscal implements Serializable {
 
 	public void setTipoEmissao(String tipoEmissao) {
 		this.tipoEmissao = tipoEmissao;
-	}	
+	}
 
 	public Date getDataEmissao() {
 		return dataEmissao;
@@ -166,12 +190,20 @@ public class NotaFiscal implements Serializable {
 		this.emitente = emitente;
 	}
 
-		public Endereco getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public ClienteNotaFiscal getClienteNotaFiscal() {
+		return clienteNotaFiscal;
+	}
+
+	public void setClienteNotaFiscal(ClienteNotaFiscal clienteNotaFiscal) {
+		this.clienteNotaFiscal = clienteNotaFiscal;
 	}
 
 	@Override
@@ -275,7 +307,5 @@ public class NotaFiscal implements Serializable {
 			return false;
 		return true;
 	}
-
-		
 
 }
