@@ -44,18 +44,14 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
 	private BigDecimal valorTotalTributos;
-	@Column(name = "NRDOCUMENTOCLIENTE", length = 20)
-	private String documento;
-	@Column(name = "NMEMITENTECLIENTE", length = 20)
-	private String nome;
-	
+		
 	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
 	//@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	//@JoinColumn(name = "IDCLIENTE")
-	
-	private Cliente cliente;
+	@Embedded
+	private ClienteNotaFiscal clientenotafiscal;
 	@Embedded
 	private Endereco endereco;
 	
@@ -78,7 +74,7 @@ public class NotaFiscal implements Serializable {
 		this.valorTotalNota = valorTotalNota;
 		this.valorTotalTributos = valorTotalTributos;
 		this.emitente = emitente;
-		this.cliente = cliente;
+		//this.cliente = cliente;
 	}
 	
 
@@ -170,15 +166,7 @@ public class NotaFiscal implements Serializable {
 		this.emitente = emitente;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public Endereco getEndereco() {
+		public Endereco getEndereco() {
 		return endereco;
 	}
 
@@ -192,7 +180,6 @@ public class NotaFiscal implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((chaveNfe == null) ? 0 : chaveNfe.hashCode());
-		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result
 				+ ((dataEmissao == null) ? 0 : dataEmissao.hashCode());
 		result = prime * result
@@ -230,11 +217,6 @@ public class NotaFiscal implements Serializable {
 			if (other.chaveNfe != null)
 				return false;
 		} else if (!chaveNfe.equals(other.chaveNfe))
-			return false;
-		if (cliente == null) {
-			if (other.cliente != null)
-				return false;
-		} else if (!cliente.equals(other.cliente))
 			return false;
 		if (dataEmissao == null) {
 			if (other.dataEmissao != null)
