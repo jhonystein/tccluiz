@@ -1,28 +1,13 @@
 package edu.furb.sistemanfe.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
-@Entity 
-@Table(name = "TBPRODUTOS")
-@TableGenerator(name = "GenProduto", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "PRODUTOSSEQ", valueColumnName = "VLSEQUENCIA")
-public class Produto implements Serializable {
+@Embeddable
+public class Produto {
 
-	private static final long serialVersionUID = -2811351774276705991L;
-
-	@Id
-	@Column(name = "IDPRODUTO")
-	@GeneratedValue(generator = "GenProduto", strategy = GenerationType.TABLE)
-	private Long id;
 	@Column(name = "DSCODIGO", length = 100)
 	private String codigo;
 	@Column(name = "NMPRODUTO", length = 100)
@@ -30,16 +15,6 @@ public class Produto implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
-	
-	public Produto() {
-	}
-
-	public Produto(String codigo, String nome, Emitente emitente) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
-		this.emitente = emitente;
-	}
 
 	public Emitente getEmitente() {
 		return emitente;
@@ -47,14 +22,6 @@ public class Produto implements Serializable {
 
 	public void setEmitente(Emitente emitente) {
 		this.emitente = emitente;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getCodigo() {
@@ -80,7 +47,6 @@ public class Produto implements Serializable {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result
 				+ ((emitente == null) ? 0 : emitente.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -104,11 +70,6 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!emitente.equals(other.emitente))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -116,9 +77,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
-	
 
 }
