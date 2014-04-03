@@ -53,26 +53,14 @@ public class NotaFiscal implements Serializable {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
-	// @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
-	// @JoinColumn(name = "IDCLIENTE")
 	@Embedded
 	private ClienteNotaFiscal clienteNotaFiscal;
 	@Embedded
 	private Endereco endereco;
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinTable(name = "NOTAFISCAL_HAS_ITEMNOTAFISCAL", joinColumns = { @JoinColumn(name = "IDNOTAFISCAL", referencedColumnName = "IDNOTAFISCAL") }, inverseJoinColumns = { @JoinColumn(name = "IDITEMNOTAFISCAL", referencedColumnName = "IDITEMNOTAFISCAL") })
-	//@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE}, mappedBy="grupo")
-    //@Fetch(FetchMode.JOIN)
+	@JoinColumn(name="IDNOTAFISCAL_id")
     private List<ItemNotaFiscal> itemNotaFiscal;
 
-	public List<ItemNotaFiscal> getItemNotaFiscal() {
-		return itemNotaFiscal;
-	}
-
-	public void setItemNotaFiscal(List<ItemNotaFiscal> itemNotaFiscal) {
-		this.itemNotaFiscal = itemNotaFiscal;
-	}
-	
 	public void addItem(ItemNotaFiscal itemNotaFiscal){
 		if(this.itemNotaFiscal== null){
 			this.itemNotaFiscal = new ArrayList<ItemNotaFiscal>();
@@ -204,6 +192,14 @@ public class NotaFiscal implements Serializable {
 
 	public void setClienteNotaFiscal(ClienteNotaFiscal clienteNotaFiscal) {
 		this.clienteNotaFiscal = clienteNotaFiscal;
+	}
+
+	public List<ItemNotaFiscal> getItemNotaFiscal() {
+		return itemNotaFiscal;
+	}
+
+	public void setItemNotaFiscal(List<ItemNotaFiscal> itemNotaFiscal) {
+		this.itemNotaFiscal = itemNotaFiscal;
 	}
 
 	@Override
