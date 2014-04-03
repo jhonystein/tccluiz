@@ -18,10 +18,13 @@ import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-
-import edu.furb.sistemanfe.domain.Cliente;
+import edu.furb.sistemanfe.domain.ClienteNotaFiscal;
 import edu.furb.sistemanfe.domain.Endereco;
+import edu.furb.sistemanfe.domain.Estado;
+import edu.furb.sistemanfe.domain.ItemNotaFiscal;
+import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.domain.Produto;
 
 public class LeitorXMLNFe {
 
@@ -29,6 +32,10 @@ public class LeitorXMLNFe {
 	private NotaFiscalBC notaFiscalBC;
 	@Inject
 	private ClienteBC clienteBC;
+	@Inject
+	private MunicipioBC municipioBC;
+	@Inject
+	private EstadoBC estadoBC;
 
 	public class Ide {
 
@@ -91,6 +98,23 @@ public class LeitorXMLNFe {
 
 	}
 
+	private boolean ehTag(Element elemento, String nome) {
+		return elemento.getName().trim().toUpperCase()
+				.equals(nome.toUpperCase());
+
+	}
+
+	private boolean ehTag(Element elemento, String[] nomes) {
+		for (String nome : nomes) {
+			if (elemento.getName().trim().toUpperCase()
+					.equals(nome.toUpperCase())) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
 	@Transactional
 	public List<NotaFiscal> readXml(String pathFile) {
 		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
@@ -148,6 +172,7 @@ public class LeitorXMLNFe {
 							for (Element elementInfNFe : elementsInfNFe) {
 								if (elementInfNFe.getName().trim()
 										.toUpperCase().equals("IDE")) {
+									// Lendo dados da capa da nota.
 									List<Element> elementsIde = elementInfNFe
 											.getChildren();
 									for (Element elementIde : elementsIde) {
@@ -184,84 +209,124 @@ public class LeitorXMLNFe {
 										}
 									}
 								}
-								if (elementInfNFe.getName().trim()
-										.toUpperCase().equals("DEST")) {
+								if (ehTag(elementInfNFe, "DEST")) {
+									ClienteNotaFiscal dest = new ClienteNotaFiscal();
+									// Lendo dados do Destinatario
 									List<Element> elementsDest = elementInfNFe
 											.getChildren();
-									Cliente dest = nf.getCliente();
-									// Se a nota não tiver cliente
-									if (dest == null) {
-										// Busca pela tag do Documento;
-										for (Element elementDest : elementsDest) {
-											if ((elementDest.getName().trim()
-													.toUpperCase()
-													.equals("CNPJ"))
-													|| (elementDest.getName()
-															.trim()
-															.toUpperCase()
-															.equals("CPF"))) {
-												String documento = elementDest
-														.getValue();
-												// Busca o cliente na base, de
-												// aconrdo com o documento;
-												dest = clienteBC
-														.buscaPorDocumento(documento);
-												if (dest == null) {
-													dest = new Cliente();
-												}
-												dest.setDocumento(documento);
-												break;
-											}
-										}
-
-									}
 									// Alimenta os demais atributos do Cliente
 									for (Element elementDest : elementsDest) {
-										if (elementDest.getName().trim()
-												.toUpperCase()
-												.equals("xNome".toUpperCase())) {
+										if (ehTag(elementDest, new String[]{"CNPJ", "CNPJ"})) {											
+											dest.setDocumento(elementDest
+													.getValue());
+										}
+										if (ehTag(elementDest, "xNome")) {
 											dest.setNome(elementDest.getValue());
 										}
-										if (elementDest.getName().trim()
-												.toUpperCase()
-												.equals("IE".toUpperCase())) {
+										if (ehTag(elementDest, "IE")) {
 											dest.setInscricaoEstadual(elementDest
 													.getValue());
 										}
 										// Tratanedo o endereço.
-										if (elementDest
-												.getName()
-												.trim()
-												.toUpperCase()
-												.equals("enderDest"
-														.toUpperCase())) {
-											Endereco endDest = dest
-													.getEndereco();
-											if (endDest == null) {
-												endDest = new Endereco();
-											}
+										if (ehTag(elementDest, "enderDest")) {
+											Endereco endDest = new Endereco();
+
 											List<Element> elementsEnderDest = elementDest
 													.getChildren();
 											for (Element elementEnderDest : elementsEnderDest) {
-												if (elementEnderDest
-														.getName()
-														.trim()
-														.toUpperCase()
-														.equals("xLgr"
-																.toUpperCase())) {
+												if (ehTag(elementEnderDest,
+														"xLgr")) {
 													endDest.setLogradouro(elementEnderDest
 															.getValue());
 												}
-												// TODO: Tratar os demais
-												// atributos;
+												if (ehTag(elementEnderDest,
+														"nro")) {
+													endDest.setNumero(elementEnderDest
+															.getValue());
+												}
+												if (ehTag(elementEnderDest,
+														"CEP")) {
+													endDest.setCep(elementEnderDest
+															.getValue());
+												}
+												if (ehTag(elementEnderDest,
+														"xBairro")) {
+													endDest.setBairro(elementEnderDest
+															.getValue());
+												}
+												if (ehTag(elementEnderDest,
+														"cMun")) {
+													Municipio municipio = municipioBC
+															.buscaCodigoIbge(elementEnderDest
+																	.getValue());
+													endDest.setMunicipio(municipio);
+												}
+												if (ehTag(elementEnderDest,
+														"UF")) {
+													Estado estado = estadoBC
+															.buscaSigla(elementEnderDest
+																	.getValue());
+													endDest.setEstado(estado);
+													if (estado != null) {
+														endDest.setPais(estado
+																.getPais());
+													}
+												}
 											}
-											dest.setEndereco(endDest);
+											nf.setEndereco(endDest);
 										}
 									}
-									nf.setCliente(dest);
+									nf.setClienteNotaFiscal(dest);
+								}
+								if (ehTag(elementInfNFe, "det")) {
+									// Lendo dados do Item
+									List<Element> elementsItem = elementInfNFe
+											.getChildren();
+									String nItem = elementInfNFe.getAttribute(
+											"nItem").getValue();
+									ItemNotaFiscal itemNota = new ItemNotaFiscal();
+									Produto prod = new Produto();
+									itemNota.setProduto(prod);
+									itemNota.setOrdem(Integer.parseInt(nItem));
+									// Alimentando os demais atributos do item
+									// da nota
+									for (Element elementItem : elementsItem) {
+										if (ehTag(elementItem,"CFOP")) {
+											itemNota.setCfop(elementItem
+													.getValue());
+										}
+										if (ehTag(elementItem, "qTrib")) {
+											itemNota.setQuantidade(elementItem
+													.getValue());
+										}
+										if (ehTag(elementItem, "cProd")) {
+											itemNota.getProduto().setCodigo(elementItem
+													.getValue());
+										}
+										if (ehTag(elementItem, "xProd")) {
+											itemNota.getProduto().setNome(elementItem
+													.getValue());
+										}
+									}
+									
+									nf.addItem(itemNota);
+								}
+								if (ehTag(elementInfNFe, "total")) {
+									// Lendo dados do Total da Nota
+									List<Element> elementsTotal = elementInfNFe
+											.getChildren();
+									List<Element> elementosImpostoNF = elementsTotal.get(0).getChildren();
+									for (Element elementoImpostoNF : elementosImpostoNF) {
+										if (ehTag(elementoImpostoNF, "vNF")) {
+											Double valor = Double.parseDouble(elementoImpostoNF
+													.getValue());
+											nf.setValorTotalNota(new BigDecimal(valor));
+										}
+										//TODO: encontrar forma de alimentar o campo Tributos;
+									}
 								}
 							}
-							nf.setValorTotalNota(new BigDecimal(0D));
+							//nf.setValorTotalNota(new BigDecimal(0D));
 							nf.setValorTotalTributos(new BigDecimal(0D));
 
 							System.out.println(nf.toString());

@@ -24,7 +24,8 @@ public class ProdutoConverter implements Converter {
 				Object dualList = ((PickList) component).getValue();
 				DualListModel<?> dl = (DualListModel<?>) dualList;
 				for (Object o : dl.getSource()) {
-					String id = String.valueOf(((Produto) o).getId());
+					//String id = String.valueOf(((Produto) o).getId());
+					String id = String.valueOf(((Produto) o).getCodigo());
 					if (value.equals(id)) {
 						ret = o;
 						break;
@@ -32,7 +33,8 @@ public class ProdutoConverter implements Converter {
 				}
 				if (ret == null)
 					for (Object o : dl.getTarget()) {
-						String id = String.valueOf(((Produto) o).getId());
+						//String id = String.valueOf(((Produto) o).getId());
+						String id = String.valueOf(((Produto) o).getCodigo());
 						if (value.equals(id)) {
 							ret = o;
 							break;
@@ -61,7 +63,8 @@ public class ProdutoConverter implements Converter {
 			if (value == null || value.equals("")) {
 				return "";
 			} else {			        
-				return String.valueOf(((Produto) value).getId());
+				//return String.valueOf(((Produto) value).getId());
+				return String.valueOf(((Produto) value).getCodigo());
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
