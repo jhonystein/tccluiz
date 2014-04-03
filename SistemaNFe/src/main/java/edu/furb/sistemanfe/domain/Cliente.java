@@ -30,7 +30,7 @@ public class Cliente implements Serializable {
 	private Long id = null;
 	@Column(name = "NRDOCUMENTO", length = 20)
 	private String documento = null;
-	@Column(name = "NMEMITENTE", length = 100)
+	@Column(name = "NMDESTINATARIO", length = 100)
 	private String nome = null;
 	@Column(name = "NRINSCESTADUAL", length = 20)
 	private String inscricaoEstadual = null;
