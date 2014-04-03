@@ -216,7 +216,7 @@ public class LeitorXMLNFe {
 											.getChildren();
 									// Alimenta os demais atributos do Cliente
 									for (Element elementDest : elementsDest) {
-										if (ehTag(elementDest, new String[]{"CNPJ", "CNPJ"})) {											
+										if (ehTag(elementDest, new String[]{"CNPJ", "CPF"})) {											
 											dest.setDocumento(elementDest
 													.getValue());
 										}
@@ -280,34 +280,43 @@ public class LeitorXMLNFe {
 								}
 								if (ehTag(elementInfNFe, "det")) {
 									// Lendo dados do Item
-									List<Element> elementsItem = elementInfNFe
-											.getChildren();
+									
 									String nItem = elementInfNFe.getAttribute(
 											"nItem").getValue();
 									ItemNotaFiscal itemNota = new ItemNotaFiscal();
 									Produto prod = new Produto();
 									itemNota.setProduto(prod);
 									itemNota.setOrdem(Integer.parseInt(nItem));
-									// Alimentando os demais atributos do item
-									// da nota
+									
+									List<Element> elementsItem = elementInfNFe
+											.getChildren();
 									for (Element elementItem : elementsItem) {
-										if (ehTag(elementItem,"CFOP")) {
-											itemNota.setCfop(elementItem
-													.getValue());
-										}
-										if (ehTag(elementItem, "qTrib")) {
-											itemNota.setQuantidade(elementItem
-													.getValue());
-										}
-										if (ehTag(elementItem, "cProd")) {
-											itemNota.getProduto().setCodigo(elementItem
-													.getValue());
-										}
-										if (ehTag(elementItem, "xProd")) {
-											itemNota.getProduto().setNome(elementItem
-													.getValue());
+										if (ehTag(elementItem,"prod")) {
+											List<Element> elementsProd = elementItem
+													.getChildren();
+											// Alimentando os demais atributos do item
+											// da nota
+											for (Element elementProd : elementsProd) {
+												if (ehTag(elementProd,"CFOP")) {
+													itemNota.setCfop(elementProd
+															.getValue());
+												}
+												if (ehTag(elementProd, "qTrib")) {
+													itemNota.setQuantidade(elementProd
+															.getValue());
+												}
+												if (ehTag(elementProd, "cProd")) {
+													itemNota.getProduto().setCodigo(elementProd
+															.getValue());
+												}
+												if (ehTag(elementProd, "xProd")) {
+													itemNota.getProduto().setNome(elementProd
+															.getValue());
+												}
+											}
 										}
 									}
+									
 									
 									nf.addItem(itemNota);
 								}
