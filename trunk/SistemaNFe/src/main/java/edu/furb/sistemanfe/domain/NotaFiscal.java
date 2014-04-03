@@ -36,7 +36,6 @@ public class NotaFiscal implements Serializable {
 	private String serie;
 	@Column(name = "NRNOTA", length = 9)
 	private String numero;
-
 	@Column(name = "DTEMISSAO", length = 20)
 	private Date dataEmissao;
 	@Column(name = "DSTIPOEMISSAO", length = 2)
@@ -45,11 +44,17 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalNota;
 	@Column(name = "NRVALORTOTALTRIBUTOS", length = 20)
 	private BigDecimal valorTotalTributos;
+	@Column(name = "NRDOCUMENTOCLIENTE", length = 20)
+	private String documento;
+	@Column(name = "NMEMITENTECLIENTE", length = 20)
+	private String nome;
+	
 	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
-	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name = "IDCLIENTE")
+	//@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.REFRESH})
+	//@JoinColumn(name = "IDCLIENTE")
+	
 	private Cliente cliente;
 	@Embedded
 	private Endereco endereco;
