@@ -114,7 +114,7 @@ public class LeitorXMLNFe {
 							// }
 							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
 							if (nf != null) {
-								notaFiscalBC.delete(nf.getId());								
+								notaFiscalBC.delete(nf.getId());
 							}
 							nf = new NotaFiscal();
 							nf.setEmitente(emitente);
@@ -226,7 +226,9 @@ public class LeitorXMLNFe {
 													Municipio municipio = municipioBC
 															.buscaCodigoIbge(elementEnderDest
 																	.getValue());
-													
+													if (municipio == null) {
+														municipio = cadastraMunicipio(elementsEnderDest);
+													}
 													endDest.setMunicipio(municipio);
 												}
 												if (ehTag(elementEnderDest,
@@ -251,7 +253,7 @@ public class LeitorXMLNFe {
 									// Lendo dados do Item
 									String nItem = elementInfNFe.getAttribute(
 											"nItem").getValue();
-									
+
 									ItemNotaFiscal itemNota = new ItemNotaFiscal();
 									Produto prod = new Produto();
 									itemNota.setProduto(prod);
@@ -379,6 +381,39 @@ public class LeitorXMLNFe {
 			ex.printStackTrace();
 			return null;
 		}
+	}
+
+	private Municipio cadastraMunicipio(List<Element> elementsEnderDest) {
+		try {
+			String sigla = null;
+			// acha os dados do municipio;
+			Municipio munRet = new Municipio();
+			for (Element elementEnderDest : elementsEnderDest) {
+				if (ehTag(elementEnderDest, "cMun")) {
+					munRet.setCodigoIbge(elementEnderDest.getValue());
+				} else if (ehTag(elementEnderDest, "xMun")) {
+					munRet.setNome(elementEnderDest.getValue());
+				} else if (ehTag(elementEnderDest, "UF")) {
+					sigla = elementEnderDest.getValue();
+				}
+			}
+			Estado estado = null;
+			if (sigla != null) {
+				estado = estadoBC.buscaSigla(sigla);
+			}
+			munRet.setEstado(estado);
+			return municipioBC.insert(munRet);
+		} catch (Exception e) {
+			return null;
+		}
+		// return null;
+		// //acha UF;
+		// for (Element elementEnderDest : elementsEnderDest) {
+		// if (ehTag(elementEnderDest, "UF")) {
+		// sigla = elementEnderDest.getValue()
+		// estado = estadoBC.buscaSigla(elementEnderDest.getValue());
+		// }
+		// }
 	}
 
 }
