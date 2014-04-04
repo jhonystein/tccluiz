@@ -217,10 +217,16 @@ public class LeitorXMLNFe {
 															.getValue());
 												}
 												if (ehTag(elementEnderDest,
+														"fone")) {
+													dest.setFone(elementEnderDest
+															.getValue());
+												}
+												if (ehTag(elementEnderDest,
 														"cMun")) {
 													Municipio municipio = municipioBC
 															.buscaCodigoIbge(elementEnderDest
 																	.getValue());
+													
 													endDest.setMunicipio(municipio);
 												}
 												if (ehTag(elementEnderDest,
