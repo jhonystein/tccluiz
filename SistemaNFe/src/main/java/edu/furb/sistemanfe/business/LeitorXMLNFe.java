@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
 
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -33,74 +32,10 @@ public class LeitorXMLNFe {
 	@Inject
 	private NotaFiscalBC notaFiscalBC;
 	@Inject
-	private ClienteBC clienteBC;
-	@Inject
 	private MunicipioBC municipioBC;
 	@Inject
 	private EstadoBC estadoBC;
 	private Emitente emitente;
-	
-
-	public class Ide {
-
-	}
-
-	public class Emit {
-
-	}
-
-	public class Dest {
-
-	}
-
-	public class Det {
-
-	}
-
-	interface LeitorNota {
-
-		Ide obterIde();
-
-		Emit obterEmit();
-
-		Dest obterDest();
-
-		List<Det> obterItens();
-	}
-
-	public class LeitorNota2 implements LeitorNota {
-		Element tagNfe;
-
-		public LeitorNota2(Element tagNfe) {
-			tagNfe = tagNfe;
-		}
-
-		@Override
-		public Ide obterIde() {
-			Ide ret = new Ide();
-
-			return null;
-		}
-
-		@Override
-		public Emit obterEmit() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Dest obterDest() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<Det> obterItens() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-	}
 
 	private boolean ehTag(Element elemento, String nome) {
 		return elemento.getName().trim().toUpperCase()
@@ -117,7 +52,7 @@ public class LeitorXMLNFe {
 		}
 		return false;
 	}
-	
+
 	public Emitente getEmitente() {
 		return emitente;
 	}
@@ -128,12 +63,12 @@ public class LeitorXMLNFe {
 
 	@Transactional
 	public List<NotaFiscal> readXml(String pathFile) {
-		
-		//deve ter um emitente
-		if(emitente == null){
+
+		// deve ter um emitente
+		if (emitente == null) {
 			return null;
 		}
-		
+
 		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
 		File f = new File(pathFile);
 		if (!f.exists()) {
@@ -147,17 +82,14 @@ public class LeitorXMLNFe {
 			Document d = sb.build(f);
 
 			// Recuperamos o elemento root
-			Element nfeProc = d.getRootElement();
+			// Element nfeProc = d.getRootElement();
 			// o arquivo da nfe possui um name space então é necessario um
 			// objeto para representa-lo
-			Namespace ns = Namespace
-					.getNamespace("http://www.portalfiscal.inf.br/nfe");
-
-			
-			
+			// Namespace ns = Namespace
+			// .getNamespace("http://www.portalfiscal.inf.br/nfe");
 
 			Element root = d.getRootElement();
-			//Element nfeElement = null;
+			// Element nfeElement = null;
 
 			System.out.println("Nome da root: " + root.getName());
 
@@ -170,45 +102,38 @@ public class LeitorXMLNFe {
 				if (ehTag(elementNFeProc, "NFE")) {
 					NotaFiscal nf = null;
 					List<Element> elementsNFe = elementNFeProc.getChildren();
-					//Achar a chave da NFE.
+					// Achar a chave da NFE.
 					for (Element elementNFe : elementsNFe) {
 						if (ehTag(elementNFe, "INFNFE")) {
 							String chaveNfe = elementNFe.getAttribute("Id")
 									.getValue();
-							 String versaoProt = elementNFe.getAttribute("versao").getValue();			
-//							 if(versaoProt == "2.00"){
-//							
-//							 }
-							
+							String versaoProt = elementNFe.getAttribute(
+									"versao").getValue();
+							// if(versaoProt == "2.00"){
+							//
+							// }
 							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
-							if(nf==null){
-								nf = new NotaFiscal();
+							if (nf != null) {
+								notaFiscalBC.delete(nf.getId());								
 							}
-							//Guarda só a parte numérica
+							nf = new NotaFiscal();
+							nf.setEmitente(emitente);
+							// Guarda só a parte numérica
 							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
 									.replaceAll("NFE", ""));
 							nf.setVersao(versaoProt);
-							nf.setDataImportacao(Calendar.getInstance().getTime());
+							nf.setDataImportacao(Calendar.getInstance()
+									.getTime());
 							break;
 						}
 					}
-					if(nf==null){
-						//TODO: deve gerar exception pq não achou a TAG;
+					if (nf == null) {
+						// TODO: deve gerar exception pq não achou a TAG;
+						return null;
 					}
-					//Trata os demais campos do XML;
+					// Trata os demais campos do XML;
 					for (Element elementNFe : elementsNFe) {
 						if (ehTag(elementNFe, "INFNFE")) {
-//							String chaveNfe = elementNFe.getAttribute("Id")
-//									.getValue();
-//							
-//							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
-//							if(nf==null){
-//								new NotaFiscal();
-//							}
-//							
-//							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
-//									.replaceAll("NFE", ""));
-
 							List<Element> elementsInfNFe = elementNFe
 									.getChildren();
 							for (Element elementInfNFe : elementsInfNFe) {
@@ -244,6 +169,7 @@ public class LeitorXMLNFe {
 										}
 									}
 								}
+								// DADOS do Destinatário
 								if (ehTag(elementInfNFe, "DEST")) {
 									ClienteNotaFiscal dest = new ClienteNotaFiscal();
 									// Lendo dados do Destinatario
@@ -251,7 +177,8 @@ public class LeitorXMLNFe {
 											.getChildren();
 									// Alimenta os demais atributos do Cliente
 									for (Element elementDest : elementsDest) {
-										if (ehTag(elementDest, new String[]{"CNPJ", "CPF"})) {											
+										if (ehTag(elementDest, new String[] {
+												"CNPJ", "CPF" })) {
 											dest.setDocumento(elementDest
 													.getValue());
 										}
@@ -313,64 +240,116 @@ public class LeitorXMLNFe {
 									}
 									nf.setClienteNotaFiscal(dest);
 								}
+								// Tratando Item;
 								if (ehTag(elementInfNFe, "det")) {
 									// Lendo dados do Item
-									
 									String nItem = elementInfNFe.getAttribute(
 											"nItem").getValue();
+									
 									ItemNotaFiscal itemNota = new ItemNotaFiscal();
 									Produto prod = new Produto();
 									itemNota.setProduto(prod);
 									itemNota.setOrdem(Integer.parseInt(nItem));
-									
+									itemNota.getProduto().setEmitente(emitente);
+
 									List<Element> elementsItem = elementInfNFe
 											.getChildren();
 									for (Element elementItem : elementsItem) {
-										if (ehTag(elementItem,"prod")) {
+										// Tratar atributos do produto;
+										if (ehTag(elementItem, "prod")) {
 											List<Element> elementsProd = elementItem
 													.getChildren();
-											// Alimentando os demais atributos do item
+											// Alimentando os demais atributos
+											// do item
 											// da nota
 											for (Element elementProd : elementsProd) {
-												if (ehTag(elementProd,"CFOP")) {
+												if (ehTag(elementProd, "CFOP")) {
 													itemNota.setCfop(elementProd
 															.getValue());
 												}
-												if (ehTag(elementProd, "qTrib")) {
-													itemNota.setQuantidade(elementProd
-															.getValue());
+												if (ehTag(elementProd, "qCom")) {
+													Double valor = Double
+															.parseDouble(elementProd
+																	.getValue());
+													itemNota.setQuantidade(valor);
 												}
 												if (ehTag(elementProd, "cProd")) {
-													itemNota.getProduto().setCodigo(elementProd
-															.getValue());
+													itemNota.getProduto()
+															.setCodigo(
+																	elementProd
+																			.getValue());
 												}
 												if (ehTag(elementProd, "xProd")) {
-													itemNota.getProduto().setNome(elementProd
+													itemNota.getProduto()
+															.setNome(
+																	elementProd
+																			.getValue());
+												}
+												if (ehTag(elementProd, "uCom")) {
+													itemNota.setUnidade(elementProd
 															.getValue());
+												}
+												if (ehTag(elementProd, "vUnCom")) {
+													Double valor = Double
+															.parseDouble(elementProd
+																	.getValue());
+													itemNota.setValorUnitario(new BigDecimal(
+															valor));
+												}
+												if (ehTag(elementProd, "vProd")) {
+													Double valor = Double
+															.parseDouble(elementProd
+																	.getValue());
+													itemNota.setValorTotal(new BigDecimal(
+															valor));
+												}
+											}
+										}
+										// Tratar atributos de impostos;
+										if (ehTag(elementItem, "imposto")) {
+											List<Element> elementsImposto = elementItem
+													.getChildren();
+											for (Element elementImposto : elementsImposto) {
+												if (ehTag(elementImposto,
+														"vTotTrib")) {
+													Double valor = Double
+															.parseDouble(elementImposto
+																	.getValue());
+													itemNota.setValorTotalTributos(new BigDecimal(
+															valor));
 												}
 											}
 										}
 									}
-									
-									
+
+									// Adiciona o Item a lista;
 									nf.addItem(itemNota);
 								}
 								if (ehTag(elementInfNFe, "total")) {
 									// Lendo dados do Total da Nota
 									List<Element> elementsTotal = elementInfNFe
 											.getChildren();
-									List<Element> elementosImpostoNF = elementsTotal.get(0).getChildren();
+									List<Element> elementosImpostoNF = elementsTotal
+											.get(0).getChildren();
 									for (Element elementoImpostoNF : elementosImpostoNF) {
 										if (ehTag(elementoImpostoNF, "vNF")) {
-											Double valor = Double.parseDouble(elementoImpostoNF
-													.getValue());
-											nf.setValorTotalNota(new BigDecimal(valor));
+											Double valor = Double
+													.parseDouble(elementoImpostoNF
+															.getValue());
+											nf.setValorTotalNota(new BigDecimal(
+													valor));
+										} else if (ehTag(elementoImpostoNF,
+												"vTotTrib")) {
+											Double valor = Double
+													.parseDouble(elementoImpostoNF
+															.getValue());
+											nf.setValorTotalTributos(new BigDecimal(
+													valor));
 										}
-										//TODO: encontrar forma de alimentar o campo Tributos;
 									}
 								}
 							}
-							//nf.setValorTotalNota(new BigDecimal(0D));
+							// nf.setValorTotalNota(new BigDecimal(0D));
 							nf.setValorTotalTributos(new BigDecimal(0D));
 
 							System.out.println(nf.toString());

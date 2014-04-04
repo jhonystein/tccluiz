@@ -34,7 +34,7 @@ public class ItemNotaFiscal implements Serializable {
 	@Column(name = "DSUNIDADE", length = 6)
 	private String unidade;
 	@Column(name = "VLQUANTIDADE", length = 11)
-	private String quantidade;
+	private Double quantidade;
 	@Column(name = "VLUNITARIO", length = 13)
 	private BigDecimal valorUnitario;
 	@Column(name = "VLTOTAL", length = 13)
@@ -42,7 +42,7 @@ public class ItemNotaFiscal implements Serializable {
 	@Column(name = "VLTOTALTRIBUTOS", length = 13)
 	private BigDecimal valorTotalTributos;
 	@ManyToOne
-	@JoinColumn(name = "IDNOTAFISCAL")
+	@JoinColumn(name = "IDNOTAFISCAL_ID")
 	private NotaFiscal notafiscal;
 	@Embedded
 	private Produto produto = null;
@@ -52,7 +52,7 @@ public class ItemNotaFiscal implements Serializable {
 	}
 
 	public ItemNotaFiscal(Integer ordem, String cfop, String unidade,
-			String quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
+			Double quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
 			BigDecimal valorTotalTributos, NotaFiscal notafiscal,
 			Produto produto) {
 		super();
@@ -100,11 +100,11 @@ public class ItemNotaFiscal implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public String getQuantidade() {
+	public Double getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(String quantidade) {
+	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
 
