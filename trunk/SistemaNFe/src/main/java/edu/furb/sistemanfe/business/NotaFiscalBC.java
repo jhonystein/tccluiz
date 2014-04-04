@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.NotaFiscalDAO;
 import edu.furb.sistemanfe.rest.NotaFiscalDTO;
@@ -21,5 +22,11 @@ public class NotaFiscalBC extends DelegateCrud<NotaFiscal, Long, NotaFiscalDAO> 
 			return null;
 		}
 		return lst.get(0);	
+	}
+
+	public List<NotaFiscal> findByEmitente(Emitente emitente) {
+		NotaFiscalDTO dto = new NotaFiscalDTO();
+		dto.setEmitente(emitente);
+		return getDelegate().pesquisar(dto);
 	}
 }

@@ -30,7 +30,7 @@ public class ItemNotaFiscalBCTest {
 	public void testInsert() {
 				
 		// modifique para inserir dados conforme o construtor
-		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade","quantidade",null,null,null,null,null);
+		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade",0D,null,null,null,null,null);
 		itemNotaFiscalBC.insert(itemNotaFiscal);
 		List<ItemNotaFiscal> listOfItemNotaFiscal = itemNotaFiscalBC.findAll();
 		assertNotNull(listOfItemNotaFiscal);
@@ -41,7 +41,7 @@ public class ItemNotaFiscalBCTest {
 	public void testDelete() {
 		
 		// modifique para inserir dados conforme o construtor
-		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade","quantidade",null,null,null,null,null);
+		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade",0D,null,null,null,null,null);
 		itemNotaFiscalBC.insert(itemNotaFiscal);
 		
 		List<ItemNotaFiscal> listOfItemNotaFiscal = itemNotaFiscalBC.findAll();
@@ -56,7 +56,7 @@ public class ItemNotaFiscalBCTest {
 	@Test
 	public void testUpdate() {
 		// modifique para inserir dados conforme o construtor
-		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade","quantidade",null,null,null,null,null);
+		ItemNotaFiscal itemNotaFiscal = new ItemNotaFiscal(Integer.valueOf(1),"cfop","unidade",0D,null,null,null,null,null);
 		itemNotaFiscalBC.insert(itemNotaFiscal);
 		
 		List<ItemNotaFiscal> listOfItemNotaFiscal = itemNotaFiscalBC.findAll();

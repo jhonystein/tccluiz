@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import edu.furb.sistemanfe.domain.Bookmark;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
 import edu.furb.sistemanfe.domain.NotaFiscal;
@@ -26,20 +25,26 @@ public class LeitorXMLNFeTest {
 	@Inject
 	private EmitenteBC emitenteBC;
 	private Emitente emitenteTest;
-	
+
 	@Before
 	public void before() {
-		Endereco endEmit = new Endereco();
-		endEmit.setBairro("Bairro");
-		endEmit.setCep("CEP");
-		endEmit.setNumero("numero");
-		emitenteTest = new Emitente("000000000000", "EMITENTE PARA ROTINA DE TESTES", "ISENTO", endEmit);
-		emitenteBC.insert(emitenteTest);
+
+		emitenteTest = emitenteBC.buscaDocumento("000000000000");
+		if (emitenteTest == null) {
+
+			Endereco endEmit = new Endereco();
+			endEmit.setBairro("Bairro");
+			endEmit.setCep("CEP");
+			endEmit.setNumero("numero");
+			emitenteTest = new Emitente("000000000000",
+					"EMITENTE PARA ROTINA DE TESTES", "ISENTO", endEmit);
+			emitenteTest = emitenteBC.insert(emitenteTest);
+		}
 	}
-	
+
 	@After
 	public void after() {
-		emitenteBC.delete(emitenteTest.getId());
+		//
 	}
 
 	@Test

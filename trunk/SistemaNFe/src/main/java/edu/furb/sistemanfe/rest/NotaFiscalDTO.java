@@ -2,6 +2,8 @@ package edu.furb.sistemanfe.rest;
 
 import java.util.Date;
 
+import edu.furb.sistemanfe.domain.Emitente;
+
 public class NotaFiscalDTO {
 	private Long id = null;
 	private String chaveNfe = null;
@@ -11,6 +13,7 @@ public class NotaFiscalDTO {
 	private String numero = null;
 	private Date dataEmissao = null;
 	private String tipoEmissao = null;
+	private Emitente emitente = null;
 		
 	public NotaFiscalDTO(){		
 	}
@@ -77,5 +80,13 @@ public class NotaFiscalDTO {
 
 	public void setTipoEmissao(String tipoEmissao) {
 		this.tipoEmissao = tipoEmissao;
+	}
+
+	public Emitente getEmitente() {
+		return emitente;
+	}
+
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
 	}	
 }
