@@ -7,7 +7,6 @@
 	<!-- -->
 	<persistence-unit name="SistemaNFeTestDS" transaction-type="RESOURCE_LOCAL">
 
-		<class>edu.furb.sistemanfe.domain.Bookmark</class>
 		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Pais</class>
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
