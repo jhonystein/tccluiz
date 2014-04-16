@@ -45,7 +45,7 @@ public class ItemNotaFiscal implements Serializable {
 	@JoinColumn(name = "IDNOTAFISCAL_ID")
 	private NotaFiscal notafiscal;
 	@Embedded
-	private Produto produto = null;
+	private ProdutoNotaFiscal produtoNotaFiscal = null;
 	
 	public ItemNotaFiscal(){
 		
@@ -54,7 +54,7 @@ public class ItemNotaFiscal implements Serializable {
 	public ItemNotaFiscal(Integer ordem, String cfop, String unidade,
 			Double quantidade, BigDecimal valorUnitario, BigDecimal valorTotal,
 			BigDecimal valorTotalTributos, NotaFiscal notafiscal,
-			Produto produto) {
+			ProdutoNotaFiscal produtoNotaFiscal) {
 		super();
 		this.ordem = ordem;
 		this.cfop = cfop;
@@ -64,7 +64,7 @@ public class ItemNotaFiscal implements Serializable {
 		this.valorTotal = valorTotal;
 		this.valorTotalTributos = valorTotalTributos;
 		this.notafiscal = notafiscal;
-		this.produto = produto;
+		this.produtoNotaFiscal = produtoNotaFiscal;
 		
 	}
 
@@ -140,12 +140,12 @@ public class ItemNotaFiscal implements Serializable {
 		this.notafiscal = notafiscal;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public ProdutoNotaFiscal getProduto() {
+		return produtoNotaFiscal;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProduto(ProdutoNotaFiscal produtoNotaFiscal) {
+		this.produtoNotaFiscal = produtoNotaFiscal;
 	}
 
 	

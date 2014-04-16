@@ -25,7 +25,7 @@ import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
-import edu.furb.sistemanfe.domain.Produto;
+import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
 
 public class LeitorXMLNFe {
 
@@ -255,10 +255,10 @@ public class LeitorXMLNFe {
 											"nItem").getValue();
 
 									ItemNotaFiscal itemNota = new ItemNotaFiscal();
-									Produto prod = new Produto();
+									ProdutoNotaFiscal prod = new ProdutoNotaFiscal();
 									itemNota.setProduto(prod);
 									itemNota.setOrdem(Integer.parseInt(nItem));
-									itemNota.getProduto().setEmitente(emitente);
+									//itemNota.getProduto().setEmitente(emitente);
 
 									List<Element> elementsItem = elementInfNFe
 											.getChildren();

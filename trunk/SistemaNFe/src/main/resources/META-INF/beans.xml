@@ -7,6 +7,7 @@
   <class>br.gov.frameworkdemoiselle.internal.interceptor.RequiredPermissionInterceptor</class>
   <class>br.gov.frameworkdemoiselle.internal.interceptor.RequiredRoleInterceptor</class>
   <class>br.gov.frameworkdemoiselle.transaction.TransactionalInterceptor</class>
+         br.gov.frameworkdemoiselle.transaction.TransactionalInterceptor
  </interceptors>
-  -->
+  -->  
 </beans>
