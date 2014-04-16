@@ -43,8 +43,10 @@
 				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/bookmark_edit.jsf" />
 				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/bookmark_list.jsf" />
 			</p:submenu>
+			
+			<p:menuitem value="#{messages['menu.upload']}" url="/upload_file.jsf" />
 
-			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="http://www.frameworkdemoiselle.gov.br/"
+			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="/"
 				action="#{securityContext.logout}" />
 		</p:menubar>
 	</h:form>

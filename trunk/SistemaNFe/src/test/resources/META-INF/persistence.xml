@@ -5,7 +5,7 @@
 
 	<!-- If you are using tomcat6/tomcat7/junit then use this persistence-unit -->
 	<!-- -->
-	<persistence-unit name="bookmark-ds" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="SistemaNFeTestDS" transaction-type="RESOURCE_LOCAL">
 
 		<class>edu.furb.sistemanfe.domain.Bookmark</class>
 		<class>edu.furb.sistemanfe.domain.Estado</class>
