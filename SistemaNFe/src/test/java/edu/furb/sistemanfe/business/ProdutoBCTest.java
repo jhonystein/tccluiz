@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
-import edu.furb.sistemanfe.domain.Produto;
+import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
 
 @RunWith(DemoiselleRunner.class)
 public class ProdutoBCTest {

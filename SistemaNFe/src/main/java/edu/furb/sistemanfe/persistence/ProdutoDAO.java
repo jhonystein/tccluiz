@@ -2,7 +2,6 @@ package edu.furb.sistemanfe.persistence;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
-
 import edu.furb.sistemanfe.domain.Produto;
 
 @PersistenceController
