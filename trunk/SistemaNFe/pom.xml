@@ -7,11 +7,11 @@
 
 	<groupId>edu.furb.sistemanfe</groupId>
 	<artifactId>SistemaNFe</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name></name>
-	<description></description>
+	<name>Sistema NFe</name>
+	<description>Sistema NF-e</description>
 	<url></url>
 
 	<parent>
@@ -32,7 +32,6 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
