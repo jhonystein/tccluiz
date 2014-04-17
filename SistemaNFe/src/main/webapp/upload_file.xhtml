@@ -9,11 +9,11 @@
 	<ui:define name="body">
 		<h:form prependId="false">
 			<p:fileUpload
-				fileUploadListener="#{fileUploadController.handleFileUpload}"
-				mode="advanced" dragDropSupport="true" 
-				sizeLimit="100000" allowTypes="/(\.|\/)(xml|zip|7zip|rar)$/" />
+				fileUploadListener="#{uploadFileMB.doUpload}"
+				mode="advanced" dragDropSupport="true" validatorMessage="Erro no Upload"				
+				sizeLimit="100000" allowTypes="/(\.|\/)(xml|zip|7zip|rar)$/"
+				label="Procurar..." />
 			<br />
-
 		</h:form>
 	</ui:define>
 </ui:composition>
