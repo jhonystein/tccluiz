@@ -1,48 +1,59 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:form>
-		<p:menubar>
+	<h:form >
+		<p:panelMenu style="width:230px">
+		 <!-- TODO; teria que adicionar uma opção HOME -->
+			<p:menuitem value="Mobile" outcome="/mobile/index" icon="ui-icon-signal"/> 
+			<p:submenu label="Consultas" >
+				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
+					<p:menuitem value="Clientes" actionListener="#{buttonBean.save}"
+						icon="ui-icon-disk" />
+					<p:menuitem value="Produtos" actionListener="#{buttonBean.save}"
+						icon="ui-icon-disk" />
+				</p:submenu>
+				<p:submenu label="Vendas" icon="ui-icon-extlink">
+					<p:menuitem value="Produto mais vendido"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+					<p:menuitem value="Cliente que mais compra"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+				</p:submenu>
+				<p:submenu label="Outros" icon="ui-icon-extlink">
+					<p:menuitem value="Região que mais compra"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+					<p:menuitem value="Custos com impostos"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+				</p:submenu>
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Importar">
+				<p:menuitem value="Notas" url="/upload_file.jsf"
+				 icon="ui-icon-close" />
+			</p:submenu>
+
 			<p:submenu label="#{messages['menu.cadastros']}">
-			<p:submenu label="#{messages['menu.cliente']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/cliente_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/cliente_list.jsf"></p:menuitem>
-			</p:submenu>
-			<p:submenu label="#{messages['menu.produto']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/produto_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/produto_list.jsf"></p:menuitem>
-			</p:submenu>
-				<p:submenu label="#{messages['menu.pais']}">
-					<p:menuitem value="#{messages['menu.menuitem.new']}" url="/municipio_edit.jsf"></p:menuitem>
-					<p:menuitem value="#{messages['menu.menuitem.list']}" url="/municipio_list.jsf"></p:menuitem>
+				<p:submenu label="Emitente"
+					icon="ui-icon-extlink">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/cliente_edit.jsf" icon="ui-icon-home" />
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/cliente_list.jsf" icon="ui-icon-document" />
 				</p:submenu>
-			<p:submenu label="#{messages['menu.estado']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/estado_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/estado_list.jsf"></p:menuitem>
-			</p:submenu>
-
-				<p:submenu label="#{messages['menu.municipio']}">
-					<p:menuitem value="#{messages['menu.menuitem.new']}" url="/municipio_edit.jsf"></p:menuitem>
-					<p:menuitem value="#{messages['menu.menuitem.list']}" url="/municipio_list.jsf"></p:menuitem>
+				<p:submenu label="#{messages['menu.cliente']}"
+					icon="ui-icon-extlink">
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/cliente_edit.jsf" icon="ui-icon-home" />
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/cliente_list.jsf" icon="ui-icon-document" />
 				</p:submenu>
-						
+				
+				<p:menuitem value="#{messages['menu.produto']}"
+					outcome="/produto_list.jsf" icon="ui-icon-signal" />
 			</p:submenu>
-		
-			<p:submenu label="#{messages['menu.emitente']}">
-				<p:menuitem value="#{messages['menu.menuitem.new']}" url="/emitente_edit.jsf"></p:menuitem>
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/emitente_list.jsf"></p:menuitem>
-			</p:submenu>
-
-			<p:submenu label="#{messages['menu.notaFiscal']}">
-				<p:menuitem value="#{messages['menu.menuitem.list']}" url="/notaFiscal_list.jsf"></p:menuitem>
-			</p:submenu>
-		
-			<p:menuitem value="#{messages['menu.upload']}" url="/upload_file.jsf" />
-
-			<p:menuitem value="#{messages['menu.menuitem.quit']}" url="/"
-				action="#{securityContext.logout}" />
-		</p:menubar>
+		</p:panelMenu>
 	</h:form>
 
 </ui:composition>
