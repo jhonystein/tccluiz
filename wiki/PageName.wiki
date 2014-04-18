@@ -7,10 +7,9 @@ Add your content here.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+LINK com opções de icone:
+http://jqueryui.com/themeroller/
+
 
 
 #TODO
@@ -66,4 +65,3 @@ Futuro:
   Usuários e grupos das empresas(consultor, ...);
 
   Ter opção para o cliente efetuar download do XML;
-
