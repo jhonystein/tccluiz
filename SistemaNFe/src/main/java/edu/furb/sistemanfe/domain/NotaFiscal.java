@@ -15,7 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -58,14 +58,17 @@ public class NotaFiscal implements Serializable {
 	private ClienteNotaFiscal clienteNotaFiscal;
 	@Embedded
 	private Endereco endereco;
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinColumn(name="IDNOTAFISCAL_id")
-    private List<ItemNotaFiscal> itemNotaFiscal;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "IDNOTAFISCAL_id")
+	private List<ItemNotaFiscal> itemNotaFiscal;
 	@Column(name = "DTIMPORTACAO")
 	private Date dataImportacao;
-	
-	public void addItem(ItemNotaFiscal itemNotaFiscal){
-		if(this.itemNotaFiscal== null){
+	@Lob
+	@Column
+	private byte[] file;
+
+	public void addItem(ItemNotaFiscal itemNotaFiscal) {
+		if (this.itemNotaFiscal == null) {
 			this.itemNotaFiscal = new ArrayList<ItemNotaFiscal>();
 		}
 		this.itemNotaFiscal.add(itemNotaFiscal);
@@ -211,7 +214,7 @@ public class NotaFiscal implements Serializable {
 
 	public void setVersao(String versao) {
 		this.versao = versao;
-	}	
+	}
 
 	public Date getDataImportacao() {
 		return dataImportacao;
@@ -219,6 +222,14 @@ public class NotaFiscal implements Serializable {
 
 	public void setDataImportacao(Date dataImportacao) {
 		this.dataImportacao = dataImportacao;
+	}
+
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 
 	@Override
