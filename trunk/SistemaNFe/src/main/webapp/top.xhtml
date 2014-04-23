@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+		<h:form prependId="false">
+			<h1 class="title ui-widget-header ui-corner-all">
+					<div>
+						<table style="width: 98%; height: 99%">
+							<tr>
+								<td width="10%" align="center"><a href="index.jsf"><img
+										src="images/logo.png" border="0" /></a></td>
+								<td width="80%"><h:outputLabel value="Perfil:" /> <h:outputLabel
+										value="João da Silva" /></td>
+								<td width="10%" align="right"><p:commandButton
+										id="dynaButton" value="Show" type="button" /> <p:menu
+										overlay="true" trigger="dynaButton" my="left top"
+										at="left bottom">
+										<p:submenu label="João da silva">
+											<p:menuitem value="Configurações" url="/" icon="ui-icon-home" />
+											<p:menuitem value="Sair" url="/" update="messages"
+												icon="ui-icon-power" />
+										</p:submenu>
+									</p:menu></td>
+							</tr>
+						</table>
+					</div>
+				</h1>
+		</h:form>
+</ui:composition>

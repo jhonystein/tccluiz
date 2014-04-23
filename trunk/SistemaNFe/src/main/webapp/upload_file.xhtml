@@ -7,12 +7,18 @@
 	template="/template/main.xhtml">
 
 	<ui:define name="body">
-		<h:form prependId="false">
+		<h:form enctype="multipart/form-data">
 			<p:fileUpload
 				fileUploadListener="#{uploadFileMB.doUpload}"
 				mode="advanced" dragDropSupport="true" validatorMessage="Erro no Upload"				
-				sizeLimit="100000" allowTypes="/(\.|\/)(xml|zip|7zip|rar)$/"
+				sizeLimit="100000" allowTypes="/(\.|\/)(xml|zip|7zip|rar|7z)$/"				
 				label="Procurar..." />
+			<br/>
+			<p:fileUpload value="#{uploadFileMB.file}"
+				mode="simple" dragDropSupport="true" validatorMessage="Erro no Upload"				
+				sizeLimit="100000" allowTypes="/(\.|\/)(xml|zip|7zip|rar|7z)$/"				
+				label="Procurar..." />
+				<p:commandButton action="#{uploadFileMB.enviar()}" value="TESTE" ></p:commandButton>
 			<br />
 		</h:form>
 	</ui:define>
