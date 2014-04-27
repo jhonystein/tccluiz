@@ -14,9 +14,6 @@
 		<filter-class>br.gov.frameworkdemoiselle.util.ServletFilter</filter-class> 
 		</filter> <filter-mapping> <filter-name>Demoiselle Servlet Filter</filter-name> 
 		<url-pattern>/*</url-pattern> </filter-mapping> -->
-	<!-- <filter> <filter-name>primeUploadFilter</filter-name> <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class> 
-		</filter> <filter-mapping> <filter-name>primeUploadFilter</filter-name> <servlet-name>Faces 
-		Servlet</servlet-name> </filter-mapping> -->
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -42,12 +39,12 @@
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+		
 	</filter>
 
 	<filter-mapping>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<servlet-name>Faces Servlet</servlet-name>
-		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
 </web-app>
