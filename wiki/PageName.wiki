@@ -34,7 +34,10 @@ Add your content here.
 
     depois é só criar o DS pela interfacedo JBOSS
 
- =
+    Nome DS: SistemaNFeDS
+         java:jboss/datasources/SistemaNFe
+    Conenction: jdbc:mysql://localhost:3306/nfe
+ = FIM =
 
 LINK com opções de icone:
 http://jqueryui.com/themeroller/
