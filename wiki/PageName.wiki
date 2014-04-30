@@ -3,9 +3,38 @@
 = Introduction =
 
 Add your content here.
+= DATASOURCE =
+    PARAR O JBOSS
 
+  na jboss/modules criar a seguinte estrutura de diretorios:
+  com/mysql/main
+  baixar o drive do mysql link: http://dev.mysql.com/downloads/connector/j/
+  no diretorioi criado tbm criar um arquivo com o nome "module.xml"
+    conteudo do arquivo:
+    <?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="com.mysql">
+    <resources>
+        <resource-root path="mysql-connector-java-5.1.30-bin.jar"/>
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+    </dependencies>
+</module>
 
-= Details =
+    Atenção troque "mysql-connector-java-5.1.30-bin.jar" pelo nome do arquivo que foi baixado.
+
+    Alterar o arquivo jboss/standalone/configuration/standalone.xml
+       procurar por "drivers"
+       dentro dest tag colar:
+       <driver name="mysql" module="com.mysql">
+         <driver-class>com.mysql.jdbc.Driver</driver-class>
+       </driver> 
+
+    REINICIAR O JBOSS
+
+    depois é só criar o DS pela interfacedo JBOSS
+
+ =
 
 LINK com opções de icone:
 http://jqueryui.com/themeroller/
