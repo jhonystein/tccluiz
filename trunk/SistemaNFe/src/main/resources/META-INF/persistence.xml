@@ -8,6 +8,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/SistemaNFeDS</jta-data-source>
 		<class>edu.furb.sistemanfe.domain.Pais</class>
+		<class>edu.furb.sistemanfe.domain.Empresa</class>
+		<class>edu.furb.sistemanfe.domain.ArquivoXML</class>
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
 		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Produto</class>
