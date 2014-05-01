@@ -12,8 +12,8 @@
 		
 		
 			<br />
-				<p:fileUpload id="logoBanner" fileUploadListener="#{notaFiscalEditMB.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                   update=":form:growl" auto="true" sizeLimit="#{notaFiscalEditMB.logoMaxFileSize}" fileLimit="3" allowTypes="/(\.|\/)(xml|png)$/" >
+				<p:fileUpload id="logoBanner" fileUploadListener="#{arquivoXMLEditMB.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                   update=":form:growl" auto="true" fileLimit="3" allowTypes="/(\.|\/)(xml|png)$/" >
                    <f:attribute name="type" value="notafiscal" />
                    </p:fileUpload>
 		</h:form>
