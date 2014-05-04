@@ -5,7 +5,6 @@
 		<class>br.gov.frameworkdemoiselle.exception.ExceptionHandlerInterceptor</class>
 		<class>br.gov.frameworkdemoiselle.transaction.TransactionalInterceptor</class>
 		<class>br.gov.frameworkdemoiselle.internal.interceptor.RequiredRoleInterceptor</class>
-		<class>br.gov.frameworkdemoiselle.internal.interceptor.TransactionalInterceptor</class>
 	</interceptors>
 
 </beans>
