@@ -26,7 +26,7 @@ public class ArquivoXMLDTO {
 		this.id = arquivoXML.getId();
 		this.nome = arquivoXML.getNome();
 		this.status = arquivoXML.getStatus();
-		this.empresa = arquivoXML.getEmpresa();
+		//this.empresa = arquivoXML.getEmpresa();
 	}
 
 	public Long getId() {
