@@ -10,7 +10,6 @@ import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
-import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.ArquivoXML;
 import edu.furb.sistemanfe.message.ErrorMessages;
 import edu.furb.sistemanfe.message.InfoMessages;
@@ -23,6 +22,10 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 	@Inject
 	private MessageContext messageContext;
 		
+	public void teste(){
+		
+	}
+	
 	@Override
 	@Transactional
 	// Não é possível com JAAS.

@@ -1,7 +1,7 @@
 
 package edu.furb.sistemanfe.view;
 
-import java.util.Calendar;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -15,6 +15,7 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ArquivoXMLBC;
+import edu.furb.sistemanfe.business.LeitorXMLNFe;
 import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.ArquivoXML;
 
@@ -64,6 +65,15 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 //		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 //				"Sucesso", String.format("Arquivo XML %s inserido com sucesso! ID:%s .", this.getBean().getNome(), this.getBean().getId())  ));
 //		return getPreviousView();
+	}
+	
+	
+	public void testeImportar(){
+		LeitorXMLNFe ler = new LeitorXMLNFe(); 
+		List<ArquivoXML> lista=this.ArquivoXMLBC.findAll();
+		for (ArquivoXML arquivoXML : lista) {
+			ler.readXml(arquivoXML);
+		}
 	}
 	
 	@Override

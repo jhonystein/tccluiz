@@ -18,6 +18,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import br.gov.frameworkdemoiselle.transaction.Transactional;
+import edu.furb.sistemanfe.domain.ArquivoXML;
 import edu.furb.sistemanfe.domain.ClienteNotaFiscal;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
@@ -35,6 +36,8 @@ public class LeitorXMLNFe {
 	private MunicipioBC municipioBC;
 	@Inject
 	private EstadoBC estadoBC;
+	@Inject
+	private EmitenteBC emitenteBC;
 	private Emitente emitente;
 
 	private boolean ehTag(Element elemento, String nome) {
@@ -60,20 +63,34 @@ public class LeitorXMLNFe {
 	public void setEmitente(Emitente emitente) {
 		this.emitente = emitente;
 	}
-
-	@Transactional
+	
+	public List<NotaFiscal> readXml(ArquivoXML arquivo) {
+		File outfile = new File(arquivo.getNome());
+		return readXml(outfile);
+	}
+	
 	public List<NotaFiscal> readXml(String pathFile) {
-
-		// deve ter um emitente
-		if (emitente == null) {
-			return null;
-		}
-
-		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
 		File f = new File(pathFile);
 		if (!f.exists()) {
-			return ret;
+			return new ArrayList<NotaFiscal>();
 		}
+		return readXml(f);
+	}
+	
+	
+	@Transactional
+	public List<NotaFiscal> readXml(File f) {
+
+		// deve ter um emitente
+//		if (emitente == null) {
+//			return null;
+//		}
+
+		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
+//		File f = new File(pathFile);
+//		if (!f.exists()) {
+//			return ret;
+//		}
 
 		// Criamos uma classe SAXBuilder que vai processar o XML
 		SAXBuilder sb = new SAXBuilder();
@@ -103,11 +120,11 @@ public class LeitorXMLNFe {
 					NotaFiscal nf = null;
 					List<Element> elementsNFe = elementNFeProc.getChildren();
 					// Achar a chave da NFE.
-					for (Element elementNFe : elementsNFe) {
-						if (ehTag(elementNFe, "INFNFE")) {
-							String chaveNfe = elementNFe.getAttribute("Id")
+					for (Element elementNFeCapa : elementsNFe) {
+						if (ehTag(elementNFeCapa, "INFNFE")) {
+							String chaveNfe = elementNFeCapa.getAttribute("Id")
 									.getValue();
-							String versaoProt = elementNFe.getAttribute(
+							String versaoProt = elementNFeCapa.getAttribute(
 									"versao").getValue();
 							// if(versaoProt == "2.00"){
 							//
@@ -117,6 +134,25 @@ public class LeitorXMLNFe {
 								notaFiscalBC.delete(nf.getId());
 							}
 							nf = new NotaFiscal();
+							String CNPJ = "";
+							//Obter o Emitente da nota;
+							List<Element> elementsInfNFe = elementNFeCapa
+									.getChildren();
+							for (Element elementInfNFe : elementsInfNFe) {
+								if (ehTag(elementInfNFe, "EMIT")) {
+									List<Element> elementsEmit = elementInfNFe
+											.getChildren();								
+									for (Element elementEmit : elementsEmit) {
+										if (ehTag(elementEmit, "CNPJ")) {
+											CNPJ = elementEmit.getValue();
+											break;
+										}
+									}
+									break;
+								}
+							}
+							emitente = emitenteBC.buscaDocumento(CNPJ);	
+								
 							nf.setEmitente(emitente);
 							// Guarda só a parte numérica
 							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
