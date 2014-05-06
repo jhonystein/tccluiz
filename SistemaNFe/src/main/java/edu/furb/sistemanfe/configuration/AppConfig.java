@@ -14,4 +14,8 @@ public class AppConfig implements Serializable {
 	public String getLogoMaxFileSize() {
 		return logoMaxFileSize;
 	}
+	
+	public Long getMaxFileSize() {
+		return  Long.parseLong(logoMaxFileSize);
+	}
 }

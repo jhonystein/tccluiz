@@ -3,10 +3,10 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
  
-	<persistence-unit name="SistemaNFeDS"
+ 	<persistence-unit name="SistemaNFeDS"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/SistemaNFeDS</jta-data-source>
+		<non-jta-data-source>java:jboss/datasources/SistemaNFeDS</non-jta-data-source>		
 		<class>edu.furb.sistemanfe.domain.Pais</class>
 		<class>edu.furb.sistemanfe.domain.Empresa</class>
 		<class>edu.furb.sistemanfe.domain.ArquivoXML</class>
@@ -22,6 +22,31 @@
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
 	</persistence-unit>
+	
+	
+	<!-- 
+	<persistence-unit name="SistemaNFeDS"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/SistemaNFeDS</jta-data-source>
+		
+		<class>edu.furb.sistemanfe.domain.Pais</class>
+		<class>edu.furb.sistemanfe.domain.Empresa</class>
+		<class>edu.furb.sistemanfe.domain.ArquivoXML</class>
+		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
+		<class>edu.furb.sistemanfe.domain.Estado</class>
+		<class>edu.furb.sistemanfe.domain.Produto</class>
+		<class>edu.furb.sistemanfe.domain.Cliente</class>
+		<class>edu.furb.sistemanfe.domain.Emitente</class>
+		<class>edu.furb.sistemanfe.domain.ItemNotaFiscal</class>
+		<class>edu.furb.sistemanfe.domain.Municipio</class>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+		</properties>
+	</persistence-unit>
+	
+	 -->
 	
 	
 	<!-- 
