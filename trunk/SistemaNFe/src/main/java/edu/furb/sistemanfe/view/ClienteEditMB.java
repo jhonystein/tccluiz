@@ -10,8 +10,6 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ClienteBC;
 import edu.furb.sistemanfe.domain.Cliente;
 
-// To remove unused imports press: Ctrl+Shift+o
-
 @ViewController
 @PreviousView("./cliente_list.jsf")
 public class ClienteEditMB extends AbstractEditPageBean<Cliente, Long> {
@@ -20,8 +18,6 @@ public class ClienteEditMB extends AbstractEditPageBean<Cliente, Long> {
 
 	@Inject
 	private ClienteBC clienteBC;
-	
-
 	
 	@Override
 	@Transactional

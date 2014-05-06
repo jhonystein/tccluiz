@@ -1,6 +1,8 @@
 
 package edu.furb.sistemanfe.view;
 
+import java.util.Calendar;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -13,8 +15,8 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ArquivoXMLBC;
+import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.ArquivoXML;
-
 
 @ViewController
 @PreviousView("./upload_file.jsf")
@@ -23,11 +25,13 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private ArquivoXMLBC ArquivoXMLBC;
-	
+	private ArquivoXMLBC ArquivoXMLBC;	
 
 	@Inject
 	private FacesContext facesContext;
+	
+	@Inject
+	private AppConfig appConfig;
 		
 	private UploadedFile logoFooter;
 	
@@ -41,29 +45,40 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	@Override
 	@Transactional
 	public String insert() {
-		System.out.println("INSERINDO");
-		if(logoFooter!=null){
-			this.getBean().setArquivo(logoFooter.getContents());
-			this.getBean().setNome(logoFooter.getFileName());
-			System.out.println("ARQUIVO:"+logoFooter.getFileName());
-		}else{
-			this.getBean().setArquivo(null);
-			System.out.println("NULOOOOOOO");
-		}
-		getBean().setStatus("N");
 		this.ArquivoXMLBC.insert(this.getBean());
-		facesContext
-		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Sucesso", String.format("Arquivo XML %s inserido com sucesso!", this.getBean().getNome())  ));
 		return getPreviousView();
+		
+//		System.out.println("INSERINDO");
+//		if(logoFooter!=null){
+//			this.getBean().setArquivo(logoFooter.getContents());
+//			this.getBean().setNome(logoFooter.getFileName());
+//			System.out.println("ARQUIVO:"+logoFooter.getFileName());
+//		}else{
+//			this.getBean().setArquivo(null);
+//			System.out.println("NULOOOOOOO");
+//		}
+//		getBean().setDataUpload(Calendar.getInstance().getTime());
+//		getBean().setStatus("N");
+//		this.ArquivoXMLBC.insert(this.getBean());		
+//		facesContext
+//		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+//				"Sucesso", String.format("Arquivo XML %s inserido com sucesso! ID:%s .", this.getBean().getNome(), this.getBean().getId())  ));
+//		return getPreviousView();
 	}
 	
 	@Override
 	@Transactional
 	public String update() {
-		this.getBean().setArquivo(logoFooter.getContents());
-		this.ArquivoXMLBC.update(this.getBean());
+		facesContext
+		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+				"Atenção", "Ação não permitida" ));
 		return getPreviousView();
+//		this.getBean().setArquivo(logoFooter.getContents());
+//		this.ArquivoXMLBC.update(this.getBean());
+//		facesContext
+//		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+//				"Sucesso", String.format("Arquivo XML %s atualizado com sucesso!", this.getBean().getNome())  ));
+//		return getPreviousView();
 	}
 	
 	@Override
@@ -75,14 +90,30 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	public void handleFileUpload(FileUploadEvent event) {
 		
 		logoFooter = event.getFile();
-		
-		System.out.println("UPLOAD:"+logoFooter.getFileName());
-		
-		facesContext
-		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Sucesso", "Arquivo carregado: " + event.getFile().getFileName()
-						+ ""));
-		
+		try{
+			if(!logoFooter.getContentType().equals("text/xml")){
+				throw new Exception(String.format("Formato do arquivo %s não é válido.", event.getFile().getFileName()));
+			}
+			if(logoFooter.getSize() > appConfig.getMaxFileSize()){
+				facesContext
+				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"Atenção", String.format("Tamanho do arquivo %s é superior ao limite.", event.getFile().getFileName())));
+				return;
+			}
+			if(logoFooter!=null){
+				this.getBean().setArquivo(logoFooter.getContents());
+				this.getBean().setNome(logoFooter.getFileName());
+			}else{
+				this.getBean().setArquivo(null);
+			}
+			
+			this.insert();
+			
+		}catch(Exception ex){
+			facesContext
+			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Atenção", ex.getMessage()));
+		}		
 //		
 //		String type = (String) event.getComponent().getAttributes().get("type");
 //		UploadedFile logoFooter = event.getFile();
