@@ -16,15 +16,15 @@
 						icon="ui-icon-disk" />
 				</p:submenu>
 				<p:submenu label="Vendas" icon="ui-icon-extlink">
-					<p:menuitem value="Produto mais vendido"
+					<p:menuitem value="Produto"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
-					<p:menuitem value="Cliente que mais compra"
+					<p:menuitem value="Cliente"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 				</p:submenu>
 				<p:submenu label="Outros" icon="ui-icon-extlink">
-					<p:menuitem value="Região que mais compra"
+					<p:menuitem value="Região"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
-					<p:menuitem value="Custos com impostos"
+					<p:menuitem value="Impostos"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 				</p:submenu>
 			</p:submenu>
@@ -35,20 +35,22 @@
 			</p:submenu>
 
 			<p:submenu label="#{messages['menu.cadastros']}">
-				<p:submenu label="Emitente"
-					icon="ui-icon-extlink">
+				<!-- <p:submenu label="Emitente"
+					icon="ui-icon-extlink"> 
 					<p:menuitem value="#{messages['menu.menuitem.new']}"
-						url="/cliente_edit.jsf" icon="ui-icon-home" />
+						url="/cliente_edit.jsf" icon="ui-icon-home" /> 
 					<p:menuitem value="#{messages['menu.menuitem.list']}"
 						url="/cliente_list.jsf" icon="ui-icon-document" />
-				</p:submenu>
+				 </p:submenu>
 				<p:submenu label="#{messages['menu.cliente']}"
-					icon="ui-icon-extlink">
-					<p:menuitem value="#{messages['menu.menuitem.new']}"
-						url="/cliente_edit.jsf" icon="ui-icon-home" />
-					<p:menuitem value="#{messages['menu.menuitem.list']}"
-						url="/cliente_list.jsf" icon="ui-icon-document" />
-				</p:submenu>
+					icon="ui-icon-extlink"> -->
+					
+				<!--	<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/cliente_edit.jsf" icon="ui-icon-home" /> -->
+						
+				 	<p:menuitem value="#{messages['menu.cliente']}"
+						url="/cliente_list.jsf" icon="ui-icon-signal" /> -->
+				<!-- </p:submenu> -->
 				
 				<p:menuitem value="#{messages['menu.produto']}"
 					outcome="/produto_list.jsf" icon="ui-icon-signal" />
