@@ -4,7 +4,9 @@
 
 	<ui:define name="body">
 		<p:panel>
-			#{messages['main.app.welcome']}
+		<h:outputLabel value="#{messages['main.app.welcome']}" for="password"
+						styleClass="text-input" />
+			
 		</p:panel>
 	</ui:define>
 
