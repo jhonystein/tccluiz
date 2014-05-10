@@ -66,6 +66,7 @@ public class LeitorXMLNFe {
 	
 	public List<NotaFiscal> readXml(ArquivoXML arquivo) {
 		File outfile = new File(arquivo.getNome());
+		
 		return readXml(outfile);
 	}
 	
