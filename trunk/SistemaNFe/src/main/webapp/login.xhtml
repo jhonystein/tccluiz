@@ -9,14 +9,11 @@
 		<p:fieldset legend="Autentique-se">
 			<h:form>
 				<h:panelGrid columns="3">
-
 					<h:outputLabel value="#{messages['login.user']}" for="username"
 						styleClass="text-input" />
 					<h:inputText id="username" value="#{loginMB.usuario}"
 						title="#{messages['login.user']}" required="true" />
 					<p:message for="username" />
-
-
 					<h:outputLabel value="#{messages['login.password']}" for="password"
 						styleClass="text-input" />
 					<h:inputSecret id="password" value="#{loginMB.senha}"

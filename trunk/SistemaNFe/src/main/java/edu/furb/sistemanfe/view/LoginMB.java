@@ -12,8 +12,8 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractPageBean;
 
 @ViewController
-@NextView("./index.jsf")
-//@NextView("./welcome.jsf")
+//@NextView("./index.jsf")
+@NextView("./upload_file.jsf")
 public class LoginMB extends AbstractPageBean {
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,8 @@ public class LoginMB extends AbstractPageBean {
 			credentials.setUsername(this.getUsuario());
 			credentials.setPassword(this.getSenha());
 			securityContext.login();
-			messageContext.add("Bem vindo!", SeverityType.INFO);
+			//messageContext.add("Bem vindo!", SeverityType.INFO);
+			System.out.println("Vai para: "+getNextView());
 			return getNextView();
 		} catch (Exception e) {
 			messageContext.add(e.getMessage(), SeverityType.ERROR);

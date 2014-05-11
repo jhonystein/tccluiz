@@ -21,8 +21,8 @@ public class SistemaNFeAuthenticator implements Authenticator {
 	@Inject
 	private ResourceBundle bundle;
 	
-	@Inject
-	private FacesContext facesContext;
+//	@Inject
+//	private FacesContext facesContext;
 
 	private static boolean authenticated;
 
@@ -43,9 +43,9 @@ public class SistemaNFeAuthenticator implements Authenticator {
 			throw new AuthenticationException(
 					bundle.getString("usuarioNaoAutenticado"));
 		}
-		facesContext
-		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"Sucesso", String.format("Bem vindo %s!", username)));
+//		facesContext
+//		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+//				"Sucesso", String.format("Bem vindo %s!", username)));
 
 	}
 

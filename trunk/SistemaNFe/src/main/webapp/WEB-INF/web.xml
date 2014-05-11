@@ -15,6 +15,19 @@
 		</filter> <filter-mapping> <filter-name>Demoiselle Servlet Filter</filter-name> 
 		<url-pattern>/*</url-pattern> </filter-mapping> -->
 
+
+	<!-- Upload -->
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+
+	</filter>
+
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -34,7 +47,7 @@
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
-<!-- 
+	<!-- 
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>Área pública</web-resource-name>
@@ -53,9 +66,7 @@
 			<role-name>*</role-name>
 		</auth-constraint>
 	</security-constraint>
- -->
-<!-- 
-	<login-config>
+ 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/login.jsf</form-login-page>
@@ -66,17 +77,7 @@
 	<security-role>
 		<role-name>*</role-name>
 	</security-role>
- -->
-	<!-- Upload -->
-	<filter>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  -->
 
-	</filter>
-
-	<filter-mapping>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
 
 </web-app>
