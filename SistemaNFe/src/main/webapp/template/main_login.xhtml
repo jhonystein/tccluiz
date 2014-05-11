@@ -3,9 +3,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<!-- TODO: verificar se isso deve ou não ficar já que terá só um idioma -->
-<f:view contentType="text/html" locale="#currentLocale" />
-
 <h:head>
 	<title>#{messages['main.app.login.title']}</title>
 	<link type="text/css" rel="stylesheet" href="css/styles.css" />
@@ -17,7 +14,7 @@
 			<td height="12" align="left" valign="top"><div>
 					<table style="width: 98%; height: 99%">
 						<tr>
-							<td width="10%" align="center"><a href="index.jsf"><img
+							<td width="10%" align="center"><a href="login.jsf"><img
 									src="images/logo.png" border="0" /></a></td>
 							<td width="80%"><h:outputLabel
 									value="#{messages['main.app.title']}" /></td>

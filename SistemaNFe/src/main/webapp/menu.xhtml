@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form >
-		<p:panelMenu style="width:230px">
+		<p:panelMenu style="width:230px" rendered="#{securityContext.loggedIn}">
 		 <!-- TODO; teria que adicionar uma opção HOME -->
 			<p:menuitem value="Mobile" outcome="/mobile/index" icon="ui-icon-signal"/> 
 			<p:submenu label="Consultas" >
@@ -57,5 +57,4 @@
 			</p:submenu>
 		</p:panelMenu>
 	</h:form>
-
 </ui:composition>
