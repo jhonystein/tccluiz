@@ -2,14 +2,14 @@ package edu.furb.sistemanfe.view;
 
 import javax.inject.Inject;
 
-import edu.furb.sistemanfe.security.SistemaNFeCredentials;
-
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.message.SeverityType;
+import br.gov.frameworkdemoiselle.security.AuthenticationException;
 import br.gov.frameworkdemoiselle.security.SecurityContext;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractPageBean;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @ViewController
 //@NextView("./index.jsf")
@@ -32,15 +32,16 @@ public class LoginMB extends AbstractPageBean {
 
 	public String doLogin() {
 		try {
-			messageContext.add("TESTE!", SeverityType.INFO);
 			credentials.setUsername(this.getUsuario());
 			credentials.setPassword(this.getSenha());
 			securityContext.login();
-			//messageContext.add("Bem vindo!", SeverityType.INFO);
-			System.out.println("Vai para: "+getNextView());
+			//System.out.println("Vai para: "+getNextView());
 			return getNextView();
+		} catch (AuthenticationException ae) {
+			messageContext.add("Falha de autenticação: {0}", SeverityType.ERROR, ae.getMessage());
+			return "";
 		} catch (Exception e) {
-			messageContext.add(e.getMessage(), SeverityType.ERROR);
+			messageContext.add("Erro critico: %s", SeverityType.ERROR, e.getMessage());
 			// AuthenticationException
 			return "";
 		}
