@@ -1,0 +1,52 @@
+<html xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- TODO: verificar se isso deve ou não ficar já que terá só um idioma -->
+<f:view contentType="text/html" locale="#currentLocale" />
+
+<h:head>
+	<title>#{messages['main.app.title']}</title>
+	<link type="text/css" rel="stylesheet" href="css/styles.css" />
+</h:head>
+
+<h:body style="background-color:#f1f1f1">
+	<table style="width: 100%; height: 100%">
+		<tr>
+			<td height="12" align="left" valign="top"><ui:include
+					src="/top.xhtml" /></td>
+		</tr>
+		<tr valign="top">
+			<td height="500">
+				<table style="width: 98%; height: 99%">
+					<tr>
+						<!-- MENU -->
+						<td width="20%" align="left" valign="top"><ui:include
+								src="/menu.xhtml" /></td>
+						<!-- Corpo -->
+						<td width="79%" align="left" valign="top"><ui:insert
+								name="body" /></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr align="center">
+			<td height="5" align="center" class="text-input">#{messages['main.footer.text']}</td>
+		</tr>
+	</table>
+
+	<p:growl id="messages" globalOnly="true" showDetail="true" />
+
+	<p:ajaxStatus style="width:16px;height:16px;">
+		<f:facet name="start">
+		</f:facet>
+
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+	<link type="text/css" rel="stylesheet" href="css/aristo/skin.css" />
+	<h:outputScript library="js" name="locale-primefaces.js" />
+</h:body>
+</html>

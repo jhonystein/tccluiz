@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form >
+		<p:panelMenu style="width:230px">
+		 <!-- TODO; teria que adicionar uma opção HOME -->
+			<p:menuitem value="Mobile" outcome="/mobile/index" icon="ui-icon-signal"/> 
+			<p:submenu label="Consultas" >
+				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
+					<p:menuitem value="Clientes" actionListener="#{buttonBean.save}"
+						icon="ui-icon-disk" />
+					<p:menuitem value="Produtos" actionListener="#{buttonBean.save}"
+						icon="ui-icon-disk" />
+				</p:submenu>
+				<p:submenu label="Vendas" icon="ui-icon-extlink">
+					<p:menuitem value="Produto"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+					<p:menuitem value="Cliente"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+				</p:submenu>
+				<p:submenu label="Outros" icon="ui-icon-extlink">
+					<p:menuitem value="Região"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+					<p:menuitem value="Impostos"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
+				</p:submenu>
+			</p:submenu>
+			<p:separator />
+			<p:submenu label="Importar">
+				<p:menuitem value="Notas" url="/upload_file.jsf"
+				 icon="ui-icon-close" />
+			</p:submenu>
+
+			<p:submenu label="#{messages['menu.cadastros']}">
+				<!-- <p:submenu label="Emitente"
+					icon="ui-icon-extlink"> 
+					<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/cliente_edit.jsf" icon="ui-icon-home" /> 
+					<p:menuitem value="#{messages['menu.menuitem.list']}"
+						url="/cliente_list.jsf" icon="ui-icon-document" />
+				 </p:submenu>
+				<p:submenu label="#{messages['menu.cliente']}"
+					icon="ui-icon-extlink"> -->
+					
+				<!--	<p:menuitem value="#{messages['menu.menuitem.new']}"
+						url="/cliente_edit.jsf" icon="ui-icon-home" /> -->
+						
+				 	<p:menuitem value="#{messages['menu.cliente']}"
+						url="/cliente_list.jsf" icon="ui-icon-signal" /> -->
+				<!-- </p:submenu> -->
+				
+				<p:menuitem value="#{messages['menu.produto']}"
+					outcome="/produto_list.jsf" icon="ui-icon-signal" />
+			</p:submenu>
+		</p:panelMenu>
+	</h:form>
+
+</ui:composition>

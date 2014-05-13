@@ -1,0 +1,104 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{itemNotaFiscalEditMB.insert}"
+						rendered="#{!itemNotaFiscalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{itemNotaFiscalEditMB.update}"
+						rendered="#{itemNotaFiscalEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{itemNotaFiscalEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{itemNotaFiscalEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['itemNotaFiscal.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsitemNotaFiscal" columns="3">
+				
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{itemNotaFiscalEditMB.bean.id}" />
+					
+					<p:message for="id" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.ordem']}: " for="ordem" styleClass="text-input" />
+					
+					<h:inputText id="ordem" value="#{itemNotaFiscalEditMB.bean.ordem}"
+						title="#{messages['itemNotaFiscal.alt.ordem']}" />
+					
+					<p:message for="ordem" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.cfop']}: " for="cfop" styleClass="text-input" />
+					
+					<h:inputText id="cfop" value="#{itemNotaFiscalEditMB.bean.cfop}"
+						title="#{messages['itemNotaFiscal.alt.cfop']}" />
+					
+					<p:message for="cfop" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.unidade']}: " for="unidade" styleClass="text-input" />
+					
+					<h:inputText id="unidade" value="#{itemNotaFiscalEditMB.bean.unidade}"
+						title="#{messages['itemNotaFiscal.alt.unidade']}" />
+					
+					<p:message for="unidade" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.quantidade']}: " for="quantidade" styleClass="text-input" />
+					
+					<h:inputText id="quantidade" value="#{itemNotaFiscalEditMB.bean.quantidade}"
+						title="#{messages['itemNotaFiscal.alt.quantidade']}" />
+					
+					<p:message for="quantidade" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.valorUnitario']}: " for="valorUnitario" styleClass="text-input" />
+					
+					<h:inputText id="valorUnitario" value="#{itemNotaFiscalEditMB.bean.valorUnitario}"
+						title="#{messages['itemNotaFiscal.alt.valorUnitario']}" />
+					
+					<p:message for="valorUnitario" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.valorTotal']}: " for="valorTotal" styleClass="text-input" />
+					
+					<h:inputText id="valorTotal" value="#{itemNotaFiscalEditMB.bean.valorTotal}"
+						title="#{messages['itemNotaFiscal.alt.valorTotal']}" />
+					
+					<p:message for="valorTotal" />
+						
+					<h:outputLabel value="#{messages['itemNotaFiscal.label.valorTotalTributos']}: " for="valorTotalTributos" styleClass="text-input" />
+					
+					<h:inputText id="valorTotalTributos" value="#{itemNotaFiscalEditMB.bean.valorTotalTributos}"
+						title="#{messages['itemNotaFiscal.alt.valorTotalTributos']}" />
+					
+					<p:message for="valorTotalTributos" />
+						
+					<h:outputLabel value="#{messages['notafiscal.label']}: " for="notafiscal" styleClass="text-input" />
+				    <p:selectOneMenu id="notafiscal" value="#{itemNotaFiscalEditMB.bean.notafiscal}"  effect="fade" converter="ConversorNotaFiscal">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{itemNotaFiscalEditMB.notafiscalList}" var="varNotaFiscal" itemLabel="#{varNotaFiscal.id}"  itemValue="#{varNotaFiscal}" />						
+					</p:selectOneMenu>
+					<p:message for="notafiscal" />								  
+								 
+					<h:outputLabel value="#{messages['produto.label']}: " for="produto" styleClass="text-input" />
+				    <p:selectOneMenu id="produto" value="#{itemNotaFiscalEditMB.bean.produto}"  effect="fade" converter="ConversorProduto">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{itemNotaFiscalEditMB.produtoList}" var="varProduto" itemLabel="#{varProduto.id}"  itemValue="#{varProduto}" />						
+					</p:selectOneMenu>
+					<p:message for="produto" />								  
+								 
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
