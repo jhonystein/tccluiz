@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<h:form >
-		<p:panelMenu style="width:230px" rendered="#{securityContext.loggedIn}">
+		<p:panelMenu style="width:230px">
 		 <!-- TODO; teria que adicionar uma opção HOME -->
 			<p:menuitem value="Mobile" outcome="/mobile/index" icon="ui-icon-signal"/> 
 			<p:submenu label="Consultas" >
@@ -20,11 +20,10 @@
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 					<p:menuitem value="Cliente"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
-				    <p:menuitem value="Região"
-						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 				</p:submenu>
-				<p:submenu label="Custos" icon="ui-icon-extlink">
-					
+				<p:submenu label="Outros" icon="ui-icon-extlink">
+					<p:menuitem value="Região"
+						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 					<p:menuitem value="Impostos"
 						actionListener="#{buttonBean.save}" icon="ui-icon-disk" />
 				</p:submenu>
@@ -32,7 +31,7 @@
 			<p:separator />
 			<p:submenu label="Importar">
 				<p:menuitem value="Notas" url="/upload_file.jsf"
-				 icon="ui-icon-signal" />
+				 icon="ui-icon-close" />
 			</p:submenu>
 
 			<p:submenu label="#{messages['menu.cadastros']}">
@@ -49,13 +48,14 @@
 				<!--	<p:menuitem value="#{messages['menu.menuitem.new']}"
 						url="/cliente_edit.jsf" icon="ui-icon-home" /> -->
 						
-				 <!-- 	<p:menuitem value="#{messages['menu.cliente']}"
-						url="/cliente_list.jsf" icon="ui-icon-signal" /> 
-				</p:submenu> -->
+				 	<p:menuitem value="#{messages['menu.cliente']}"
+						url="/cliente_list.jsf" icon="ui-icon-signal" /> -->
+				<!-- </p:submenu> -->
 				
 				<p:menuitem value="#{messages['menu.produto']}"
 					outcome="/produto_list.jsf" icon="ui-icon-signal" />
 			</p:submenu>
 		</p:panelMenu>
 	</h:form>
+
 </ui:composition>

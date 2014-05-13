@@ -15,19 +15,6 @@
 		</filter> <filter-mapping> <filter-name>Demoiselle Servlet Filter</filter-name> 
 		<url-pattern>/*</url-pattern> </filter-mapping> -->
 
-
-	<!-- Upload -->
-	<filter>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-
-	</filter>
-
-	<filter-mapping>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
-
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -47,37 +34,17 @@
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
-	<!-- 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Área pública</web-resource-name>
-			<url-pattern>/login.jsf</url-pattern>
-			<url-pattern>/erro.jsf</url-pattern>
-		</web-resource-collection>
-	</security-constraint>
 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Área protegida</web-resource-name>
-			<description>Limita o acesso a todos os recursos JSF</description>
-			<url-pattern>*.jsf</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>*</role-name>
-		</auth-constraint>
-	</security-constraint>
- 	<login-config>
-		<auth-method>FORM</auth-method>
-		<form-login-config>
-			<form-login-page>/login.jsf</form-login-page>
-			<form-error-page>/erro.jsf</form-error-page>
-		</form-login-config>
-	</login-config>
+	<!-- Upload -->
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+		
+	</filter>
 
-	<security-role>
-		<role-name>*</role-name>
-	</security-role>
-  -->
-
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 
 </web-app>
