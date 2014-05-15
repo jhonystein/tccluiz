@@ -16,6 +16,11 @@ import javax.persistence.TableGenerator;
 @Table(name = "TBUSUARIO")
 @TableGenerator(name = "GenUsuario", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "USUARIOSSEQ", valueColumnName = "VLSEQUENCIA")
 public class Usuario implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5412589210134699345L;
 	@Id
 	@Column(name = "IDUSUARIO")
 	@GeneratedValue(generator = "GenUsuario", strategy = GenerationType.TABLE)
