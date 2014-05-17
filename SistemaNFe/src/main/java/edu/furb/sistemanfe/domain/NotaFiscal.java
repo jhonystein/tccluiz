@@ -15,9 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -58,14 +58,14 @@ public class NotaFiscal implements Serializable {
 	private ClienteNotaFiscal clienteNotaFiscal;
 	@Embedded
 	private Endereco endereco;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "IDNOTAFISCAL_id")
 	private List<ItemNotaFiscal> itemNotaFiscal;
 	@Column(name = "DTIMPORTACAO")
 	private Date dataImportacao;
-	@Lob
-	@Column
-	private byte[] file;
+	//@Column(name = "IDARQUIVOXML")
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE },  optional = true)
+	private ArquivoXML arquivoXML;
 
 	public void addItem(ItemNotaFiscal itemNotaFiscal) {
 		if (this.itemNotaFiscal == null) {
@@ -222,14 +222,14 @@ public class NotaFiscal implements Serializable {
 
 	public void setDataImportacao(Date dataImportacao) {
 		this.dataImportacao = dataImportacao;
+	}	
+
+	public ArquivoXML getArquivoXML() {
+		return arquivoXML;
 	}
 
-	public byte[] getFile() {
-		return file;
-	}
-
-	public void setFile(byte[] file) {
-		this.file = file;
+	public void setArquivoXML(ArquivoXML arquivoXML) {
+		this.arquivoXML = arquivoXML;
 	}
 
 	@Override
