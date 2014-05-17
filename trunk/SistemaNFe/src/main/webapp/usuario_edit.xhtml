@@ -1,0 +1,64 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form prependId="false">
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="#{messages['button.save']}" action="#{usuarioEditMB.insert}"
+						rendered="#{!usuarioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.save']}" action="#{usuarioEditMB.update}"
+						rendered="#{usuarioEditMB.updateMode}" ajax="false" />
+					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
+						rendered="#{usuarioEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
+						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
+						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{usuarioEditMB.delete}" immediate="true"
+							ajax="false" />
+						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
+					</p:confirmDialog>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<br />
+
+			<p:fieldset legend="#{messages['usuario.label']}" toggleable="true" toggleSpeed="500">
+				<h:panelGrid id="fieldsusuario" columns="3">
+				
+					<h:outputLabel value="#{messages['usuario.label.id']}: " for="id" styleClass="text-input" />
+										
+					<h:outputText id="id" value="#{usuarioEditMB.bean.id}" />
+					
+					<p:message for="id" />
+					
+					<h:outputLabel value="#{messages['usuario.label.login']}: " for="login" styleClass="text-input" />
+					
+					<h:inputText id="login" value="#{clienteEditMB.bean.login}"
+						title="#{messages['cliente.alt.login']}" />
+					
+					<p:message for="login" />
+						
+					<h:outputLabel value="#{messages['usuario.label.status']}: " for="status" styleClass="text-input" />
+					
+					<h:inputText id="nome" value="#{usuarioEditMB.bean.status}"
+						title="#{messages['usuario.alt.status']}" />
+					
+					<p:message for="status" />
+						
+					<h:outputLabel value="#{messages['usuario.label.admin']}: " for="admin" styleClass="text-input" />
+					
+					<h:inputText id="admin" value="#{usuarioEditMB.bean.admin}"
+						title="#{messages['admin.alt.admin']}" />
+					
+					<p:message for="admin" />		
+						
+					
+						
+				</h:panelGrid>
+			</p:fieldset>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
