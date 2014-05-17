@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -39,6 +40,8 @@ public class ArquivoXML implements Serializable{
 //	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 //	@JoinColumn(name = "IDEMPRESA")
 //	private Empresa empresa;
+	@OneToOne()
+	private NotaFiscal notaFiscal;
 	
 	public ArquivoXML() {
 		
@@ -106,6 +109,14 @@ public class ArquivoXML implements Serializable{
 //		this.empresa = empresa;
 //	}
 	
+
+	public NotaFiscal getNotaFiscal() {
+		return notaFiscal;
+	}
+
+	public void setNotaFiscal(NotaFiscal notaFiscal) {
+		this.notaFiscal = notaFiscal;
+	}
 
 	@Override
 	public int hashCode() {

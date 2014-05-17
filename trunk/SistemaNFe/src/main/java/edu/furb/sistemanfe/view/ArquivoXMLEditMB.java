@@ -95,7 +95,8 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 			}else{
 				arq.setArquivo(null);
 			}
-			this.arquivoXMLBC.insert(arq);		
+			this.arquivoXMLBC.insert(arq);
+			this.arquivoXMLBC.enviarArquivoProcessamento(arq);
 
 		}catch(Exception ex){
 			facesContext

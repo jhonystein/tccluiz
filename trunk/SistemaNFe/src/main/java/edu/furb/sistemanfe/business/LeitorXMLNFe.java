@@ -395,7 +395,7 @@ public class LeitorXMLNFe {
 								}
 							}
 							// nf.setValorTotalNota(new BigDecimal(0D));
-							nf.setValorTotalTributos(new BigDecimal(0D));
+							//nf.setValorTotalTributos(new BigDecimal(0D));
 
 							System.out.println(nf.toString());
 							nf = notaFiscalBC.insert(nf);
