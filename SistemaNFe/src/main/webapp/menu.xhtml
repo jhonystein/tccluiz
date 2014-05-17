@@ -8,6 +8,11 @@
 		<p:panelMenu style="width:230px" rendered="#{securityContext.loggedIn}">
 		 <!-- TODO; teria que adicionar uma opção HOME -->
 			<p:menuitem value="Mobile" outcome="/mobile/index" icon="ui-icon-signal"/> 
+			<p:submenu label="Início">
+			<p:menuitem value="Notas"
+					outcome="/notaFiscal_list.jsf" icon="ui-icon-signal" />
+			</p:submenu>			
+				
 			<p:submenu label="Consultas" >
 				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
 					<p:menuitem value="Clientes" actionListener="#{buttonBean.save}"
@@ -52,12 +57,13 @@
 				  	<p:menuitem value="#{messages['menu.cliente']}"
 						url="/cliente_list.jsf" icon="ui-icon-signal" /> 
 				<!-- </p:submenu> -->
-				
+				<p:menuitem value="#{messages['menu.emitente']}"
+					outcome="/emitente_list.jsf" icon="ui-icon-signal" />
 				<p:menuitem value="#{messages['menu.produto']}"
 					outcome="/produto_list.jsf" icon="ui-icon-signal" />
 			</p:submenu>
-			<p:submenu label="#{messages['menu.usuario']}">
-			<p:menuitem value="#{messages['menu.usuario']}"
+			<p:submenu label="Usuários">
+			<p:menuitem value="Lista"
 					outcome="/usuario_list.jsf" icon="ui-icon-signal" />
 			</p:submenu>
 			
