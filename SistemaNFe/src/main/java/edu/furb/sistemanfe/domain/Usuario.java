@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
+import edu.furb.sistemanfe.enumeration.TipoAdministradorEnum;
 
 @Entity
 @Table(name = "TBUSUARIO")
@@ -26,10 +31,12 @@ public class Usuario implements Serializable {
 	private String login = null;
 	@Column(name = "DSSENHA", length = 20)
 	private String senha = null;
-	@Column(name = "DSSTATUS", length = 5)
-	private String status = null;
-	@Column(name = "DSADM", length = 5)
-	private String admin = null;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "DSSTATUS", length = 20)
+	private StatusUsuarioEnum status = StatusUsuarioEnum.BLOQUEADO;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "DSADM", length = 2)
+	private TipoAdministradorEnum admin = TipoAdministradorEnum.NAO;
 	@ManyToOne
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
@@ -52,16 +59,16 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public String getStatus() {
+	public StatusUsuarioEnum getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(StatusUsuarioEnum status) {
 		this.status = status;
 	}
-	public String getAdmin() {
+	public TipoAdministradorEnum getAdmin() {
 		return admin;
 	}
-	public void setAdmin(String admin) {
+	public void setAdmin(TipoAdministradorEnum admin) {
 		this.admin = admin;
 	}
 	public Emitente getEmitente() {
