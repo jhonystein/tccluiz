@@ -1,5 +1,8 @@
 package edu.furb.sistemanfe.view;
 
+import java.util.List;
+
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 import edu.furb.sistemanfe.business.UsuarioBC;
@@ -18,6 +21,14 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	@Inject
 	private UsuarioBC usuarioBC;
+	
+	public List<SelectItem> getTiposAdministrador() {
+		return usuarioBC.getTiposAdministrador();
+	}
+	
+	public List<SelectItem> getStatusUsuario() {
+		return usuarioBC.getStatusUsuario();
+	}
 	
 	@Override
 	@Transactional
