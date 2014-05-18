@@ -17,6 +17,7 @@
 		<class>edu.furb.sistemanfe.domain.Emitente</class>
 		<class>edu.furb.sistemanfe.domain.ItemNotaFiscal</class>
 		<class>edu.furb.sistemanfe.domain.Municipio</class>
+		<class>edu.furb.sistemanfe.domain.Usuario</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
