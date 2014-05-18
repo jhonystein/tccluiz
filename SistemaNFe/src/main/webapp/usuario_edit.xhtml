@@ -35,14 +35,14 @@
 					
 					<h:outputLabel value="#{messages['usuario.label.login']}: " for="login" styleClass="text-input" />
 					
-					<h:inputText id="login" value="#{clienteEditMB.bean.login}"
-						title="#{messages['cliente.alt.login']}" />
+					<h:inputText id="login" value="#{usuarioEditMB.bean.login}"
+						title="#{messages['usuario.alt.login']}" />
 					
 					<p:message for="login" />
 						
 					<h:outputLabel value="#{messages['usuario.label.status']}: " for="status" styleClass="text-input" />
 					
-					<h:inputText id="nome" value="#{usuarioEditMB.bean.status}"
+					<h:inputText id="status" value="#{usuarioEditMB.bean.status}"
 						title="#{messages['usuario.alt.status']}" />
 					
 					<p:message for="status" />
@@ -50,7 +50,7 @@
 					<h:outputLabel value="#{messages['usuario.label.admin']}: " for="admin" styleClass="text-input" />
 					
 					<h:inputText id="admin" value="#{usuarioEditMB.bean.admin}"
-						title="#{messages['admin.alt.admin']}" />
+						title="#{messages['usuario.alt.admin']}" />
 					
 					<p:message for="admin" />		
 						

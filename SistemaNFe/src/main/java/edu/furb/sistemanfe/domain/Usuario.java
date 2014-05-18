@@ -16,10 +16,7 @@ import javax.persistence.TableGenerator;
 @Table(name = "TBUSUARIO")
 @TableGenerator(name = "GenUsuario", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "USUARIOSSEQ", valueColumnName = "VLSEQUENCIA")
 public class Usuario implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -5412589210134699345L;
 	@Id
 	@Column(name = "IDUSUARIO")
@@ -29,13 +26,20 @@ public class Usuario implements Serializable {
 	private String login = null;
 	@Column(name = "DSSENHA", length = 20)
 	private String senha = null;
-	@Column(name = "DSSTATUS", length = 20)
+	@Column(name = "DSSTATUS", length = 5)
 	private String status = null;
-	@Column(name = "DSADM", length = 20)
+	@Column(name = "DSADM", length = 5)
 	private String admin = null;
 	@ManyToOne
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
+		
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getLogin() {
 		return login;
 	}
