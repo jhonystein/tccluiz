@@ -1,5 +1,6 @@
 package edu.furb.sistemanfe.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -23,7 +24,7 @@ public class Endereco {
 	@ManyToOne
 	@JoinColumn(name="IDMUNICIPIO")
 	private Municipio municipio;
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="IDESTADO")
 	private Estado estado;
 	@ManyToOne
