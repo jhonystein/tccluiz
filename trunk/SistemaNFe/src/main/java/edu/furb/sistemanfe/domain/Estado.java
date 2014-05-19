@@ -40,6 +40,7 @@ public class Estado implements Serializable{
 	public Estado(String sigla, String nome, String codigoIbge) {
 		this.nome = nome;
 		this.sigla = sigla;
+		this.codigoIbge = codigoIbge;
 	}
 	
 	public Estado(String sigla, String nome, String codigoIbge, Pais pais) {

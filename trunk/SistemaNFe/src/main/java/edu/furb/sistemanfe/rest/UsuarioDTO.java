@@ -1,6 +1,8 @@
 package edu.furb.sistemanfe.rest;
 
 import edu.furb.sistemanfe.domain.Usuario;
+import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
+import edu.furb.sistemanfe.enumeration.TipoAdministradorEnum;
 
 
 
@@ -8,8 +10,8 @@ public class UsuarioDTO {
 	private Long id = null;
 	private String login = null;
 	private String senha = null;
-	private String status = null;
-	private String admin = null;
+	private StatusUsuarioEnum status = null;
+	private TipoAdministradorEnum admin = null;
 	
 	public UsuarioDTO(){		
 	}
@@ -46,24 +48,21 @@ public class UsuarioDTO {
 		this.senha = senha;
 	}
 
-	public String getStatus() {
+	public StatusUsuarioEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusUsuarioEnum status) {
 		this.status = status;
 	}
 
-	public String getAdmin() {
+	public TipoAdministradorEnum getAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(String admin) {
+	public void setAdmin(TipoAdministradorEnum admin) {
 		this.admin = admin;
 	}
-	
-	
-
 }
 
 
