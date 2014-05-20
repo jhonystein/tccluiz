@@ -64,6 +64,7 @@ public class LoginMB extends AbstractPageBean {
 	}
 
 	public void doLogout() {
+		//TODO: Verificar este método, parece que não esta matando a autenticação
 		securityContext.logout();
 	}
 

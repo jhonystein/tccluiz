@@ -24,7 +24,7 @@ public class SistemaNFeAuthenticator implements Authenticator {
 	@Inject
 	private FacesContext facesContext;
 
-	private static boolean authenticated;
+	private static boolean authenticated  = false;
 
 	@Override
 	public void authenticate() throws Exception {
@@ -37,6 +37,8 @@ public class SistemaNFeAuthenticator implements Authenticator {
 		if (username.equals("gerente") && password.equals("gerente")) {
 			authenticated = true;
 		} else if (username.equals("atendente") && password.equals("atendente")) {
+			authenticated = true;
+		} else if (username.equals("1") && password.equals("1")) {
 			authenticated = true;
 		}
 		if (!authenticated) {
@@ -51,6 +53,7 @@ public class SistemaNFeAuthenticator implements Authenticator {
 
 	@Override
 	public void unauthenticate() throws Exception {
+		authenticated = false;
 		credentials.clear();
 	}
 
