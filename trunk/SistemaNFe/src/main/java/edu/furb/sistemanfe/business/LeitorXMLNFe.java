@@ -26,6 +26,7 @@ import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
 
 public class LeitorXMLNFe {
@@ -65,13 +66,13 @@ public class LeitorXMLNFe {
 	public void setEmitente(Emitente emitente) {
 		this.emitente = emitente;
 	}
-	
+
 	public List<NotaFiscal> readXml(ArquivoXML arquivo) {
 		File outfile = new File(arquivo.getNome());
-		
+
 		return readXml(outfile);
 	}
-	
+
 	public List<NotaFiscal> readXml(String pathFile) {
 		File f = new File(pathFile);
 		if (!f.exists()) {
@@ -79,21 +80,20 @@ public class LeitorXMLNFe {
 		}
 		return readXml(f);
 	}
-	
-	
+
 	@Transactional
 	public List<NotaFiscal> readXml(File f) {
 
 		// deve ter um emitente
-//		if (emitente == null) {
-//			return null;
-//		}
+		// if (emitente == null) {
+		// return null;
+		// }
 
 		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
-//		File f = new File(pathFile);
-//		if (!f.exists()) {
-//			return ret;
-//		}
+		// File f = new File(pathFile);
+		// if (!f.exists()) {
+		// return ret;
+		// }
 
 		// Criamos uma classe SAXBuilder que vai processar o XML
 		SAXBuilder sb = new SAXBuilder();
@@ -138,13 +138,13 @@ public class LeitorXMLNFe {
 							}
 							nf = new NotaFiscal();
 							String CNPJ = "";
-							//Obter o Emitente da nota;
+							// Obter o Emitente da nota;
 							List<Element> elementsInfNFe = elementNFeCapa
 									.getChildren();
 							for (Element elementInfNFe : elementsInfNFe) {
 								if (ehTag(elementInfNFe, "EMIT")) {
 									List<Element> elementsEmit = elementInfNFe
-											.getChildren();								
+											.getChildren();
 									for (Element elementEmit : elementsEmit) {
 										if (ehTag(elementEmit, "CNPJ")) {
 											CNPJ = elementEmit.getValue();
@@ -154,8 +154,8 @@ public class LeitorXMLNFe {
 									break;
 								}
 							}
-							emitente = emitenteBC.buscaDocumento(CNPJ);	
-								
+							emitente = emitenteBC.buscaDocumento(CNPJ);
+
 							nf.setEmitente(emitente);
 							// Guarda só a parte numérica
 							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
@@ -297,7 +297,7 @@ public class LeitorXMLNFe {
 									ProdutoNotaFiscal prod = new ProdutoNotaFiscal();
 									itemNota.setProduto(prod);
 									itemNota.setOrdem(Integer.parseInt(nItem));
-									//itemNota.getProduto().setEmitente(emitente);
+									// itemNota.getProduto().setEmitente(emitente);
 
 									List<Element> elementsItem = elementInfNFe
 											.getChildren();
@@ -352,9 +352,27 @@ public class LeitorXMLNFe {
 												}
 											}
 										}
-										
-										//produtoBC.
-										
+
+										Produto produto = produtoBC
+												.buscaPorCodigo(itemNota
+														.getProduto()
+														.getCodigo());
+										if (produto == null) {
+											produto = new Produto();
+											produto.setCodigo(itemNota
+													.getProduto().getCodigo());
+											produto.setEmitente(nf
+													.getEmitente());
+										}
+
+										produto.setNome(itemNota.getProduto()
+												.getNome());
+										if (produto.getId() == 0) {
+											produtoBC.insert(produto);
+										} else {
+											produtoBC.update(produto);
+										}
+
 										// Tratar atributos de impostos;
 										if (ehTag(elementItem, "imposto")) {
 											List<Element> elementsImposto = elementItem
@@ -400,10 +418,11 @@ public class LeitorXMLNFe {
 								}
 							}
 							// nf.setValorTotalNota(new BigDecimal(0D));
-							//nf.setValorTotalTributos(new BigDecimal(0D));
+							// nf.setValorTotalTributos(new BigDecimal(0D));
 
 							System.out.println(nf.toString());
 							nf = notaFiscalBC.insert(nf);
+
 							ret.add(nf);
 						}
 					}
