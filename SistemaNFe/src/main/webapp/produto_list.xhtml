@@ -27,12 +27,12 @@
 				<p:column style="width:2%;">
 					<h:selectBooleanCheckbox value="#{produtoListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
-				
+				<!-- 
 				<p:column style="width:5%;" sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['produto.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
-						
+					 -->	
 				<p:column sortBy="#{bean.codigo}">
 					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
 					<h:commandLink action="#{produtoListMB.getNextView}" actionListener="#{produtoListMB.clear}">
