@@ -9,7 +9,7 @@ import javax.inject.Named;
 @Named("credential")
 public class SistemaNFeCredentials implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3727813284989168748L;
 
 	private String username;
 

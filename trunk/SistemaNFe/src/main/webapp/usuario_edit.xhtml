@@ -62,7 +62,7 @@
 
 					<h:outputLabel value="#{messages['usuario.label.admin']}: "
 						for="admin" styleClass="text-input" />
-					<p:selectOneMenu id="admin" value="#{usuarioEditMB.bean.admin}"
+					<p:selectOneMenu id="admin" value="#{usuarioEditMB.bean.tipoUsuario}"
 						effect="fade" title="#{messages['usuario.alt.admin']}">
 						<f:selectItems value="#{usuarioEditMB.tiposAdministrador}" />
 					</p:selectOneMenu>

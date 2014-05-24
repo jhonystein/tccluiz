@@ -57,10 +57,10 @@
 					</h:commandLink>
 				</p:column>	
 				
-				<p:column sortBy="#{bean.admin}">
+				<p:column sortBy="#{bean.tipoUsuario}">
 					<f:facet name="header">#{messages['usuario.label.admin']}</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
-						<h:outputText value="#{bean.admin.descricao}" />
+						<h:outputText value="#{bean.tipoUsuario.descricao}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>		
