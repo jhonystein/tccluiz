@@ -1,4 +1,3 @@
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets" template="/template/main.xhtml">
@@ -22,7 +21,9 @@
 					</p:confirmDialog>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:dataTable id="list" var="bean" value="#{produtoListMB.resultList}">
+			<p:dataTable id="list" var="bean" value="#{produtoListMB.lazyModel}"
+						lazy="true" paginator="true"first="#{messages['page.first']}"
+				rows="#{messages['page.rows']}">
 				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
 				<p:column style="width:2%;">
 					<h:selectBooleanCheckbox value="#{produtoListMB.selection[bean.id]}"></h:selectBooleanCheckbox>

@@ -6,7 +6,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @SessionScoped
-@Named("credential")
+@Named("credenciais")
 public class SistemaNFeCredentials implements Serializable {
 
 	private static final long serialVersionUID = 3727813284989168748L;

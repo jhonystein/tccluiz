@@ -2,9 +2,16 @@ package edu.furb.sistemanfe.view;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
+
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.annotation.NextView;
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.pagination.Pagination;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -20,6 +27,34 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 
 	@Inject
 	private ProdutoBC produtoBC;
+	
+	//Paginação
+	private LazyDataModel<Produto> lazyModel;
+	
+	public ProdutoListMB() {
+		this.lazyModel = new LazyDataModel<Produto>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public List<Produto> load(int first, int pageSize,
+					String sortField, SortOrder sortOrder,
+					Map<String, String> filters) {
+				
+				Pagination pagination = getPagination();
+				pagination.setPageSize(pageSize);
+				pagination.setFirstResult(first);
+				
+				List<Produto> itensLista = produtoBC.findAll();// buscaCliente(codigo, nome, documento, sortField, sortOrder);
+				
+				lazyModel.setRowCount(pagination.getTotalResults());
+				return itensLista;
+			}
+		};
+	}
+	
+	public LazyDataModel<Produto> getLazyModel() {
+		return lazyModel;
+	}
 	
 	@Override
 	protected List<Produto> handleResultList() {
