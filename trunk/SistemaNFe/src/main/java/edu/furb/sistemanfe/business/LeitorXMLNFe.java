@@ -155,7 +155,11 @@ public class LeitorXMLNFe {
 								}
 							}
 							emitente = emitenteBC.buscaDocumento(CNPJ);
-
+							if (emitente == null) {
+								emitente = new Emitente();
+								emitente.setDocumento(CNPJ);
+								emitente = emitenteBC.insert(emitente);
+							}
 							nf.setEmitente(emitente);
 							// Guarda só a parte numérica
 							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
@@ -353,26 +357,6 @@ public class LeitorXMLNFe {
 											}
 										}
 
-										Produto produto = produtoBC
-												.buscaPorCodigo(itemNota
-														.getProduto()
-														.getCodigo());
-										if (produto == null) {
-											produto = new Produto();
-											produto.setCodigo(itemNota
-													.getProduto().getCodigo());
-											produto.setEmitente(nf
-													.getEmitente());
-										}
-
-										produto.setNome(itemNota.getProduto()
-												.getNome());
-										if (produto.getId() == 0) {
-											produtoBC.insert(produto);
-										} else {
-											produtoBC.update(produto);
-										}
-
 										// Tratar atributos de impostos;
 										if (ehTag(elementItem, "imposto")) {
 											List<Element> elementsImposto = elementItem
@@ -422,7 +406,11 @@ public class LeitorXMLNFe {
 
 							System.out.println(nf.toString());
 							nf = notaFiscalBC.insert(nf);
-
+							/**
+							 * Chama o metodo atualizar cadastro de produto
+							 */
+							produtoBC.atualizaProduto(nf);
+							
 							ret.add(nf);
 						}
 					}
