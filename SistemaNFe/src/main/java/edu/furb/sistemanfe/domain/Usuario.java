@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
-import edu.furb.sistemanfe.enumeration.TipoAdministradorEnum;
+import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 
 @Entity
 @Table(name = "TBUSUARIO")
@@ -35,8 +35,8 @@ public class Usuario implements Serializable {
 	@Column(name = "DSSTATUS", length = 20)
 	private StatusUsuarioEnum status = StatusUsuarioEnum.BLOQUEADO;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "DSADM", length = 2)
-	private TipoAdministradorEnum admin = TipoAdministradorEnum.NAO;
+	@Column(name = "DSTIPOUSUARIO", length = 5)
+	private TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.CLIENTE;
 	@ManyToOne
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
@@ -65,11 +65,11 @@ public class Usuario implements Serializable {
 	public void setStatus(StatusUsuarioEnum status) {
 		this.status = status;
 	}
-	public TipoAdministradorEnum getAdmin() {
-		return admin;
+	public TipoUsuarioEnum getTipoUsuario() {
+		return tipoUsuario;
 	}
-	public void setAdmin(TipoAdministradorEnum admin) {
-		this.admin = admin;
+	public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 	public Emitente getEmitente() {
 		return emitente;
@@ -81,7 +81,7 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((admin == null) ? 0 : admin.hashCode());
+		result = prime * result + ((tipoUsuario == null) ? 0 : tipoUsuario.hashCode());
 		result = prime * result
 				+ ((emitente == null) ? 0 : emitente.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -99,10 +99,10 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (admin == null) {
-			if (other.admin != null)
+		if (tipoUsuario == null) {
+			if (other.tipoUsuario != null)
 				return false;
-		} else if (!admin.equals(other.admin))
+		} else if (!tipoUsuario.equals(other.tipoUsuario))
 			return false;
 		if (emitente == null) {
 			if (other.emitente != null)

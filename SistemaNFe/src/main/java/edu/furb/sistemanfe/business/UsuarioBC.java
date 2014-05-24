@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import br.gov.frameworkdemoiselle.lifecycle.Startup;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.domain.Usuario;
 import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
-import edu.furb.sistemanfe.enumeration.TipoAdministradorEnum;
+import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 import edu.furb.sistemanfe.persistence.UsuarioDAO;
 import edu.furb.sistemanfe.rest.UsuarioDTO;
 
@@ -18,14 +20,30 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Startup
+	@Transactional
+	public void load() {
+		if (findByUsername("admin") == null) {
+			/**
+			 * Sempre deve existir pelo menos um usuário ADMIN
+			 */
+			Usuario u = new Usuario();
+			u.setLogin("admin");
+			u.setSenha("admin");
+			u.setStatus(StatusUsuarioEnum.ATIVO);
+			u.setTipoUsuario(TipoUsuarioEnum.ADMIN);			
+			insert(u);
+		}
+	}
+		
 	/***
-	 * Obtem uma lsita de objetos para popular um Select do tipo Tipo Admin
+	 * Obtem uma lista de objetos para popular um Select do tipo Tipo Admin
 	 * @return Lista de objetos
 	 */	
 	public List<SelectItem> getTiposAdministrador() {
 		List<SelectItem> autoTipos = new ArrayList<SelectItem>();
 
-		for (TipoAdministradorEnum tipoAdministrador : TipoAdministradorEnum
+		for (TipoUsuarioEnum tipoAdministrador : TipoUsuarioEnum
 				.values()) {
 
 			autoTipos.add(new SelectItem(tipoAdministrador, tipoAdministrador
@@ -59,6 +77,13 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			return null;
 		}
 		return lst.get(0);
+	}
+
+	public Usuario findByUsername(String username) {
+		UsuarioDTO dto = new UsuarioDTO();
+		dto.setLogin(username);
+		List<Usuario> resp = getDelegate().pesquisar(dto);
+		return ((resp==null)||(resp.size()==0))?(null):(resp.get(0));
 	}
 
 }

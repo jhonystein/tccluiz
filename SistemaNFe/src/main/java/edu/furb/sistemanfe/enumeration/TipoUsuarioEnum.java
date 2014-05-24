@@ -1,12 +1,12 @@
 package edu.furb.sistemanfe.enumeration;
 
-public enum TipoAdministradorEnum {
-	SIM("S", "Sim"), NAO("N", "Não");
+public enum TipoUsuarioEnum {
+	ADMIN("A", "Admin"), CLIENTE("C", "Cliente");
 
 	private final String valor;
 	private final String descricao;
 
-	private TipoAdministradorEnum(String _valor, String _descricao) {
+	private TipoUsuarioEnum(String _valor, String _descricao) {
 		this.valor = _valor;
 		this.descricao = _descricao;
 	}

@@ -4,6 +4,7 @@ package edu.furb.sistemanfe.view;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -18,8 +19,10 @@ import edu.furb.sistemanfe.business.ArquivoXMLBC;
 import edu.furb.sistemanfe.business.LeitorXMLNFe;
 import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.ArquivoXML;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @ViewController
+@SessionScoped
 @PreviousView("./upload_file.jsf")
 public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 
@@ -34,6 +37,9 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	@Inject
 	private AppConfig appConfig;
 		
+	@Inject 
+	private SistemaNFeCredentials cred;
+	
 	private UploadedFile logoFooter;
 	
 	@Override
@@ -73,12 +79,21 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	protected ArquivoXML handleLoad(Long id) {
 		return this.arquivoXMLBC.load(id);
 	}	
-	
+	@Inject
+	private	SistemaNFeCredentials credenciais;
+
 	@Transactional()
 	public void handleFileUpload(FileUploadEvent event) {
 		
+		
 		logoFooter = event.getFile();
 		try{
+			
+			if(!credenciais.getUsername().equals("111111")){
+				throw new Exception(String.format("Usuário %s .", cred.getUsername()));
+			}
+			
+			
 			if(!logoFooter.getContentType().equals("text/xml")){
 				throw new Exception(String.format("Formato do arquivo %s não é válido.", event.getFile().getFileName()));
 			}
