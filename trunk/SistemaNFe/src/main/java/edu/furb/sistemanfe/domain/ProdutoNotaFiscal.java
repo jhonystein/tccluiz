@@ -2,12 +2,9 @@ package edu.furb.sistemanfe.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Embeddable
 public class ProdutoNotaFiscal {
-
 	
 	@Column(name = "DSCODIGO", length = 100)
 	private String codigo;
