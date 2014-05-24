@@ -37,6 +37,8 @@ public class LeitorXMLNFe {
 	@Inject
 	private EstadoBC estadoBC;
 	@Inject
+	private ProdutoBC produtoBC;
+	@Inject
 	private EmitenteBC emitenteBC;
 	private Emitente emitente;
 
@@ -350,6 +352,9 @@ public class LeitorXMLNFe {
 												}
 											}
 										}
+										
+										//produtoBC.
+										
 										// Tratar atributos de impostos;
 										if (ehTag(elementItem, "imposto")) {
 											List<Element> elementsImposto = elementItem
