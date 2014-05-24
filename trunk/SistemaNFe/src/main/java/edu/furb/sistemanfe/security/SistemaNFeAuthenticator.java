@@ -2,7 +2,6 @@ package edu.furb.sistemanfe.security;
 
 import java.lang.reflect.Field;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -10,6 +9,7 @@ import javax.inject.Inject;
 import br.gov.frameworkdemoiselle.security.AuthenticationException;
 import br.gov.frameworkdemoiselle.security.Authenticator;
 import br.gov.frameworkdemoiselle.security.User;
+import br.gov.frameworkdemoiselle.util.Beans;
 import br.gov.frameworkdemoiselle.util.ResourceBundle;
 import br.gov.frameworkdemoiselle.util.Strings;
 import edu.furb.sistemanfe.business.EmitenteBC;
@@ -17,7 +17,6 @@ import edu.furb.sistemanfe.business.UsuarioBC;
 import edu.furb.sistemanfe.domain.Usuario;
 import edu.furb.sistemanfe.view.LoginMB;
 
-@SessionScoped
 public class SistemaNFeAuthenticator implements Authenticator {
 
 	private static final long serialVersionUID = 1L;
@@ -31,8 +30,8 @@ public class SistemaNFeAuthenticator implements Authenticator {
 	@Inject
 	private FacesContext facesContext;
 
-	@Inject
-	private LoginMB loginMB;
+	//@Inject
+	//private LoginMB loginMB;
 
 	@Inject
 	private UsuarioBC usuarioBC;
@@ -40,25 +39,10 @@ public class SistemaNFeAuthenticator implements Authenticator {
 	@Inject
 	private EmitenteBC emitenteBC;
 
-	private static boolean authenticated = false;
-
 	@Override
 	public void authenticate() throws Exception {
-		String username = credentials.getUsername();
-		String password = credentials.getPassword();
-
-		// if (username.equals("gerente") && password.equals("gerente")) {
-		// authenticated = true;
-		// } else if (username.equals("atendente") &&
-		// password.equals("atendente")) {
-		// authenticated = true;
-		// } else if (username.equals("1") && password.equals("1")) {
-		// authenticated = true;
-		// }
-		// if (!authenticated) {
-		// throw new AuthenticationException(
-		// bundle.getString("usuarioNaoAutenticado"));
-		// }
+		
+		LoginMB loginMB = Beans.getReference(LoginMB.class);
 
 		try {
 			if (Strings.isEmpty(credentials.getUsername())
@@ -77,7 +61,6 @@ public class SistemaNFeAuthenticator implements Authenticator {
 							"Usuário/senha incorretos!!!");
 				}
 				loginMB.setUsuario(usuario);
-				authenticated = true;
 
 				facesContext.addMessage(
 						null,
@@ -94,14 +77,15 @@ public class SistemaNFeAuthenticator implements Authenticator {
 
 	@Override
 	public void unauthenticate() throws Exception {
-		authenticated = false;
 		credentials.clear();
+		LoginMB loginMB = Beans.getReference(LoginMB.class);
 		loginMB.setUsuario(null);
 		loginMB.setEmitente(null);
 	}
 
 	@Override
 	public User getUser() {
+		final LoginMB loginMB = Beans.getReference(LoginMB.class);
 		User user = null;
 		if (Strings.isEmpty(credentials.getUsername())
 				|| Strings.isEmpty(credentials.getPassword())) {
