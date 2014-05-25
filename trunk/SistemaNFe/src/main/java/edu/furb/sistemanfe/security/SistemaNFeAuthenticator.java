@@ -15,6 +15,8 @@ import br.gov.frameworkdemoiselle.util.Strings;
 import edu.furb.sistemanfe.business.EmitenteBC;
 import edu.furb.sistemanfe.business.UsuarioBC;
 import edu.furb.sistemanfe.domain.Usuario;
+import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
+import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 import edu.furb.sistemanfe.view.LoginMB;
 
 public class SistemaNFeAuthenticator implements Authenticator {
@@ -59,6 +61,10 @@ public class SistemaNFeAuthenticator implements Authenticator {
 								.equals(credentials.getPassword())) {
 					throw new AuthenticationException(
 							"Usuário/senha incorretos!!!");
+				}
+				if(!usuario.getStatus().equals(StatusUsuarioEnum.ATIVO)){
+					throw new AuthenticationException(
+							"Usuário não ativo.\nContate administrador do sistema.");
 				}
 				loginMB.setUsuario(usuario);
 

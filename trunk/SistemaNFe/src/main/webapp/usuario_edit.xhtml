@@ -52,6 +52,15 @@
 						title="#{messages['usuario.alt.login']}" />
 
 					<p:message for="login" />
+					
+					<h:outputLabel value="#{messages['usuario.label.senha']}: "
+						for="senha" styleClass="text-input" />
+
+					<h:inputText id="senha" value="#{usuarioEditMB.bean.senha}"
+						title="#{messages['usuario.alt.senha']}" />
+
+					<p:message for="senha" />					
+					
 					<h:outputLabel value="#{messages['usuario.label.status']}: "
 						for="status" styleClass="text-input" />
 					<p:selectOneMenu id="status" value="#{usuarioEditMB.bean.status}"
