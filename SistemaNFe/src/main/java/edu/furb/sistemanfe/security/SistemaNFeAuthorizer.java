@@ -11,12 +11,12 @@ public class SistemaNFeAuthorizer implements Authorizer {
 	private static final long serialVersionUID = 6349905487640014675L;
 
 	@Inject
-	private SecurityContext context;
+	private SecurityContext securityContext;
 
 	@Override
 	public boolean hasRole(String role) throws Exception {
 		TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.valueOf(role);
-		return tipoUsuario.equals(context.getUser().getAttribute("tipoUsuario"));
+		return tipoUsuario.equals(securityContext.getUser().getAttribute("tipoUsuario"));
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
@@ -12,59 +13,62 @@
 				icon="ui-icon-signal" />
 			<p:submenu label="Início">
 				<p:menuitem value="Notas" outcome="/notaFiscal_list.jsf"
-					icon="ui-icon-signal" />
+					icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('CLIENTE')}" />
+					<p:menuitem value="Início" outcome="/welcome.jsf"
+					icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('ADMIN')}" />
+				
 			</p:submenu>
 
-			<p:submenu label="Consultas">
+			<p:submenu label="Consultas"
+				rendered="#{securityContext.hasRole('CLIENTE')}">
 				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
 					<p:menuitem value="Clientes" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_curva_cliente.jsf"/>
+						icon="ui-icon-disk" url="/filtro_curva_cliente.jsf" />
 					<p:menuitem value="Produtos" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_curva_produto.jsf"/>
+						icon="ui-icon-disk" url="/filtro_curva_produto.jsf" />
 				</p:submenu>
 				<p:submenu label="Vendas" icon="ui-icon-extlink">
 					<p:menuitem value="Produto" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_vendas_produto.jsf"/>
+						icon="ui-icon-disk" url="/filtro_vendas_produto.jsf" />
 					<p:menuitem value="Cliente" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_vendas_cliente.jsf"/>
+						icon="ui-icon-disk" url="/filtro_vendas_cliente.jsf" />
 					<p:menuitem value="Região" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_vendas_regiao.jsf"/>
+						icon="ui-icon-disk" url="/filtro_vendas_regiao.jsf" />
 				</p:submenu>
 				<p:submenu label="Custos" icon="ui-icon-extlink">
 
 					<p:menuitem value="Impostos" actionListener="#{buttonBean.save}"
-						icon="ui-icon-disk" url="/filtro_custos_imposto.jsf"/>
+						icon="ui-icon-disk" url="/filtro_custos_imposto.jsf" />
 				</p:submenu>
 			</p:submenu>
 			<p:separator />
-			<p:submenu label="Importar">
+			<p:submenu label="Importar"
+				rendered="#{securityContext.hasRole('CLIENTE')}">
 				<p:menuitem value="Notas" url="/upload_file.jsf"
 					icon="ui-icon-signal" />
 			</p:submenu>
 
 			<p:submenu label="#{messages['menu.cadastros']}">
-				<!-- <p:submenu label="Emitente"
-					icon="ui-icon-extlink"> 
-					<p:menuitem value="#{messages['menu.menuitem.new']}"
-						url="/cliente_edit.jsf" icon="ui-icon-home" /> 
-					<p:menuitem value="#{messages['menu.menuitem.list']}"
-						url="/cliente_list.jsf" icon="ui-icon-document" />
-				 </p:submenu>
-				<p:submenu label="#{messages['menu.cliente']}"
-					icon="ui-icon-extlink"> -->
-
-				<!--	<p:menuitem value="#{messages['menu.menuitem.new']}"
-						url="/cliente_edit.jsf" icon="ui-icon-home" /> -->
-
 				<p:menuitem value="#{messages['menu.cliente']}"
-					url="/cliente_list.jsf" icon="ui-icon-signal" />
-				<!-- </p:submenu> -->
-				<p:menuitem value="#{messages['menu.emitente']}"
-					outcome="/emitente_list.jsf" icon="ui-icon-signal" />
+					url="/cliente_list.jsf" icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('CLIENTE')}" />
 				<p:menuitem value="#{messages['menu.produto']}"
-					outcome="/produto_list.jsf" icon="ui-icon-signal" />
+					url="/produto_list.jsf" icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('CLIENTE')}" />
+				<p:menuitem value="#{messages['menu.emitentes']}"
+					outcome="/emitente_list.jsf" icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('ADMIN')}" />
+				<p:menuitem value="#{messages['menu.emitente']}"
+					outcome="/emitente_list.jsf" icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('CLIENTE')}" />
+				<p:menuitem value="#{messages['menu.produto']}"
+					outcome="/produto_list.jsf" icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('CLIENTE')}" />
 				<p:menuitem value="Usuários" outcome="/usuario_list.jsf"
-					icon="ui-icon-signal" />
+					icon="ui-icon-signal"
+					rendered="#{securityContext.hasRole('ADMIN')}" />
 			</p:submenu>
 		</p:panelMenu>
 	</h:form>

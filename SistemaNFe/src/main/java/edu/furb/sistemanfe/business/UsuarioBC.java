@@ -33,6 +33,16 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			u.setStatus(StatusUsuarioEnum.ATIVO);
 			u.setTipoUsuario(TipoUsuarioEnum.ADMIN);			
 			insert(u);
+			
+			/**
+			 * Iniciar um usuário padrão para testes
+			 */
+			u = new Usuario();
+			u.setLogin("cliente");
+			u.setSenha("cliente");
+			u.setStatus(StatusUsuarioEnum.ATIVO);
+			u.setTipoUsuario(TipoUsuarioEnum.CLIENTE);			
+			insert(u);
 		}
 	}
 		

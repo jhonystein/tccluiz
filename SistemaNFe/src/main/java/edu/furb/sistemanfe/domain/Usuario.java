@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
 	@Column(name = "DSSTATUS", length = 20)
 	private StatusUsuarioEnum status = StatusUsuarioEnum.BLOQUEADO;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "DSTIPOUSUARIO", length = 5)
+	@Column(name = "DSTIPOUSUARIO", length = 20)
 	private TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.CLIENTE;
 	@ManyToOne
 	@JoinColumn(name="IDEMITENTE")
@@ -99,16 +99,6 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (tipoUsuario == null) {
-			if (other.tipoUsuario != null)
-				return false;
-		} else if (!tipoUsuario.equals(other.tipoUsuario))
-			return false;
-		if (emitente == null) {
-			if (other.emitente != null)
-				return false;
-		} else if (!emitente.equals(other.emitente))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
