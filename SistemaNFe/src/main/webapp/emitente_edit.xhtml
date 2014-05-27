@@ -51,27 +51,59 @@
 					
 					<p:message for="inscricaoEstadual" />
 						
-									
-					<h:outputLabel value="#{messages['label.logradouro']}: " for="enderecoLogradouro" styleClass="text-input" />
-					
-					<h:inputText id="enderecoLogradouro" value="#{emitenteEditMB.bean.endereco.logradouro}"
-						title="#{messages['emitente.alt.endereco']}" disabled="true"/>
-					
-					<p:message for="enderecoLogradouro" />
-					
-					<h:outputLabel value="#{messages['label.numero']}: " for="enderecoNumero" styleClass="text-input" />
-					
-					<h:inputText id="enderecoNumero" value="#{emitenteEditMB.bean.endereco.numero}"
-						title="#{messages['emitente.alt.endereco']}" disabled="true"/>
-					
-					<p:message for="enderecoNumero" />
-					
-					<h:outputLabel value="#{messages['label.uf']}: " for="enderecoSigla" styleClass="text-input" />
-					
-					<h:inputText id="enderecoSigla" value="#{emitenteEditMB.bean.endereco.estado.sigla}"
-						title="#{messages['emitente.alt.endereco']}" disabled="true"/>
-					
+					<h:outputLabel value="#{messages['label.uf']}: "
+						for="enderecoSigla" styleClass="text-input" />
+
+					<h:inputText id="enderecoSigla"
+						value="#{emitenteEditMB.bean.endereco.estado.sigla}"
+						title="#{messages['emitente.alt.endereco']}" disabled="true" />
+
 					<p:message for="enderecoSigla" />
+
+					<h:outputLabel value="#{messages['label.cidade']}: "
+						for="enderecoCidade" styleClass="text-input" />
+
+					<h:inputText id="enderecoCidade"
+						value="#{emitenteEditMB.bean.endereco.estado.cidade}"
+						title="#{messages['emitente.alt.endereco']}" disabled="true" />
+
+					<p:message for="enderecoCidade" />
+
+					<h:outputLabel value="#{messages['label.logradouro']}: "
+						for="enderecoLogradouro" styleClass="text-input" />
+
+					<h:inputText id="enderecoLogradouro"
+						value="#{emitenteEditMB.bean.endereco.logradouro}"
+						title="#{messages['emitente.alt.endereco']}" disabled="true" />
+
+					<p:message for="enderecoLogradouro" />
+
+					<h:outputLabel value="#{messages['label.numero']}: "
+						for="enderecoNumero" styleClass="text-input" />
+
+					<h:inputText id="enderecoNumero"
+						value="#{emitenteEditMB.bean.endereco.numero}"
+						title="#{messages['emitente.alt.endereco']}" disabled="true" />
+
+					<p:message for="enderecoNumero" />
+
+					<h:outputLabel value="#{messages['label.bairro']}: "
+						for="enderecoBairro" styleClass="text-input" />
+
+					<h:inputText id="enderecoBairro"
+						value="#{emitenteEditMB.bean.endereco.bairro}"
+						title="#{messages['emitente.alt.endereco']}" disabled="true" />
+
+					<p:message for="enderecoBairro" />
+
+					<h:outputLabel value="#{messages['label.cep']}: " for="enderecoCep"
+						styleClass="text-input" />
+
+					<h:inputText id="enderecoCep"
+						value="#{emitenteEditMB.bean.endereco.cep}"
+						title="#{messages['emitente.alt.endereco']}" readonly="false" />
+
+					<p:message for="enderecoCep" />
 						
 				</h:panelGrid>
 			</p:fieldset>
