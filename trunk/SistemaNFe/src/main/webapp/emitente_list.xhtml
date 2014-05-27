@@ -27,12 +27,12 @@
 				<p:column style="width:2%;">
 					<h:selectBooleanCheckbox value="#{emitenteListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
-				
+				<!-- 
 				<p:column style="width:5%;" sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['emitente.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
-						
+				 -->		
 				<p:column sortBy="#{bean.documento}">
 					<f:facet name="header">#{messages['emitente.label.documento']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
@@ -48,7 +48,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-					
+				<!-- 	
 				<p:column sortBy="#{bean.inscricaoEstadual}">
 					<f:facet name="header">#{messages['emitente.label.inscricaoEstadual']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
@@ -56,7 +56,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-					
+				 
 				<p:column sortBy="#{bean.endereco}">
 					<f:facet name="header">#{messages['emitente.label.endereco']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
@@ -64,7 +64,22 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-					
+				-->	
+				<p:column >
+					<f:facet name="header">#{messages['label.uf']}</f:facet>
+					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
+						<h:outputText value="#{bean.endereco.estado.sigla}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+				<p:column >
+					<f:facet name="header">#{messages['label.cidade']}</f:facet>
+					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
+						<h:outputText value="#{bean.endereco.estado.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
+
 			</p:dataTable>
 		</h:form>
 
