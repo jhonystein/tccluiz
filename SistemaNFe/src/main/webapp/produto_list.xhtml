@@ -7,37 +7,12 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}"
-						icon="ui-icon-document" action="#{produtoListMB.getNextView}"
-						actionListener="#{produtoListMB.clear}" ajax="false" />
-
-					<p:commandButton title="#{messages['button.delete']}"
-						icon="ui-icon-trash" onclick="confirmation.show()" type="button"
-						immediate="true" ajax="false" />
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}"
-						showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert"
-						widgetVar="confirmation">
-
-						<h:commandButton value="#{messages['button.dialog.yes']}"
-							action="#{produtoListMB.deleteSelection}"
-							actionListener="#{produtoListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
-			</p:toolbar>
+			
 			<p:dataTable id="list" var="bean" value="#{produtoListMB.lazyModel}"
 				lazy="true" paginator="true" first="#{messages['page.first']}"
 				rows="#{messages['page.rows']}">
 				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
-					<h:selectBooleanCheckbox
-						value="#{produtoListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
-				</p:column>
+				
 
 				<p:column sortBy="#{bean.codigo}">
 					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>

@@ -5,36 +5,20 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:toolbar>
-				<p:toolbarGroup align="left">
-					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{clienteListMB.getNextView}"
-						actionListener="#{clienteListMB.clear}" ajax="false" /> 
-
-					<!-- <p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" immediate="true" ajax="false" /> -->
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{clienteListMB.deleteSelection}"
-							actionListener="#{clienteListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
-			</p:toolbar>
+			
 			<p:dataTable id="list" var="bean" value="#{clienteListMB.resultList}">
 				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
+				<!--<p:column style="width:2%;">
 					<h:selectBooleanCheckbox value="#{clienteListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
 				</p:column>
-				<!--  
+				  
 				<p:column style="width:5%;" sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['cliente.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
 				-->		
 				<p:column sortBy="#{bean.documento}">
-					<f:facet name="header">#{messages['cliente.label.documento']}</f:facet>
+					<f:facet name="header">#{messages['idDocumento']}</f:facet>
 					<h:commandLink action="#{clienteListMB.getNextView}" actionListener="#{clienteListMB.clear}">
 						<h:outputText value="#{bean.documento}" />
 						<f:param name="id" value="#{bean.id}" />
@@ -68,7 +52,7 @@
 				<p:column>
 					<f:facet name="header">#{messages['label.cidade']}</f:facet>
 					<h:commandLink action="#{clienteListMB.getNextView}" actionListener="#{clienteListMB.clear}">
-						<h:outputText value="#{bean.endereco.estado.cidade}}" />
+						<h:outputText value="#{bean.endereco.estado.nome}}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>

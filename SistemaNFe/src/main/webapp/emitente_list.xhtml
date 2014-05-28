@@ -34,7 +34,7 @@
 				</p:column>
 				 -->		
 				<p:column sortBy="#{bean.documento}">
-					<f:facet name="header">#{messages['emitente.label.documento']}</f:facet>
+					<f:facet name="header">#{messages['idDocumento']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
 						<h:outputText value="#{bean.documento}" />
 						<f:param name="id" value="#{bean.id}" />
