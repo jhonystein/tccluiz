@@ -26,7 +26,6 @@ import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
-import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
 
 public class LeitorXMLNFe {
