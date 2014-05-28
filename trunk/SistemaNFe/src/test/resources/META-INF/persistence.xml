@@ -7,16 +7,17 @@
 	<!-- -->
 	<persistence-unit name="SistemaNFeTestDS" transaction-type="RESOURCE_LOCAL">
 
-		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Pais</class>
+		<class>edu.furb.sistemanfe.domain.Empresa</class>
+		<class>edu.furb.sistemanfe.domain.ArquivoXML</class>
 		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
 		<class>edu.furb.sistemanfe.domain.Estado</class>
 		<class>edu.furb.sistemanfe.domain.Produto</class>
-		<class>edu.furb.sistemanfe.domain.NotaFiscal</class>
 		<class>edu.furb.sistemanfe.domain.Cliente</class>
 		<class>edu.furb.sistemanfe.domain.Emitente</class>
 		<class>edu.furb.sistemanfe.domain.ItemNotaFiscal</class>
 		<class>edu.furb.sistemanfe.domain.Municipio</class>
+		<class>edu.furb.sistemanfe.domain.Usuario</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver" />
