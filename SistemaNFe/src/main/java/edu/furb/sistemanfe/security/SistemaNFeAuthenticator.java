@@ -2,6 +2,7 @@ package edu.furb.sistemanfe.security;
 
 import java.lang.reflect.Field;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
 import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 import edu.furb.sistemanfe.view.LoginMB;
 
+@SessionScoped
 public class SistemaNFeAuthenticator implements Authenticator {
 
 	private static final long serialVersionUID = 1L;
@@ -67,6 +69,8 @@ public class SistemaNFeAuthenticator implements Authenticator {
 							"Usuário não ativo.\nContate administrador do sistema.");
 				}
 				loginMB.setUsuario(usuario);
+				
+				credentials.setUsuario(usuario);
 
 				facesContext.addMessage(
 						null,
