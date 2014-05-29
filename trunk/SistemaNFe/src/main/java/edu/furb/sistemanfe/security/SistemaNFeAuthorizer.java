@@ -1,11 +1,13 @@
 package edu.furb.sistemanfe.security;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.security.Authorizer;
 import br.gov.frameworkdemoiselle.security.SecurityContext;
 import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 
+@SessionScoped
 public class SistemaNFeAuthorizer implements Authorizer {
 
 	private static final long serialVersionUID = 6349905487640014675L;

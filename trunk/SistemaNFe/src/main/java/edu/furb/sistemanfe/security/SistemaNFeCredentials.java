@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import edu.furb.sistemanfe.domain.Usuario;
+
 @SessionScoped
 @Named("credenciais")
 public class SistemaNFeCredentials implements Serializable {
@@ -14,6 +16,16 @@ public class SistemaNFeCredentials implements Serializable {
 	private String username;
 
 	private String password;
+	
+	private Usuario usuario;	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public void clear() {
 		username = null;
