@@ -2,9 +2,7 @@ package edu.furb.sistemanfe.view;
 
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,16 +17,15 @@ import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @Named
 @SessionScoped
-public class LoginMB implements Serializable{
+public class LoginMB implements Serializable {
 
 	private static final long serialVersionUID = 6800185726427855295L;
-	
+
 	private Usuario usuario;
 	private Emitente emitente;
 	private String confirma_senha = "";
 	private String login;
 	private String senha;
-	
 
 	@Inject
 	private SistemaNFeCredentials credentials;
@@ -39,9 +36,8 @@ public class LoginMB implements Serializable{
 	@Inject
 	private MessageContext messageContext;
 	@Inject
-	private UsuarioBC usuarioBC; 
-	
-		
+	private UsuarioBC usuarioBC;
+
 	public String getConfirma_senha() {
 		return confirma_senha;
 	}
@@ -66,13 +62,14 @@ public class LoginMB implements Serializable{
 		this.senha = senha;
 	}
 
-	public String getNomeUsuario(){
-		if(usuario==null){
+	public String getNomeUsuario() {
+		if (usuario == null) {
 			return "Sem login";
 		}
-		return String.format("(%s)-%s", usuario.getTipoUsuario().getDescricao(), usuario.getLogin());
+		return String.format("(%s)-%s",
+				usuario.getTipoUsuario().getDescricao(), usuario.getLogin());
 	}
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -94,10 +91,12 @@ public class LoginMB implements Serializable{
 			securityContext.login();
 			return "welcome";
 		} catch (AuthenticationException ae) {
-			messageContext.add("Falha de autenticação: {0}", SeverityType.ERROR, ae.getMessage());
+			messageContext.add("Falha de autenticação: {0}",
+					SeverityType.ERROR, ae.getMessage());
 			return "login";
 		} catch (Exception e) {
-			messageContext.add("Erro critico: %s", SeverityType.ERROR, e.getMessage());
+			messageContext.add("Erro critico: {0}", SeverityType.ERROR,
+					e.getMessage());
 			return "login";
 		}
 	}
@@ -105,27 +104,29 @@ public class LoginMB implements Serializable{
 	public String doLogout() {
 		securityContext.logout();
 		return "login";
-	
+
 	}
-	
-	public String cadastrarNew() throws Exception {
+
+	public String cadastrarNew() {
 		try {
 			if (!this.getSenha().equals(confirma_senha)) {
 
 				throw new Exception("Senha não confere.");
 			}
-			if (this.usuarioBC.findByUsername(this.getLogin()) != null){
+			if (this.usuarioBC.findByUsername(this.getLogin()) != null) {
 				throw new Exception("Usuário já cadastrado.");
 			}
 			Usuario usuario = new Usuario();
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			this.usuarioBC.insert(usuario);
-			messageContext.add("Solicitação fetuada com sucesso!!!", SeverityType.INFO);
+			messageContext.add("Solicitação fetuada com sucesso!!!",
+					SeverityType.INFO);
 			return "login";
-			
+
 		} catch (Exception ex) {
-			messageContext.add("Erro critico: %s", SeverityType.ERROR, ex.getMessage());
+			messageContext.add("Erro critico :{0}", SeverityType.ERROR,
+					ex.getMessage());
 			return "";
 		}
 	}
