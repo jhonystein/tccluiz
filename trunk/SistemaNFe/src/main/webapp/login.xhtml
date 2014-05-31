@@ -6,7 +6,7 @@
 	template="/template/main_login.xhtml">
 
 	<ui:define name="body">
-		<p:fieldset legend="Autentique-se">
+		<p:fieldset legend="#{messages['login.caption']}">
 			<h:form>
 				<h:panelGrid columns="3">
 					<h:outputLabel value="#{messages['login.user']}" for="username"
@@ -22,28 +22,27 @@
 
 					<p:spacer />
 					<p:spacer />
-
 					<p:spacer />
+					
 					<h:commandButton value="#{messages['login.acesso']}"
 						action="#{loginMB.doLogin}" />
 					<p:spacer />
 					<p:spacer />
-					<p:spacer />
 
 					<p:spacer />
-					<p:commandLink id="ajax" 
-						actionListener="./usuario_new.jsp">
-						<h:outputText value="Solicitar Acesso" />
-						
-					</p:commandLink>
-					<h:link outcome="usuario_new" value="Aaaaaaa"/>
+					<p:spacer />
+					<p:spacer />
+					
+					<p:spacer />
+					<p:spacer />
+					<p:spacer />
+					
+					<p:spacer />
+					<p:spacer />
+					<p:spacer />
 
-
-
-
-
-
-
+					<h:link outcome="usuario_new"
+						value="#{messages['login.solicitar.acesso']}" />
 				</h:panelGrid>
 			</h:form>
 		</p:fieldset>
