@@ -26,6 +26,23 @@
 					<p:spacer />
 					<h:commandButton value="#{messages['login.acesso']}"
 						action="#{loginMB.doLogin}" />
+					<p:spacer />
+					<p:spacer />
+					<p:spacer />
+
+					<p:spacer />
+					<p:commandLink id="ajax" 
+						actionListener="./usuario_new.jsp">
+						<h:outputText value="Solicitar Acesso" />
+						
+					</p:commandLink>
+					<h:link outcome="usuario_new" value="Aaaaaaa"/>
+
+
+
+
+
+
 
 				</h:panelGrid>
 			</h:form>

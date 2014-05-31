@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.validator.constraints.Email;
+
 import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
 import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 
@@ -28,6 +30,7 @@ public class Usuario implements Serializable {
 	@GeneratedValue(generator = "GenUsuario", strategy = GenerationType.TABLE)
 	private Long id = null;
 	@Column(name = "NMLOGIN", length = 20)
+	@Email
 	private String login = null;
 	@Column(name = "DSSENHA", length = 20)
 	private String senha = null;

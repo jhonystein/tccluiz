@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main_login.xhtml">
+
+	<ui:define name="body">
+		<p:fieldset legend="Solicitar Acesso">
+			<h:form>
+				<h:panelGrid columns="3">
+					<h:outputLabel value="#{messages['usuario.label.login']}: "
+						for="login" styleClass="text-input" />
+
+					<h:inputText id="login" value="#{loginMB.login}"
+						title="#{messages['usuario.alt.login']}" >
+											
+						</h:inputText>
+
+					<p:message for="login" />
+					
+					<h:outputLabel value="#{messages['usuario.label.senha']}: "
+						for="senha" styleClass="text-input" />
+
+					<h:inputSecret id="senha" value="#{loginMB.senha}"
+						title="#{messages['usuario.alt.senha']}" />
+
+					<p:message for="senha" />	
+					
+					<h:outputLabel value="#{messages['usuario.label.confirma_senha']}: "
+						for="confirma_senha" styleClass="text-input" />
+
+					<h:inputSecret id="confirma_senha" value="#{loginMB.confirma_senha}"
+						title="#{messages['usuario.alt.senha']}" />
+
+					<p:message for="confirma_senha" />	
+
+					<p:spacer />
+					<p:spacer />
+
+					<p:spacer />
+					<h:commandButton value="#{messages['login.acesso']}"
+						action="#{loginMB.cadastrarNew}" />
+				
+				</h:panelGrid>
+			</h:form>
+		</p:fieldset>
+	</ui:define>
+
+</ui:composition>
