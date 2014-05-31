@@ -10,7 +10,10 @@ import javax.persistence.criteria.Root;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
+import edu.furb.sistemanfe.business.Iterator;
+import edu.furb.sistemanfe.business.LineItemSum;
 import edu.furb.sistemanfe.domain.Produto;
+import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 
 @PersistenceController
@@ -56,5 +59,26 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 
 	}
 	
+	
+//
+//	public List<ProdutoGraficoVendas> findByAlgumCriterioEspecifico(
+//			final String criterio) {
+//
+//		
+//		
+//		List<ProdutoGraficoVendas> arr = (List<ProdutoGraficoVendas>) getEntityManager()
+//				.createQuery(
+//						"SELECT NEW jpqlexample.servlets.LineItemSum(p.price, l.quantity) FROM PurchaseOrder o JOIN o.orderLineItems l JOIN l.product p JOIN p.supplier s WHERE s.sup_name = 'Tortuga Trading'")
+//				.getResultList();
+//		Iterator<ProdutoGraficoVendas> i =  (Iterator<ProdutoGraficoVendas> )arr.iterator();
+//		LineItemSum lineItemSum;
+//		Double sum = 0.0;
+//		while (i.hasNext()) {
+//			lineItemSum = (LineItemSum) i.next();
+//			sum = sum + lineItemSum.getRslt();
+//		}
+//
+//	}
+//	
 
 }

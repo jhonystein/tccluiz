@@ -49,4 +49,5 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		}
 
 	}
+
 }

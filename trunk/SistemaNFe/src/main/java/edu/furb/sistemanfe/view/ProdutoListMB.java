@@ -38,8 +38,7 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 			@Override
 			public List<Produto> load(int first, int pageSize,
 					String sortField, SortOrder sortOrder,
-					Map<String, String> filters) {
-				
+					Map<String, Object> filters) {
 				Pagination pagination = getPagination();
 				pagination.setPageSize(pageSize);
 				pagination.setFirstResult(first);
@@ -49,6 +48,22 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 				lazyModel.setRowCount(pagination.getTotalResults());
 				return itensLista;
 			}
+			
+			
+//			@Override
+//			public List<Produto> load(int first, int pageSize,
+//					String sortField, SortOrder sortOrder,
+//					Map<String, String> filters) {
+//				
+//				Pagination pagination = getPagination();
+//				pagination.setPageSize(pageSize);
+//				pagination.setFirstResult(first);
+//				
+//				List<Produto> itensLista = produtoBC.findAll();// buscaCliente(codigo, nome, documento, sortField, sortOrder);
+//				
+//				lazyModel.setRowCount(pagination.getTotalResults());
+//				return itensLista;
+//			}
 		};
 	}
 	
