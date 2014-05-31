@@ -8,7 +8,6 @@
 	<h:form>
 		<p:panelMenu style="width:230px"
 			rendered="#{securityContext.loggedIn}">
-			<!-- TODO; teria que adicionar uma opção HOME -->
 			<p:menuitem value="Mobile" outcome="/mobile/index"
 				icon="ui-icon-signal" />
 			<p:submenu label="Início">
@@ -24,22 +23,26 @@
 			<p:submenu label="Consultas"
 				rendered="#{securityContext.hasRole('CLIENTE')}">
 				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
-					<p:menuitem value="Clientes" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Clientes" 
 						icon="ui-icon-disk" url="/filtro_curva_cliente.jsf" />
-					<p:menuitem value="Produtos" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Produtos" 
 						icon="ui-icon-disk" url="/filtro_curva_produto.jsf" />
 				</p:submenu>
 				<p:submenu label="Vendas" icon="ui-icon-extlink">
-					<p:menuitem value="Produto" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Produto" 
 						icon="ui-icon-disk" url="/filtro_vendas_produto.jsf" />
-					<p:menuitem value="Cliente" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Cliente" 
 						icon="ui-icon-disk" url="/filtro_vendas_cliente.jsf" />
-					<p:menuitem value="Região" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Região" 
 						icon="ui-icon-disk" url="/filtro_vendas_regiao.jsf" />
+						
+						<p:menuitem value="Região" 
+						icon="ui-icon-disk" url="/exibe_grafico_produto.jsf" />
+						
 				</p:submenu>
 				<p:submenu label="Custos" icon="ui-icon-extlink">
 
-					<p:menuitem value="Impostos" actionListener="#{buttonBean.save}"
+					<p:menuitem value="Impostos" 
 						icon="ui-icon-disk" url="/filtro_custos_imposto.jsf" />
 				</p:submenu>
 			</p:submenu>
@@ -63,9 +66,6 @@
 				<p:menuitem value="#{messages['menu.emitente']}"
 					outcome="/emitente_list.jsf" icon="ui-icon-signal"
 					rendered="#{securityContext.hasRole('CLIENTE')}" />
-				<!-- <p:menuitem value="#{messages['menu.produto']}"
-					outcome="/produto_list.jsf" icon="ui-icon-signal"
-					rendered="#{securityContext.hasRole('CLIENTE')}" /> -->
 				<p:menuitem value="Usuários" outcome="/usuario_list.jsf"
 					icon="ui-icon-signal"
 					rendered="#{securityContext.hasRole('ADMIN')}" />
