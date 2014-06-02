@@ -37,7 +37,7 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 	@Override
 	@Transactional
 	// Não é possível com JAAS.
-	@RequiredPermission(resource = "estacionamento", operation = "insert")
+	//@RequiredPermission(resource = "estacionamento", operation = "insert")
 	public ArquivoXML insert(ArquivoXML arquivoXML) {
 		try {
 			if (arquivoXML.getDataUpload() == null) {

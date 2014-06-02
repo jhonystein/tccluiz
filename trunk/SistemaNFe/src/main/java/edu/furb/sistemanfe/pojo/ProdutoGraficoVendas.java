@@ -8,14 +8,17 @@ public class ProdutoGraficoVendas implements Serializable{
 	
 	private String dsCodigo;
 	private String nmProduto;
-	private Double quantidade;
+	private Double totalItens;
+	
+	public ProdutoGraficoVendas() {
+	}
 	
 	public ProdutoGraficoVendas(String dsCodigo, String nmProduto,
-			Double quantidade) {
+			Double totalItens) {
 		super();
 		this.dsCodigo = dsCodigo;
 		this.nmProduto = nmProduto;
-		this.quantidade = quantidade;
+		this.totalItens = totalItens;
 	}
 
 	public String getDsCodigo() {
@@ -33,13 +36,13 @@ public class ProdutoGraficoVendas implements Serializable{
 	public void setNmProduto(String nmProduto) {
 		this.nmProduto = nmProduto;
 	}
-
-	public Double getQuantidade() {
-		return quantidade;
+	
+	public Double getTotalItens() {
+		return totalItens;
 	}
 
-	public void setQuantidade(Double quantidade) {
-		this.quantidade = quantidade;
+	public void setTotalItens(Double quantidade) {
+		this.totalItens = quantidade;
 	}
 	
 	

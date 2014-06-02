@@ -27,6 +27,7 @@ import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 public class LeitorXMLNFe {
 
@@ -40,7 +41,8 @@ public class LeitorXMLNFe {
 	private ProdutoBC produtoBC;
 	@Inject
 	private EmitenteBC emitenteBC;
-	private Emitente emitente;
+	@Inject
+	private SistemaNFeCredentials credencial;
 
 	private boolean ehTag(Element elemento, String nome) {
 		return elemento.getName().trim().toUpperCase()
@@ -56,14 +58,6 @@ public class LeitorXMLNFe {
 			}
 		}
 		return false;
-	}
-
-	public Emitente getEmitente() {
-		return emitente;
-	}
-
-	public void setEmitente(Emitente emitente) {
-		this.emitente = emitente;
 	}
 
 	public List<NotaFiscal> readXml(ArquivoXML arquivo) {
@@ -88,6 +82,12 @@ public class LeitorXMLNFe {
 		// return null;
 		// }
 
+		Emitente emitente = credencial.getUsuario().getEmitente();
+		
+		if(emitente==null){
+			
+		}
+		
 		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
 		// File f = new File(pathFile);
 		// if (!f.exists()) {

@@ -88,12 +88,6 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 		
 		logoFooter = event.getFile();
 		try{
-			
-			if(!credenciais.getUsername().equals("111111")){
-				throw new Exception(String.format("Usuário %s .", cred.getUsername()));
-			}
-			
-			
 			if(!logoFooter.getContentType().equals("text/xml")){
 				throw new Exception(String.format("Formato do arquivo %s não é válido.", event.getFile().getFileName()));
 			}

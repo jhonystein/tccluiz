@@ -29,18 +29,23 @@ public class Usuario implements Serializable {
 	@Column(name = "IDUSUARIO")
 	@GeneratedValue(generator = "GenUsuario", strategy = GenerationType.TABLE)
 	private Long id = null;
-	@Column(name = "NMLOGIN", length = 20)
+	@Column(name = "NMLOGIN", length = 250, nullable=false)
 	@Email
 	private String login = null;
-	@Column(name = "DSSENHA", length = 20)
+	@Column(name = "DSSENHA", length = 20, nullable=false)
 	private String senha = null;
+	@Column(name = "NMNOME", length = 50, nullable=true)
+	private String nome = null;
+	@Column(name = "DSFONE1", length = 12, nullable=true)
+	private String fone1 = null;	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "DSSTATUS", length = 20)
+	@Column(name = "DSSTATUS", length = 20, nullable=false)
 	private StatusUsuarioEnum status = StatusUsuarioEnum.BLOQUEADO;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DSTIPOUSUARIO", length = 20)
 	private TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.CLIENTE;
-	@ManyToOne
+	//TODO: Rever metodo de cascata. 
+	@ManyToOne()
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
 		
@@ -61,6 +66,18 @@ public class Usuario implements Serializable {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getFone1() {
+		return fone1;
+	}
+	public void setFone1(String fone1) {
+		this.fone1 = fone1;
 	}
 	public StatusUsuarioEnum getStatus() {
 		return status;

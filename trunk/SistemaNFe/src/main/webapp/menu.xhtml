@@ -14,36 +14,36 @@
 				<p:menuitem value="Notas" outcome="/notaFiscal_list.jsf"
 					icon="ui-icon-signal"
 					rendered="#{securityContext.hasRole('CLIENTE')}" />
-					<p:menuitem value="Início" outcome="/welcome.jsf"
+				<p:menuitem value="Início" outcome="/welcome.jsf"
 					icon="ui-icon-signal"
 					rendered="#{securityContext.hasRole('ADMIN')}" />
-				
+
 			</p:submenu>
 
 			<p:submenu label="Consultas"
 				rendered="#{securityContext.hasRole('CLIENTE')}">
 				<p:submenu label="Curva ABC" icon="ui-icon-extlink">
-					<p:menuitem value="Clientes" 
-						icon="ui-icon-disk" url="/filtro_curva_cliente.jsf" />
-					<p:menuitem value="Produtos" 
-						icon="ui-icon-disk" url="/filtro_curva_produto.jsf" />
+					<p:menuitem value="Clientes" icon="ui-icon-disk"
+						url="/filtro_curva_cliente.jsf" />
+					<p:menuitem value="Produtos" icon="ui-icon-disk"
+						url="/filtro_curva_produto.jsf" />
 				</p:submenu>
 				<p:submenu label="Vendas" icon="ui-icon-extlink">
-					<p:menuitem value="Produto" 
-						icon="ui-icon-disk" url="/filtro_vendas_produto.jsf" />
-					<p:menuitem value="Cliente" 
-						icon="ui-icon-disk" url="/filtro_vendas_cliente.jsf" />
-					<p:menuitem value="Região" 
-						icon="ui-icon-disk" url="/filtro_vendas_regiao.jsf" />
-						
-						<p:menuitem value="Região" 
-						icon="ui-icon-disk" url="/exibe_grafico_produto.jsf" />
-						
+					<p:menuitem value="Produto" icon="ui-icon-disk"
+						url="/filtro_vendas_produto.jsf" />
+					<p:menuitem value="Cliente" icon="ui-icon-disk"
+						url="/filtro_vendas_cliente.jsf" />
+					<p:menuitem value="Região" icon="ui-icon-disk"
+						url="/filtro_vendas_regiao.jsf" />
+
+					<p:menuitem value="Gráfico Produtos" icon="ui-icon-disk"
+						url="/exibe_grafico_produto.jsf" />
+
 				</p:submenu>
 				<p:submenu label="Custos" icon="ui-icon-extlink">
 
-					<p:menuitem value="Impostos" 
-						icon="ui-icon-disk" url="/filtro_custos_imposto.jsf" />
+					<p:menuitem value="Impostos" icon="ui-icon-disk"
+						url="/filtro_custos_imposto.jsf" />
 				</p:submenu>
 			</p:submenu>
 			<p:separator />
