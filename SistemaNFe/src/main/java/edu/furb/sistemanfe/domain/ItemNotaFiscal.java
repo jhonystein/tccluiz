@@ -23,6 +23,8 @@ public class ItemNotaFiscal implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2271036933097231871L;
+
+	
 	@Id
 	@Column(name = "IDITEMNOTAFISCAL")
 	@GeneratedValue(generator = "GenItemNotaFiscal", strategy = GenerationType.TABLE)

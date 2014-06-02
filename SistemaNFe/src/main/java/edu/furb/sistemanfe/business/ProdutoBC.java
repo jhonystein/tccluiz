@@ -2,6 +2,8 @@ package edu.furb.sistemanfe.business;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -9,11 +11,16 @@ import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.persistence.ProdutoDAO;
+import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @BusinessController
 public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private SistemaNFeCredentials credentials;
 
 	public Produto buscaPorCodigo(String codigo) {
 		ProdutoDTO dto = new ProdutoDTO();
@@ -48,6 +55,12 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 			}
 		}
 
+	}
+	
+	public List<ProdutoGraficoVendas> getteste(){
+		//getDelegate().teste2(1L);
+		//getDelegate().novoTeste2();
+		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
 	}
 
 }

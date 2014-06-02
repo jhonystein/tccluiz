@@ -23,13 +23,14 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 	@Startup
 	@Transactional
 	public void load() {
-		if (findByUsername("admin") == null) {
+		if (findByUsername("admin@sistemanfe.com.br") == null) {
 			/**
 			 * Sempre deve existir pelo menos um usuário ADMIN
 			 */
 			Usuario u = new Usuario();
-			u.setLogin("admin");
+			u.setLogin("admin@sistemanfe.com.br");
 			u.setSenha("admin");
+			u.setNome("Administrador");
 			u.setStatus(StatusUsuarioEnum.ATIVO);
 			u.setTipoUsuario(TipoUsuarioEnum.ADMIN);			
 			insert(u);
@@ -38,8 +39,9 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			 * Iniciar um usuário padrão para testes
 			 */
 			u = new Usuario();
-			u.setLogin("cliente");
+			u.setLogin("cliente@sistemanfe.com.br");
 			u.setSenha("cliente");
+			u.setNome("Cliente nro 1");
 			u.setStatus(StatusUsuarioEnum.ATIVO);
 			u.setTipoUsuario(TipoUsuarioEnum.CLIENTE);			
 			insert(u);

@@ -51,7 +51,7 @@ public class LeitorXMLNFeTest {
 	public void lerXmlSucesso() {
 
 		String caminho = "nfe.xml";
-		nfeXmlReader.setEmitente(emitenteTest);
+		//nfeXmlReader.setEmitente(emitenteTest);
 		List<NotaFiscal> litaNotas = nfeXmlReader.readXml(caminho);
 		assertNotNull(litaNotas);
 		assertEquals(1, litaNotas.size());

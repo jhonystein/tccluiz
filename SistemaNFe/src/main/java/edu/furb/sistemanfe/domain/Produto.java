@@ -90,11 +90,6 @@ public class Produto {
 				return false;
 		} else if (!emitente.equals(other.emitente))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
 		return true;
 	}
 

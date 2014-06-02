@@ -63,11 +63,12 @@ public class LoginMB implements Serializable {
 	}
 
 	public String getNomeUsuario() {
-		if (usuario == null) {
+		
+		if (credentials.getUsuario() == null) {
 			return "Sem login";
 		}
 		return String.format("(%s)-%s",
-				usuario.getTipoUsuario().getDescricao(), usuario.getLogin());
+				credentials.getUsuario().getTipoUsuario().getDescricao(), credentials.getUsuario().getLogin());
 	}
 
 	public Usuario getUsuario() {

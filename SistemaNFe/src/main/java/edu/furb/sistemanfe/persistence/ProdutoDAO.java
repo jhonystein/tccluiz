@@ -10,8 +10,7 @@ import javax.persistence.criteria.Root;
 
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
-import edu.furb.sistemanfe.business.Iterator;
-import edu.furb.sistemanfe.business.LineItemSum;
+import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
@@ -30,8 +29,7 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
 		if (dto.getId() != null) {
-			Predicate p = builder.equal(objeto.<Long> get("id"),
-					dto.getId());
+			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
 			predicateList.add(p);
 		}
 		if (dto.getCodigo() != null) {
@@ -44,41 +42,38 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 					dto.getNome());
 			predicateList.add(p);
 		}
-		//TODO: mimplementar os demais campos;
-//		if (dto.getEmitente() == null) {
-			//TODO: Deve criticar se naum tem emitente;
-//			Predicate p = builder.equal(municipio.<String> get("nome"),
-//					municipioDTO.getNome());
-//			predicateList.add(p);
-//		}
-		
+		// TODO: mimplementar os demais campos;
+		// if (dto.getEmitente() == null) {
+		// TODO: Deve criticar se naum tem emitente;
+		// Predicate p = builder.equal(municipio.<String> get("nome"),
+		// municipioDTO.getNome());
+		// predicateList.add(p);
+		// }
+
 		Predicate[] predicates = new Predicate[predicateList.size()];
 		predicateList.toArray(predicates);
-		query.where(predicates);	
+		query.where(predicates);
 		return getEntityManager().createQuery(query).getResultList();
 
 	}
-	
-	
-//
-//	public List<ProdutoGraficoVendas> findByAlgumCriterioEspecifico(
-//			final String criterio) {
-//
-//		
-//		
-//		List<ProdutoGraficoVendas> arr = (List<ProdutoGraficoVendas>) getEntityManager()
-//				.createQuery(
-//						"SELECT NEW jpqlexample.servlets.LineItemSum(p.price, l.quantity) FROM PurchaseOrder o JOIN o.orderLineItems l JOIN l.product p JOIN p.supplier s WHERE s.sup_name = 'Tortuga Trading'")
-//				.getResultList();
-//		Iterator<ProdutoGraficoVendas> i =  (Iterator<ProdutoGraficoVendas> )arr.iterator();
-//		LineItemSum lineItemSum;
-//		Double sum = 0.0;
-//		while (i.hasNext()) {
-//			lineItemSum = (LineItemSum) i.next();
-//			sum = sum + lineItemSum.getRslt();
-//		}
-//
-//	}
-//	
+
+	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {		
+		// + "order by QUANTIDADE";
+		String sqlQuery = "SELECT new edu.furb.sistemanfe.pojo.ProdutoGraficoVendas(p.codigo, p.nome, sum(i.quantidade)) "
+				+ " from NotaFiscal as n, Produto as p "
+				+ " join n.itemNotaFiscal as i "
+				+ " where p.codigo = i.produtoNotaFiscal.codigo and "
+				+ " n.emitente = ?1 "
+				+ " group by p.codigo, p.nome "
+				+ " order by p.codigo";
+		javax.persistence.Query query3 = getEntityManager().createQuery(
+				sqlQuery, ProdutoGraficoVendas.class);
+		query3.setParameter(1, emitente);
+		List<ProdutoGraficoVendas> pessoa = (List<ProdutoGraficoVendas>) query3
+				.getResultList();
+		System.out.println(pessoa.toString());
+		return pessoa;
+
+	}
 
 }
