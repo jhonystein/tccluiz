@@ -58,7 +58,6 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 	}
 
 	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {		
-		// + "order by QUANTIDADE";
 		String sqlQuery = "SELECT new edu.furb.sistemanfe.pojo.ProdutoGraficoVendas(p.codigo, p.nome, sum(i.quantidade)) "
 				+ " from NotaFiscal as n, Produto as p "
 				+ " join n.itemNotaFiscal as i "
