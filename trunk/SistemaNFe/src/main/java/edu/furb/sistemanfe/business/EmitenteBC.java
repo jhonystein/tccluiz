@@ -14,6 +14,7 @@ import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.persistence.EmitenteDAO;
 import edu.furb.sistemanfe.rest.EmitenteDTO;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @BusinessController
 public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
@@ -21,6 +22,8 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 	
 	@Inject
 	private LeitorXMLEmitente leitorXMLEmitente;
+	@Inject
+	private SistemaNFeCredentials credentials;
 	
 	public Emitente buscaDocumento(String documento) {
 		EmitenteDTO dto = new EmitenteDTO();
@@ -32,10 +35,19 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 		return lst.get(0);	
 	}
 	
+	/**
+	 * IMportar o emitente com base em uma rquivo XML de NF-e;
+	 * @param arquivo
+	 * @return
+	 * @throws ValidationException
+	 */
 	public boolean importarEmitenteXML(byte[] arquivo) throws ValidationException{
+		//TODO: FALTA testar esta implementação;
 		String destino = "";
 		File fileEmitente = null;
-		// Gera um arquivo temporário		
+		/**
+		 * Gera um arq temp do XML;
+		 */
 		try {
 			fileEmitente = File.createTempFile(
 					String.format("%s-%s", "1", "EMITENTE"), ".XML");
@@ -50,16 +62,24 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 			e.printStackTrace();
 			throw new ValidationException("Erro ao ler arquivo:"+e.getMessage());
 		}
+		/**
+		 * Efetua o processamento do XML.
+		 */
 		try{
+			//TODO: FALTA testar esta implementação toda;
 			Emitente emit = leitorXMLEmitente.readXml(fileEmitente);
 			insert(emit);
+			credentials.getUsuario().setEmitente(emit);
+			
+			return true;
 			
 		}catch (Exception e) {
 			throw new ValidationException("Falha ao ler arquivo XML."+e.getMessage());
+		}finally{
+			/**
+			 * Ao final do processamento remove o arquivo temp;
+			 */
+			fileEmitente.delete();
 		}
-			
-			//return destino;
-
-		return false;
 	}
 }
