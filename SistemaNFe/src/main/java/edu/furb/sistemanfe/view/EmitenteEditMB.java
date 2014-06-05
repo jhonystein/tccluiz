@@ -1,9 +1,6 @@
 
 package edu.furb.sistemanfe.view;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -16,11 +13,10 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.EmitenteBC;
-import edu.furb.sistemanfe.business.LeitorXMLEmitente;
 import edu.furb.sistemanfe.configuration.AppConfig;
-import edu.furb.sistemanfe.domain.ArquivoXML;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.exception.ValidationException;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @ViewController
 @PreviousView("./emitente_list.jsf")
@@ -32,6 +28,8 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 	private EmitenteBC emitenteBC;
 	@Inject
 	private AppConfig appConfig;
+	@Inject
+	private SistemaNFeCredentials credentials;
 	
 	@Inject
 	private FacesContext facesContext;
@@ -60,15 +58,26 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 		return getPreviousView();
 	}
 	
+	/**
+	 * Contem a regra que controla a exibição do componente de UPLOAD no cadastro do emitente.
+	 * @return true(se não tiver Emitente assocuado ao Usuário atual)/false(caso contrário);
+	 */
+	public boolean getExibirUpload(){
+		//TODO: FALTA testar esta implementação;
+		/**
+		 * Somente exibe o componente se não tiver Emitente assocuado ao usuário
+		 */
+		return credentials.getUsuario().getEmitente()==null;
+	}
+
 	@Override
 	protected Emitente handleLoad(Long id) {
 		return this.emitenteBC.load(id);
 	}
-	
+
 	@Transactional()
 	public void handleFileUpload(FileUploadEvent event) {
-		
-		
+		//TODO: FALTA testar esta implementação;
 		logoFooter = event.getFile();
 		try{
 			if(!logoFooter.getContentType().equals("text/xml")){
@@ -81,19 +90,21 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 				return;
 			}
 			try{
-				boolean ret = emitenteBC.importarEmitenteXML(logoFooter.getContents());
-				
+				emitenteBC.importarEmitenteXML(logoFooter.getContents());
+				facesContext
+				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Sucesso", "Emitente importado com sucesso!!"));
+
 			}catch(ValidationException vex){
 				facesContext
 				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
 						"Atenção", "Falha ao inportar Emitente:"+vex.getMessage()));
 			}
-			
+
 		}catch(Exception ex){
 			facesContext
 			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
 					"Atenção", ex.getMessage()));
 		}	
-
 	}
 }
