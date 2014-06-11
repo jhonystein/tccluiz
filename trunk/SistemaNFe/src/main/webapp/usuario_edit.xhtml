@@ -16,19 +16,7 @@
 					<p:commandButton value="#{messages['button.save']}"
 						action="#{usuarioEditMB.update}"
 						rendered="#{usuarioEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}"
-						onclick="confirmation.show()"
-						rendered="#{usuarioEditMB.updateMode}" type="button"
-						immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}"
-						showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert"
-						widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}"
-							action="#{usuarioEditMB.delete}" immediate="true" ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -37,13 +25,6 @@
 			<p:fieldset legend="#{messages['usuario.label']}" toggleable="true"
 				toggleSpeed="500">
 				<h:panelGrid id="fieldsusuario" columns="3">
-
-					<h:outputLabel value="#{messages['usuario.label.id']}: " for="id"
-						styleClass="text-input" />
-
-					<h:outputText id="id" value="#{usuarioEditMB.bean.id}" />
-
-					<p:message for="id" />
 
 					<h:outputLabel value="#{messages['usuario.label.login']}: "
 						for="login" styleClass="text-input" />
