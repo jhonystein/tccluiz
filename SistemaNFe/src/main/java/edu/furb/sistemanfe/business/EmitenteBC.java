@@ -35,6 +35,13 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 		return lst.get(0);	
 	}
 	
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		super.delete(id);
+		credentials.getUsuario().setEmitente(null);
+	}
+	
 	/**
 	 * IMportar o emitente com base em uma rquivo XML de NF-e;
 	 * @param arquivo

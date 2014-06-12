@@ -3,6 +3,7 @@ package edu.furb.sistemanfe.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class ArquivoXML implements Serializable{
 //	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 //	@JoinColumn(name = "IDEMPRESA")
 //	private Empresa empresa;
-	@OneToOne()
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private NotaFiscal notaFiscal;
 	
 	public ArquivoXML() {

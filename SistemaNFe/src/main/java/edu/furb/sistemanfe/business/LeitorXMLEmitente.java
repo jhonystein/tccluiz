@@ -16,6 +16,7 @@ import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
 import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.Municipio;
+import edu.furb.sistemanfe.domain.Pais;
 
 /**
  * Esta classe tem o objetivo de ler do XML da nota o Emitente;
@@ -28,6 +29,8 @@ public class LeitorXMLEmitente {
 	private MunicipioBC municipioBC;
 	@Inject
 	private EstadoBC estadoBC;
+	@Inject
+	private PaisBC paisBC;
 
 	private boolean ehTag(Element elemento, String nome) {
 		return elemento.getName().trim().toUpperCase()
@@ -81,16 +84,12 @@ public class LeitorXMLEmitente {
 									for (Element elementEmit : elementsEmit) {
 										if (ehTag(elementEmit, "CNPJ")) {
 											ret.setDocumento(elementEmit.getValue());
-											break;
 										}else if (ehTag(elementEmit, "xnome")) {
 											ret.setNome(elementEmit.getValue());
-											break;
 										}else if (ehTag(elementEmit, "IE")) {
 											ret.setInscricaoEstadual(elementEmit.getValue());
-											break;
 										} else if (ehTag(elementEmit, "CRT")) {
 											//TODO: Verifica necessidade futura para este campo
-											break;
 										} else if (ehTag(elementEmit, "enderEmit")) {
 											List<Element> elementsEnderEmit = elementEmit
 													.getChildren();
@@ -98,16 +97,14 @@ public class LeitorXMLEmitente {
 											for (Element elementEnderEmit : elementsEnderEmit) {
 												if (ehTag(elementEnderEmit, "xLgr")) {
 													endeEmi.setLogradouro(elementEnderEmit.getValue());
-													break;
+												}else if (ehTag(elementEnderEmit, "fone")) {
+													endeEmi.setFone1(elementEnderEmit.getValue());
 												}else if (ehTag(elementEnderEmit, "nro")) {
 													endeEmi.setNumero(elementEnderEmit.getValue());
-													break;
 												}else if (ehTag(elementEnderEmit, "xBairro")) {
 													endeEmi.setBairro(elementEnderEmit.getValue());
-													break;
 												}else if (ehTag(elementEnderEmit, "CEP")) {
 													endeEmi.setCep(elementEnderEmit.getValue());
-													break;
 												}else if (ehTag(elementEnderEmit, "cMun")) {
 													
 													Municipio municipio = municipioBC
@@ -120,22 +117,19 @@ public class LeitorXMLEmitente {
 														municipio = cadastraMunicipio(elementsEnderEmit);
 													}													
 													endeEmi.setMunicipio(municipio);
-													break;
 												}else if (ehTag(elementEnderEmit, "UF")) {
 													Estado estado = estadoBC
 															.buscaSigla(elementEnderEmit
 																	.getValue());
 													endeEmi.setEstado(estado);
-													if (estado != null) {
-														endeEmi.setPais(estado
-																.getPais());
-													}
-													
-													break;
+												}else if (ehTag(elementEnderEmit, "cPais")) {
+													Pais pais = paisBC
+															.buscaCodigoBacen(elementEnderEmit
+																	.getValue());
+													endeEmi.setPais(pais);
 												}
 											}//for
 											ret.setEndereco(endeEmi);
-											break;
 										} 
 									}//for
 									break;//Cai fora depois de ler os campos do emitente

@@ -15,6 +15,7 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import br.gov.frameworkdemoiselle.util.ResourceBundle;
 import edu.furb.sistemanfe.domain.Estado;
+import edu.furb.sistemanfe.domain.Pais;
 import edu.furb.sistemanfe.persistence.EstadoDAO;
 import edu.furb.sistemanfe.rest.EstadoDTO;
 
@@ -22,11 +23,13 @@ import edu.furb.sistemanfe.rest.EstadoDTO;
 public class EstadoBC extends DelegateCrud<Estado, Long, EstadoDAO> {
 	private static final long serialVersionUID = 1L;
 	@Inject
-	private ResourceBundle bundle;
+	private ResourceBundle bundle;	
+	@Inject
+	private PaisBC paisBC;
 
 	public Estado buscaSigla(String sigla) {
 		EstadoDTO dto = new EstadoDTO();
-		dto.setCodigoIbge(sigla);
+		dto.setSigla(sigla);
 		List<Estado> lst = getDelegate().pesquisar(dto);
 		if ((lst == null) || (lst.size() == 0)) {
 			return null;
@@ -49,6 +52,8 @@ public class EstadoBC extends DelegateCrud<Estado, Long, EstadoDAO> {
 				String linha = null;
 
 				Estado estado = null;
+				Pais pais = paisBC.buscaCodigoBacen("55"); 
+
 				InputStreamReader reader = new InputStreamReader(stream);
 				BufferedReader br = new BufferedReader(reader);
 				linha = br.readLine();
@@ -60,6 +65,7 @@ public class EstadoBC extends DelegateCrud<Estado, Long, EstadoDAO> {
 					String nome = dados[2];
 
 					estado = new Estado(ufSigla, nome, codIbge);
+					estado.setPais(pais);
 					super.insert(estado);
 					linhas++;
 

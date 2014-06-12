@@ -16,6 +16,8 @@ public class Endereco {
 	private String bairro;
 	@Column(name="NRCEP", length=10)
 	private String cep;
+	@Column(name="NRFONE1", length=15)
+	private String fone1;
 	@Column(name="VLLATITUDE")
 	private Double latitude;
 	@Column(name="VLLONGITUDE")
@@ -62,6 +64,14 @@ public class Endereco {
 		this.cep = cep;
 	}
 	
+	public String getFone1() {
+		return fone1;
+	}
+
+	public void setFone1(String fone1) {
+		this.fone1 = fone1;
+	}
+
 	public Double getLatitude() {
 		return latitude;
 	}
