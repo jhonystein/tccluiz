@@ -94,7 +94,6 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 
 	@Transactional()
 	public void handleFileUpload(FileUploadEvent event) {
-		//TODO: FALTA testar esta implementação;
 		logoFooter = event.getFile();
 		try{
 			if(!logoFooter.getContentType().equals("text/xml")){

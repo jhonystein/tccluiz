@@ -45,7 +45,7 @@ public class EstadoDAO extends JPACrud<Estado, Long> {
 
 		if (estadoDTO.getSigla() != null) {
 			Predicate p = builder.equal(mestado.<String> get("sigla"),
-					estadoDTO.getNome());
+					estadoDTO.getSigla());
 			predicateList.add(p);
 		}
 		//TODO: mimplementar os demais campos;
