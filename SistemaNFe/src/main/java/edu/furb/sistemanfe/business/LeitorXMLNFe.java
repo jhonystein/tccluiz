@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,9 @@ import edu.furb.sistemanfe.domain.Estado;
 import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.Municipio;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.domain.Pais;
 import edu.furb.sistemanfe.domain.ProdutoNotaFiscal;
+import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 public class LeitorXMLNFe {
@@ -37,6 +38,8 @@ public class LeitorXMLNFe {
 	private MunicipioBC municipioBC;
 	@Inject
 	private EstadoBC estadoBC;
+	@Inject
+	private PaisBC paisBC;
 	@Inject
 	private ProdutoBC produtoBC;
 	@Inject
@@ -60,39 +63,27 @@ public class LeitorXMLNFe {
 		return false;
 	}
 
-	public List<NotaFiscal> readXml(ArquivoXML arquivo) {
+	public NotaFiscal readXml(ArquivoXML arquivo) throws ValidationException {
 		File outfile = new File(arquivo.getNome());
 
 		return readXml(outfile);
 	}
 
-	public List<NotaFiscal> readXml(String pathFile) {
+	public NotaFiscal readXml(String pathFile) throws ValidationException {
 		File f = new File(pathFile);
 		if (!f.exists()) {
-			return new ArrayList<NotaFiscal>();
+			return new NotaFiscal();
 		}
 		return readXml(f);
 	}
 
 	@Transactional
-	public List<NotaFiscal> readXml(File f) {
+	public NotaFiscal readXml(File f) throws ValidationException {
+		NotaFiscal nfRet = null;
 
-		// deve ter um emitente
-		// if (emitente == null) {
-		// return null;
-		// }
-
-		Emitente emitente = credencial.getUsuario().getEmitente();
-		
-		if(emitente==null){
-			
+		if(credencial.getUsuario().getEmitente()==null){
+			throw new ValidationException("Erro ao ler arquivo: Usuário não possui emitente associado");
 		}
-		
-		List<NotaFiscal> ret = new ArrayList<NotaFiscal>();
-		// File f = new File(pathFile);
-		// if (!f.exists()) {
-		// return ret;
-		// }
 
 		// Criamos uma classe SAXBuilder que vai processar o XML
 		SAXBuilder sb = new SAXBuilder();
@@ -100,15 +91,7 @@ public class LeitorXMLNFe {
 			// Este documento agora possui toda a estrutura do arquivo.
 			Document d = sb.build(f);
 
-			// Recuperamos o elemento root
-			// Element nfeProc = d.getRootElement();
-			// o arquivo da nfe possui um name space então é necessario um
-			// objeto para representa-lo
-			// Namespace ns = Namespace
-			// .getNamespace("http://www.portalfiscal.inf.br/nfe");
-
 			Element root = d.getRootElement();
-			// Element nfeElement = null;
 
 			System.out.println("Nome da root: " + root.getName());
 
@@ -119,7 +102,6 @@ public class LeitorXMLNFe {
 			// imprime o nome dos elements da root
 			for (Element elementNFeProc : elementsNFeProc) {
 				if (ehTag(elementNFeProc, "NFE")) {
-					NotaFiscal nf = null;
 					List<Element> elementsNFe = elementNFeProc.getChildren();
 					// Achar a chave da NFE.
 					for (Element elementNFeCapa : elementsNFe) {
@@ -131,11 +113,14 @@ public class LeitorXMLNFe {
 							// if(versaoProt == "2.00"){
 							//
 							// }
-							nf = notaFiscalBC.buscaChaveNfe(chaveNfe);
-							if (nf != null) {
-								notaFiscalBC.delete(nf.getId());
+							/**
+							 * Se a nota já existe na base, deve remover.
+							 */
+							nfRet = notaFiscalBC.buscaChaveNfe(chaveNfe);
+							if (nfRet != null) {
+								notaFiscalBC.delete(nfRet.getId());
 							}
-							nf = new NotaFiscal();
+							nfRet = new NotaFiscal();
 							String CNPJ = "";
 							// Obter o Emitente da nota;
 							List<Element> elementsInfNFe = elementNFeCapa
@@ -153,23 +138,25 @@ public class LeitorXMLNFe {
 									break;
 								}
 							}
-							emitente = emitenteBC.buscaDocumento(CNPJ);
+							Emitente emitente = emitenteBC.buscaDocumento(CNPJ);
 							if (emitente == null) {
-								emitente = new Emitente();
-								emitente.setDocumento(CNPJ);
-								emitente = emitenteBC.insert(emitente);
+								throw new ValidationException("Erro ao ler arquivo: Emitente do XML não é válido para esta base");
 							}
-							nf.setEmitente(emitente);
+							if(!emitente.equals(credencial.getUsuario().getEmitente())){
+								throw new ValidationException("Erro ao ler arquivo: Emitente do XML é diferente do emitente do usuário atual.");
+							}						
+
+							nfRet.setEmitente(emitente);
 							// Guarda só a parte numérica
-							nf.setChaveNfe(chaveNfe.trim().toUpperCase()
+							nfRet.setChaveNfe(chaveNfe.trim().toUpperCase()
 									.replaceAll("NFE", ""));
-							nf.setVersao(versaoProt);
-							nf.setDataImportacao(Calendar.getInstance()
+							nfRet.setVersao(versaoProt);
+							nfRet.setDataImportacao(Calendar.getInstance()
 									.getTime());
 							break;
 						}
 					}
-					if (nf == null) {
+					if (nfRet == null) {
 						// TODO: deve gerar exception pq não achou a TAG;
 						return null;
 					}
@@ -185,20 +172,20 @@ public class LeitorXMLNFe {
 											.getChildren();
 									for (Element elementIde : elementsIde) {
 										if (ehTag(elementIde, "MOD")) {
-											nf.setModelo(elementIde.getValue());
+											nfRet.setModelo(elementIde.getValue());
 										}
 										if (ehTag(elementIde, "NNF")) {
-											nf.setNumero(elementIde.getValue());
+											nfRet.setNumero(elementIde.getValue());
 										}
 										if (ehTag(elementIde, "NATOP")) {
-											nf.setNaturezaOperacao(elementIde
+											nfRet.setNaturezaOperacao(elementIde
 													.getValue());
 										}
 										if (ehTag(elementIde, "SERIE")) {
-											nf.setSerie(elementIde.getValue());
+											nfRet.setSerie(elementIde.getValue());
 										}
 										if (ehTag(elementIde, "TPEMIS")) {
-											nf.setTipoEmissao(elementIde
+											nfRet.setTipoEmissao(elementIde
 													.getValue());
 										}
 										if (ehTag(elementIde, "DEMI")) {
@@ -207,7 +194,7 @@ public class LeitorXMLNFe {
 											Date date = (Date) formatter
 													.parse(elementIde
 															.getValue());
-											nf.setDataEmissao(date);
+											nfRet.setDataEmissao(date);
 										}
 									}
 								}
@@ -242,28 +229,25 @@ public class LeitorXMLNFe {
 														"xLgr")) {
 													endDest.setLogradouro(elementEnderDest
 															.getValue());
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest,
 														"nro")) {
 													endDest.setNumero(elementEnderDest
 															.getValue());
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest, "fone")) {
+													endDest.setFone1(elementEnderDest.getValue());
+												}else if (ehTag(elementEnderDest,
 														"CEP")) {
 													endDest.setCep(elementEnderDest
 															.getValue());
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest,
 														"xBairro")) {
 													endDest.setBairro(elementEnderDest
 															.getValue());
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest,
 														"fone")) {
 													dest.setFone(elementEnderDest
 															.getValue());
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest,
 														"cMun")) {
 													Municipio municipio = municipioBC
 															.buscaCodigoIbge(elementEnderDest
@@ -272,23 +256,23 @@ public class LeitorXMLNFe {
 														municipio = cadastraMunicipio(elementsEnderDest);
 													}
 													endDest.setMunicipio(municipio);
-												}
-												if (ehTag(elementEnderDest,
+												}else if (ehTag(elementEnderDest,
 														"UF")) {
 													Estado estado = estadoBC
 															.buscaSigla(elementEnderDest
 																	.getValue());
 													endDest.setEstado(estado);
-													if (estado != null) {
-														endDest.setPais(estado
-																.getPais());
-													}
+												}else if (ehTag(elementEnderDest, "cPais")) {
+													Pais pais = paisBC
+															.buscaCodigoBacen(elementEnderDest
+																	.getValue());
+													endDest.setPais(pais);
 												}
 											}
-											nf.setEndereco(endDest);
+											nfRet.setEndereco(endDest);
 										}
 									}
-									nf.setClienteNotaFiscal(dest);
+									nfRet.setClienteNotaFiscal(dest);
 								}
 								// Tratando Item;
 								if (ehTag(elementInfNFe, "det")) {
@@ -374,7 +358,7 @@ public class LeitorXMLNFe {
 									}
 
 									// Adiciona o Item a lista;
-									nf.addItem(itemNota);
+									nfRet.addItem(itemNota);
 								}
 								if (ehTag(elementInfNFe, "total")) {
 									// Lendo dados do Total da Nota
@@ -387,14 +371,14 @@ public class LeitorXMLNFe {
 											Double valor = Double
 													.parseDouble(elementoImpostoNF
 															.getValue());
-											nf.setValorTotalNota(new BigDecimal(
+											nfRet.setValorTotalNota(new BigDecimal(
 													valor));
 										} else if (ehTag(elementoImpostoNF,
 												"vTotTrib")) {
 											Double valor = Double
 													.parseDouble(elementoImpostoNF
 															.getValue());
-											nf.setValorTotalTributos(new BigDecimal(
+											nfRet.setValorTotalTributos(new BigDecimal(
 													valor));
 										}
 									}
@@ -403,21 +387,20 @@ public class LeitorXMLNFe {
 							// nf.setValorTotalNota(new BigDecimal(0D));
 							// nf.setValorTotalTributos(new BigDecimal(0D));
 
-							System.out.println(nf.toString());
-							nf = notaFiscalBC.insert(nf);
+							System.out.println(nfRet.toString());
+							nfRet = notaFiscalBC.insert(nfRet);
 							/**
 							 * Chama o metodo atualizar cadastro de produto
 							 */
-							produtoBC.atualizaProduto(nf);
-							
-							ret.add(nf);
+							produtoBC.atualizaProduto(nfRet);
+						
 						}
 					}
 
 				}
 			}
 
-			return ret;
+			return nfRet;
 
 		} catch (JDOMException e) {
 			e.printStackTrace();
