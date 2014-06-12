@@ -6,7 +6,7 @@
 	<ui:define name="body">
 		<h:form>
 			<p:toolbar>
-				<p:toolbarGroup align="left">
+				<f:facet name="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{emitenteListMB.getNextView}"
 						actionListener="#{emitenteListMB.clear}" ajax="false" />
 
@@ -20,7 +20,7 @@
 							actionListener="#{emitenteListMB.clear}" />
 						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
 					</p:confirmDialog>
-				</p:toolbarGroup>
+				</f:facet>
 			</p:toolbar>
 			<p:dataTable id="list" var="bean" value="#{emitenteListMB.resultList}">
 				<f:facet name="header">#{messages['emitente.list.table.title']}</f:facet>

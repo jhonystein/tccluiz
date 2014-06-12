@@ -29,4 +29,11 @@ public class NotaFiscalBC extends DelegateCrud<NotaFiscal, Long, NotaFiscalDAO> 
 		dto.setEmitente(emitente);
 		return getDelegate().pesquisar(dto);
 	}
+	
+	public long contaNotasPorEmitente(Emitente emitente) {
+		NotaFiscalDTO dto = new NotaFiscalDTO();
+		dto.setEmitente(emitente);
+		List<NotaFiscal> ret = getDelegate().pesquisar(dto);
+		return (ret==null)?(-1):(ret.size());
+	}
 }
