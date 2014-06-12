@@ -23,7 +23,7 @@ import edu.furb.sistemanfe.domain.Pais;
  * @author Luiz R. Marian
  *
  */
-public class LeitorXMLEmitente {
+public class LeitorXMLEmitente  {
 
 	@Inject
 	private MunicipioBC municipioBC;

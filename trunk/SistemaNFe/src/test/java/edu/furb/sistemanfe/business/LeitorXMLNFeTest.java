@@ -1,9 +1,6 @@
 package edu.furb.sistemanfe.business;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,6 +13,7 @@ import br.gov.frameworkdemoiselle.junit.DemoiselleRunner;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.exception.ValidationException;
 
 @RunWith(DemoiselleRunner.class)
 public class LeitorXMLNFeTest {
@@ -52,8 +50,13 @@ public class LeitorXMLNFeTest {
 
 		String caminho = "nfe.xml";
 		//nfeXmlReader.setEmitente(emitenteTest);
-		List<NotaFiscal> litaNotas = nfeXmlReader.readXml(caminho);
+		NotaFiscal litaNotas = null;
+		try {
+			litaNotas = nfeXmlReader.readXml(caminho);
+		} catch (ValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertNotNull(litaNotas);
-		assertEquals(1, litaNotas.size());
 	}
 }

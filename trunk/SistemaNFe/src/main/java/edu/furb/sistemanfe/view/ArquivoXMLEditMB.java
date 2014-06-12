@@ -1,8 +1,6 @@
 
 package edu.furb.sistemanfe.view;
 
-import java.util.List;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -16,9 +14,9 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ArquivoXMLBC;
-import edu.furb.sistemanfe.business.LeitorXMLNFe;
 import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.ArquivoXML;
+import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @ViewController
@@ -58,13 +56,13 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 	}
 	
 	
-	public void testeImportar(){
-		LeitorXMLNFe ler = new LeitorXMLNFe(); 
-		List<ArquivoXML> lista=this.arquivoXMLBC.findAll();
-		for (ArquivoXML arquivoXML : lista) {
-			ler.readXml(arquivoXML);
-		}
-	}
+//	public void testeImportar(){
+//		LeitorXMLNFe ler = new LeitorXMLNFe(); 
+//		List<ArquivoXML> lista=this.arquivoXMLBC.findAll();
+//		for (ArquivoXML arquivoXML : lista) {
+//			ler.readXml(arquivoXML);
+//		}
+//	}
 	
 	@Override
 	@Transactional
@@ -89,28 +87,38 @@ public class ArquivoXMLEditMB extends AbstractEditPageBean<ArquivoXML, Long> {
 		logoFooter = event.getFile();
 		try{
 			if(!logoFooter.getContentType().equals("text/xml")){
-				throw new Exception(String.format("Formato do arquivo %s não é válido.", event.getFile().getFileName()));
+				throw new ValidationException(String.format("Formato do arquivo %s não é válido.", event.getFile().getFileName()));
 			}
 			if(logoFooter.getSize() > appConfig.getMaxFileSize()){
-				facesContext
-				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-						"Atenção", String.format("Tamanho do arquivo %s é superior ao limite.", event.getFile().getFileName())));
-				return;
+				throw new ValidationException(String.format("Tamanho do arquivo %s é superior ao limite.", event.getFile().getFileName()));
+//				facesContext
+//				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+//						"Atenção", String.format("Tamanho do arquivo %s é superior ao limite.", event.getFile().getFileName())));
+//				return;
 			}
 			ArquivoXML arq = this.createBean();
 			if(logoFooter!=null){
 				arq.setArquivo(logoFooter.getContents());
 				arq.setNome(logoFooter.getFileName());
 			}else{
-				arq.setArquivo(null);
+				throw new ValidationException("Arquivo não foi recebido.");
 			}
+			
 			this.arquivoXMLBC.insert(arq);
+			
 			this.arquivoXMLBC.enviarArquivoProcessamento(arq);
-
+			
+			facesContext
+			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Sucesso", String.format("Nota fiscal %s importada com sucesso.", arq.getNotaFiscal().getChaveNfe())));
+		}catch(ValidationException ex){
+			facesContext
+			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Falha", ex.getMessage()));
 		}catch(Exception ex){
 			facesContext
 			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-					"Atenção", ex.getMessage()));
+					"Erro", ex.getMessage()));
 		}	
 
 	}

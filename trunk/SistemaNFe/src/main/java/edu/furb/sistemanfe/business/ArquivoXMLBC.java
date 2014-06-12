@@ -3,18 +3,17 @@ package edu.furb.sistemanfe.business;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.message.SeverityType;
-import br.gov.frameworkdemoiselle.security.RequiredPermission;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.domain.ArquivoXML;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.message.ErrorMessages;
 import edu.furb.sistemanfe.message.InfoMessages;
 import edu.furb.sistemanfe.persistence.ArquivoXMLDAO;
@@ -45,12 +44,12 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 			}
 			arquivoXML.setStatus("N");
 			super.insert(arquivoXML);
-			messageContext.add(InfoMessages.ARQUIVOXML_INSERT_OK.getText(),
-					arquivoXML.getNome());
-		} catch (Exception te) {
+			
+		} catch (Exception te) {			
 			te.printStackTrace();
 			messageContext.add(ErrorMessages.ARQUIVOXML_INSERT_NOK.getText(),
 					te.getMessage(), SeverityType.ERROR);
+			arquivoXML = null;
 		}
 		return arquivoXML;
 	}
@@ -84,24 +83,24 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 	 * Controla o envio do arquivo para processamento;
 	 * 
 	 * @param arquivo
+	 * @throws ValidationException 
 	 */
 	@Transactional
-	public void enviarArquivoProcessamento(ArquivoXML arquivo) {
+	public void enviarArquivoProcessamento(ArquivoXML arquivo) throws ValidationException {
 		String localArquivo = "";
 		try {
 			//Obtem um arquivo temporário para processamento.
 			localArquivo = this.converterByteParaDisco(arquivo);
-			//obtem a lista de notas obtidas do arquivo.
-			List<NotaFiscal> listaNotas = nfeXmlReader.readXml(localArquivo);
+			//obtem a nota obtida do arquivo.
+			NotaFiscal notaFiscal = notaFiscal = nfeXmlReader.readXml(localArquivo);
+			//TODO: trocar status para um ENUM
 			arquivo.setStatus("P");
-			//Associa a as notas o arquivo
-			for (NotaFiscal notaFiscal : listaNotas) {
-				notaFiscal.setArquivoXML(arquivo);				
-				notaFiscalBC.update(notaFiscal);
-				arquivo.setNotaFiscal(notaFiscal);
-			}
-			super.update(arquivo);
+			//Associa a nota ao arquivo
+			notaFiscal.setArquivoXML(arquivo);				
+			notaFiscalBC.update(notaFiscal);
+			arquivo.setNotaFiscal(notaFiscal);
 			
+			super.update(arquivo);			
 			
 		} finally {
 			try {
