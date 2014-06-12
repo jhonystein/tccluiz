@@ -7,9 +7,10 @@
 	template="/template/main.xhtml">
 
 	<ui:define name="body">
-		<h:form prependId="false">
+		<h:form id="form" prependId="false">
+			<p:growl id="growl" showDetail="true" />
 			<p:toolbar>
-				<p:toolbarGroup align="left">
+				<f:facet name="left">
 					<p:commandButton value="#{messages['button.save']}"
 						action="#{emitenteEditMB.insert}"
 						rendered="#{!emitenteEditMB.updateMode}" ajax="false" />
@@ -17,19 +18,22 @@
 						action="#{emitenteEditMB.update}"
 						rendered="#{emitenteEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.delete']}"
-						onclick="confirmation.show()"
-						rendered="#{emitenteEditMB.updateMode}" type="button"
-						immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}"
-						showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert"
-						widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}"
-							action="#{emitenteEditMB.delete}" immediate="true" ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
+						rendered="#{emitenteEditMB.updateMode}"
+						action="#{emitenteEditMB.delete}" update=":form:growl">
+						<p:confirm header="#{messages['label.dialog.delete']}"
+							message="#{messages['label.confirm.delete']}"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="bounce"
+						hideEffect="explode">
+						<p:commandButton value="#{messages['button.dialog.yes']}"
+							type="button" styleClass="ui-confirmdialog-yes" immediate="true"
+							ajax="true" icon="ui-icon-check" />
+						<p:commandButton value="#{messages['button.dialog.no']}"
+							type="button" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" />
 					</p:confirmDialog>
-				</p:toolbarGroup>
+				</f:facet>
 			</p:toolbar>
 
 			<br />

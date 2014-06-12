@@ -13,6 +13,7 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.EmitenteBC;
+import edu.furb.sistemanfe.business.NotaFiscalBC;
 import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.exception.ValidationException;
@@ -27,6 +28,8 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 	@Inject
 	private EmitenteBC emitenteBC;
 	@Inject
+	private NotaFiscalBC notaFiscalBC;
+	@Inject
 	private AppConfig appConfig;
 	@Inject
 	private SistemaNFeCredentials credentials;
@@ -40,7 +43,18 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 	@Override
 	@Transactional
 	public String delete() {
+		long qtdreg = notaFiscalBC.contaNotasPorEmitente(getBean());
+		
+		if(qtdreg > 0){
+			facesContext
+			.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Atenção", String.format("Emitente não pode ser eliminado já possui %d notas importadas.", qtdreg)));
+			return "";
+		}
 		this.emitenteBC.delete(getId());
+		facesContext
+		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Sucesso", "Emitente eliminado com sucesso!"));
 		return getPreviousView();
 	}
 	
@@ -55,6 +69,9 @@ public class EmitenteEditMB extends AbstractEditPageBean<Emitente, Long> {
 	@Transactional
 	public String update() {
 		this.emitenteBC.update(this.getBean());
+		facesContext
+		.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Sucesso", "Emitente alterado com sucesso!"));
 		return getPreviousView();
 	}
 	

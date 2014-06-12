@@ -32,12 +32,13 @@ public class Emitente implements Serializable {
 	private Endereco endereco;
 	
 	public Emitente(){
-		
+		this.endereco = new Endereco();
 	}
 	
 	public Emitente(String documento, String nome, String inscricaoEstadual,
 			Endereco endereco) {
 		super();
+		this.endereco = new Endereco();
 		this.documento = documento;
 		this.nome = nome;
 		this.inscricaoEstadual = inscricaoEstadual;
