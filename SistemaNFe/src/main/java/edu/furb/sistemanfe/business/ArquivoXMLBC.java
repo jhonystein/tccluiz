@@ -15,7 +15,6 @@ import edu.furb.sistemanfe.domain.ArquivoXML;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.message.ErrorMessages;
-import edu.furb.sistemanfe.message.InfoMessages;
 import edu.furb.sistemanfe.persistence.ArquivoXMLDAO;
 
 @BusinessController
@@ -92,7 +91,7 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 			//Obtem um arquivo temporário para processamento.
 			localArquivo = this.converterByteParaDisco(arquivo);
 			//obtem a nota obtida do arquivo.
-			NotaFiscal notaFiscal = notaFiscal = nfeXmlReader.readXml(localArquivo);
+			NotaFiscal notaFiscal = nfeXmlReader.readXml(localArquivo);
 			//TODO: trocar status para um ENUM
 			arquivo.setStatus("P");
 			//Associa a nota ao arquivo

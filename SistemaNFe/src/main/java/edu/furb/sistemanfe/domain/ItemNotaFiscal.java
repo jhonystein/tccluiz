@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,11 +20,7 @@ import javax.persistence.TableGenerator;
 @TableGenerator(name = "GenItemNotaFiscal", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "ITEMNOTAFISCALSEQ", valueColumnName = "VLSEQUENCIA")
 public class ItemNotaFiscal implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2271036933097231871L;
-
 	
 	@Id
 	@Column(name = "IDITEMNOTAFISCAL")
@@ -43,7 +40,7 @@ public class ItemNotaFiscal implements Serializable {
 	private BigDecimal valorTotal;
 	@Column(name = "VLTOTALTRIBUTOS", length = 13)
 	private BigDecimal valorTotalTributos;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDNOTAFISCAL_ID")
 	private NotaFiscal notafiscal;
 	@Embedded

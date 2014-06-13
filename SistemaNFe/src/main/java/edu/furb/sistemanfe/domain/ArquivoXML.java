@@ -41,7 +41,7 @@ public class ArquivoXML implements Serializable{
 //	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
 //	@JoinColumn(name = "IDEMPRESA")
 //	private Empresa empresa;
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private NotaFiscal notaFiscal;
 	
 	public ArquivoXML() {
