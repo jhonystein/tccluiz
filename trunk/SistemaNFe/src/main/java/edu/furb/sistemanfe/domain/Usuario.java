@@ -2,10 +2,12 @@ package edu.furb.sistemanfe.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,7 +47,7 @@ public class Usuario implements Serializable {
 	@Column(name = "DSTIPOUSUARIO", length = 20)
 	private TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.CLIENTE;
 	//TODO: Rever metodo de cascata. 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
 		

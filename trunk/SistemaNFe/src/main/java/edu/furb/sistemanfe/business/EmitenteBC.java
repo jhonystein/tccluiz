@@ -22,6 +22,8 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 	
 	@Inject
 	private LeitorXMLEmitente leitorXMLEmitente;
+	@Inject 
+	private UsuarioBC usuarioBC;
 	@Inject
 	private SistemaNFeCredentials credentials;
 	
@@ -75,8 +77,15 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 		try{
 			//TODO: FALTA testar esta implementação toda;
 			Emitente emit = leitorXMLEmitente.readXml(fileEmitente);
-			insert(emit);
+			/**
+			 * Inseri o emitente obtido
+			 */
+			emit = insert(emit);
+			/**
+			 * Associa ao usuário da credencial e atualiza o cadastro do usuário.
+			 */
 			credentials.getUsuario().setEmitente(emit);
+			usuarioBC.update(credentials.getUsuario());
 			
 			return true;
 			

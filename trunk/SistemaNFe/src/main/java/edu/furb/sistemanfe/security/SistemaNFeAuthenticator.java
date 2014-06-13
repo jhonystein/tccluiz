@@ -17,7 +17,6 @@ import edu.furb.sistemanfe.business.EmitenteBC;
 import edu.furb.sistemanfe.business.UsuarioBC;
 import edu.furb.sistemanfe.domain.Usuario;
 import edu.furb.sistemanfe.enumeration.StatusUsuarioEnum;
-import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 import edu.furb.sistemanfe.view.LoginMB;
 
 @SessionScoped
@@ -68,6 +67,7 @@ public class SistemaNFeAuthenticator implements Authenticator {
 					throw new AuthenticationException(
 							"Usuário não ativo.\nContate administrador do sistema.");
 				}
+				//usuario.getEmitente()
 				loginMB.setUsuario(usuario);
 				
 				credentials.setUsuario(usuario);

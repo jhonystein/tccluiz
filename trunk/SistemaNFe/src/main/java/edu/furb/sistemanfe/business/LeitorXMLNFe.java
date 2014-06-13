@@ -65,14 +65,13 @@ public class LeitorXMLNFe {
 
 	public NotaFiscal readXml(ArquivoXML arquivo) throws ValidationException {
 		File outfile = new File(arquivo.getNome());
-
 		return readXml(outfile);
 	}
 
 	public NotaFiscal readXml(String pathFile) throws ValidationException {
 		File f = new File(pathFile);
 		if (!f.exists()) {
-			return new NotaFiscal();
+			throw new ValidationException("Erro ao ler arquivo: Arquivo não localizado.");
 		}
 		return readXml(f);
 	}
@@ -110,9 +109,6 @@ public class LeitorXMLNFe {
 									.getValue();
 							String versaoProt = elementNFeCapa.getAttribute(
 									"versao").getValue();
-							// if(versaoProt == "2.00"){
-							//
-							// }
 							/**
 							 * Se a nota já existe na base, deve remover.
 							 */
@@ -138,16 +134,21 @@ public class LeitorXMLNFe {
 									break;
 								}
 							}
+							/**
+							 * Validando Emitente
+							 */
 							Emitente emitente = emitenteBC.buscaDocumento(CNPJ);
 							if (emitente == null) {
-								throw new ValidationException("Erro ao ler arquivo: Emitente do XML não é válido para esta base");
+								throw new ValidationException("Erro ao ler arquivo: Emitente do XML foi localizado na base.");
 							}
 							if(!emitente.equals(credencial.getUsuario().getEmitente())){
 								throw new ValidationException("Erro ao ler arquivo: Emitente do XML é diferente do emitente do usuário atual.");
 							}						
 
 							nfRet.setEmitente(emitente);
-							// Guarda só a parte numérica
+							/** 
+							 * Guarda só a parte numérica da chave
+							 */
 							nfRet.setChaveNfe(chaveNfe.trim().toUpperCase()
 									.replaceAll("NFE", ""));
 							nfRet.setVersao(versaoProt);
@@ -158,7 +159,7 @@ public class LeitorXMLNFe {
 					}
 					if (nfRet == null) {
 						// TODO: deve gerar exception pq não achou a TAG;
-						return null;
+						throw new ValidationException("Erro ao ler arquivo: Não foi localizada TAG INFNFE.");
 					}
 					// Trata os demais campos do XML;
 					for (Element elementNFe : elementsNFe) {
@@ -384,19 +385,14 @@ public class LeitorXMLNFe {
 									}
 								}
 							}
-							// nf.setValorTotalNota(new BigDecimal(0D));
-							// nf.setValorTotalTributos(new BigDecimal(0D));
-
 							System.out.println(nfRet.toString());
 							nfRet = notaFiscalBC.insert(nfRet);
 							/**
 							 * Chama o metodo atualizar cadastro de produto
 							 */
 							produtoBC.atualizaProduto(nfRet);
-						
 						}
 					}
-
 				}
 			}
 
@@ -404,13 +400,13 @@ public class LeitorXMLNFe {
 
 		} catch (JDOMException e) {
 			e.printStackTrace();
-			return null;
+			throw new ValidationException("Erro ao ler arquivo: Arquivo com formato inválido."+e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
+			throw new ValidationException("Erro ao ler arquivo: Arquivo com inválido."+e.getMessage());
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return null;
+			throw new ValidationException("Erro ao ler arquivo: Erro critico."+ex.getMessage());
 		}
 	}
 

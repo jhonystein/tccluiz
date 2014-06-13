@@ -51,20 +51,20 @@ public class NotaFiscal implements Serializable {
 	private BigDecimal valorTotalTributos;
 	@Column(name = "NRVERSAO", length = 12)
 	private String versao;
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.REFRESH })
+	@ManyToOne(cascade = {CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
 	@Embedded
 	private ClienteNotaFiscal clienteNotaFiscal;
 	@Embedded
 	private Endereco endereco;
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDNOTAFISCAL_id")
 	private List<ItemNotaFiscal> itemNotaFiscal;
 	@Column(name = "DTIMPORTACAO")
 	private Date dataImportacao;
 	//@Column(name = "IDARQUIVOXML")
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE },  optional = true)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE },  optional = true)
 	private ArquivoXML arquivoXML;
 
 	public void addItem(ItemNotaFiscal itemNotaFiscal) {
