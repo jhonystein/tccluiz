@@ -1,5 +1,6 @@
 package edu.furb.sistemanfe.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ public class Produto {
 	private String codigo;
 	@Column(name = "NMPRODUTO", length = 100)
 	private String nome;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
 	private Emitente emitente;
 

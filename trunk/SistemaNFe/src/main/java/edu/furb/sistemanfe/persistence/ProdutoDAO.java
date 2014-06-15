@@ -42,13 +42,11 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 					dto.getNome());
 			predicateList.add(p);
 		}
-		// TODO: mimplementar os demais campos;
-		// if (dto.getEmitente() == null) {
-		// TODO: Deve criticar se naum tem emitente;
-		// Predicate p = builder.equal(municipio.<String> get("nome"),
-		// municipioDTO.getNome());
-		// predicateList.add(p);
-		// }
+		if (dto.getEmitente() != null) {
+			Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
+					dto.getEmitente());
+			predicateList.add(p);
+		}//TODO: Avaliar necessidade de criticar caso não tenha Emitente
 
 		Predicate[] predicates = new Predicate[predicateList.size()];
 		predicateList.toArray(predicates);

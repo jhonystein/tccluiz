@@ -1,25 +1,23 @@
 package edu.furb.sistemanfe.rest;
 
+import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
 
 public class ProdutoDTO {
 	private Long id = null;
 	private String codigo = null;
 	private String nome = null;
-	
-	public ProdutoDTO(Long id, String codigo, String nome){
-		this.codigo =codigo;
-		this.nome = nome;
-		this.id = id;
-	}
+	private Emitente emitente = null;
 	
 	public ProdutoDTO(){		
 	}
 
 	public ProdutoDTO(Produto produto) {
 		super();
+		this.id = produto.getId();
 		this.codigo = produto.getCodigo();
 		this.nome = produto.getNome();
+		this.emitente = produto.getEmitente();
 	}
 
 	public Long getId() {
@@ -44,5 +42,13 @@ public class ProdutoDTO {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}	
+	}
+
+	public Emitente getEmitente() {
+		return emitente;
+	}
+
+	public void setEmitente(Emitente emitente) {
+		this.emitente = emitente;
+	}
 }
