@@ -43,6 +43,8 @@ public class LeitorXMLNFe {
 	@Inject
 	private ProdutoBC produtoBC;
 	@Inject
+	private ClienteBC clienteBC;
+	@Inject
 	private EmitenteBC emitenteBC;
 	@Inject
 	private SistemaNFeCredentials credencial;
@@ -390,7 +392,11 @@ public class LeitorXMLNFe {
 							/**
 							 * Chama o metodo atualizar cadastro de produto
 							 */
-							produtoBC.atualizaProduto(nfRet);
+							produtoBC.atualizaCadastro(nfRet);
+							/**
+							 * Chama o metodo atualizar cadastro de Cliente
+							 */
+							clienteBC.atualizaCadastro(nfRet);
 						}
 					}
 				}

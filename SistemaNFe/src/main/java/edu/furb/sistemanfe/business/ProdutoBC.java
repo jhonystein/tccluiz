@@ -18,12 +18,30 @@ import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 @BusinessController
 public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private SistemaNFeCredentials credentials;
 
+	/**
+	 * Sobrescreve o metodo ALL para garantir que somente seram exibidos
+	 * Produtos do Emitente atual;
+	 */
+	@Override
+	public List<Produto> findAll() {
+		ProdutoDTO dto = new ProdutoDTO();
+		dto.setEmitente(credentials.getUsuario().getEmitente());
+		return getDelegate().pesquisar(dto);
+		// return super.findAll();
+	}
+
+	/**
+	 * Carraga um produto com base em seu Código
+	 * @param codigo
+	 * @return
+	 */
 	public Produto buscaPorCodigo(String codigo) {
 		ProdutoDTO dto = new ProdutoDTO();
+		dto.setEmitente(credentials.getUsuario().getEmitente());
 		dto.setCodigo(codigo);
 		List<Produto> lst = getDelegate().pesquisar(dto);
 		if ((lst == null) || (lst.size() == 0)) {
@@ -37,8 +55,7 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 	 * Este metodo tem o objetivo de atualizar o cadastro de produtos com base nos dados de uma nota
 	 * @param nf NotaFiscal com os itens
 	 */
-	public void atualizaProduto(NotaFiscal nf) {
-		// TODO Auto-generated method stub
+	public void atualizaCadastro(NotaFiscal nf) {
 		for (ItemNotaFiscal item : nf.getItemNotaFiscal()) {
 			Produto produto = buscaPorCodigo(item.getProduto().getCodigo());
 			if (produto == null) {
@@ -56,10 +73,10 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		}
 
 	}
-	
-	public List<ProdutoGraficoVendas> getteste(){
-		//getDelegate().teste2(1L);
-		//getDelegate().novoTeste2();
+
+	public List<ProdutoGraficoVendas> getteste() {
+		// getDelegate().teste2(1L);
+		// getDelegate().novoTeste2();
 		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
 	}
 

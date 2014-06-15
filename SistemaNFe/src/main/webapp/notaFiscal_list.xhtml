@@ -11,30 +11,6 @@
 			<p:dataTable id="list" var="bean"
 				value="#{notaFiscalListMB.resultList}">
 				<f:facet name="header">#{messages['notaFiscal.list.table.title']}</f:facet>
-				<!-- <p:column style="width:2%;">
-					<h:selectBooleanCheckbox
-						value="#{notaFiscalListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
-				</p:column> -->
-
-				<p:column sortBy="#{bean.idemitente}">
-					<f:facet name="header">#{messages['idDocumento']}</f:facet>
-					<h:commandLink action="#{notaFiscalListMB.getNextView}"
-						actionListener="#{notaFiscalListMB.clear}">
-						<h:outputText value="#{bean.idemitente}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-				<p:column sortBy="#{bean.nome}">
-					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
-					<h:commandLink action="#{clienteListMB.getNextView}"
-						actionListener="#{clienteListMB.clear}">
-						<h:outputText value="#{bean.nome}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-
-
-
 				<p:column sortBy="#{bean.serie}">
 					<f:facet name="header">#{messages['notaFiscal.label.serie']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
@@ -52,49 +28,54 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<!-- <p:column sortBy="#{bean.modelo}">
+				<p:column sortBy="#{bean.modelo}">
 					<f:facet name="header">#{messages['notaFiscal.label.modelo']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.modelo}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
-				</p:column> -->
-
+				</p:column>
+				<p:column sortBy="#{bean.clienteNotaFiscal.nome}">
+					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
+					<h:commandLink action="#{clienteListMB.getNextView}"
+						actionListener="#{clienteListMB.clear}">
+						<h:outputText value="#{bean.clienteNotaFiscal.nome}" />
+						<f:param name="id" value="#{bean.id}" />
+					</h:commandLink>
+				</p:column>
 				<p:column sortBy="#{bean.dataEmissao}">
 					<f:facet name="header">#{messages['notaFiscal.label.dataEmissao']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
-						<h:outputText value="#{bean.dataEmissao}" />
+						<h:outputText value="#{bean.dataEmissao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<!-- 	
-				<p:column sortBy="#{bean.tipoEmissao}">
-					<f:facet name="header">#{messages['notaFiscal.label.tipoEmissao']}</f:facet>
-					<h:commandLink action="#{notaFiscalListMB.getNextView}" actionListener="#{notaFiscalListMB.clear}">
-						<h:outputText value="#{bean.tipoEmissao}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>  -->
 
 				<p:column sortBy="#{bean.valorTotalNota}">
 					<f:facet name="header">#{messages['notaFiscal.label.valorTotalNota']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
-						<h:outputText value="#{bean.valorTotalNota}" />
+						<h:outputText value="#{bean.valorTotalNota}">
+							<f:convertNumber pattern="#0.000"/>
+						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<!-- 	
 				<p:column sortBy="#{bean.valorTotalTributos}">
 					<f:facet name="header">#{messages['notaFiscal.label.valorTotalTributos']}</f:facet>
-					<h:commandLink action="#{notaFiscalListMB.getNextView}" actionListener="#{notaFiscalListMB.clear}">
-						<h:outputText value="#{bean.valorTotalTributos}" />
+					<h:commandLink action="#{notaFiscalListMB.getNextView}"
+						actionListener="#{notaFiscalListMB.clear}">
+						<h:outputText value="#{bean.valorTotalTributos}">
+							<f:convertNumber pattern="#0.000" />
+						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				 -->
+
 			</p:dataTable>
 		</h:form>
 
