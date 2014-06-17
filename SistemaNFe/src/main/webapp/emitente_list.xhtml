@@ -5,34 +5,14 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:toolbar>
+			<p:toolbar rendered="#{emitenteListMB.podeInserir}">
 				<f:facet name="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{emitenteListMB.getNextView}"
-						actionListener="#{emitenteListMB.clear}" ajax="false" />
-
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" immediate="true" ajax="false" />
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{emitenteListMB.deleteSelection}"
-							actionListener="#{emitenteListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+						actionListener="#{emitenteListMB.clear}" ajax="false"  />
 				</f:facet>
 			</p:toolbar>
 			<p:dataTable id="list" var="bean" value="#{emitenteListMB.resultList}">
 				<f:facet name="header">#{messages['emitente.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
-					<h:selectBooleanCheckbox value="#{emitenteListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
-				</p:column>
-				<!-- 
-				<p:column style="width:5%;" sortBy="#{bean.id}">
-					<f:facet name="header">#{messages['emitente.label.id']}</f:facet>
-					<h:outputText value="#{bean.id}" />
-				</p:column>
-				 -->		
 				<p:column sortBy="#{bean.documento}">
 					<f:facet name="header">#{messages['idDocumento']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
@@ -40,7 +20,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-					
+
 				<p:column sortBy="#{bean.nome}">
 					<f:facet name="header">#{messages['emitente.label.nome']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">

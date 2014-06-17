@@ -27,6 +27,13 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 	@Inject
 	private SistemaNFeCredentials credentials;
 	
+//	@Override
+//	public List<Emitente> findAll() {
+//		EmitenteDTO dto = new EmitenteDTO();
+//		dto.set
+//		return super.findAll();
+//	}
+	
 	public Emitente buscaDocumento(String documento) {
 		EmitenteDTO dto = new EmitenteDTO();
 		dto.setDocumento(documento);

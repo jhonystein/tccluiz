@@ -10,6 +10,7 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.EmitenteBC;
 import edu.furb.sistemanfe.domain.Emitente;
+import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
 @ViewController
 @NextView("./emitente_edit.jsf")
@@ -20,6 +21,8 @@ public class EmitenteListMB extends AbstractListPageBean<Emitente, Long> {
 
 	@Inject
 	private EmitenteBC emitenteBC;
+	@Inject
+	private SistemaNFeCredentials cred;
 	
 	@Override
 	protected List<Emitente> handleResultList() {
@@ -38,6 +41,14 @@ public class EmitenteListMB extends AbstractListPageBean<Emitente, Long> {
 			}
 		}
 		return getPreviousView();
+	}
+	
+	/**
+	 * Somente permite inserir registro se ainda não possui emitente associado ao usuário
+	 * @return
+	 */
+	public boolean getPodeInserir(){
+		return cred.getUsuario().getEmitente() == null;
 	}
 
 }
