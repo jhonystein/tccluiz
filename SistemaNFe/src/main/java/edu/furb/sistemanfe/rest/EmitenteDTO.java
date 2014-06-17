@@ -1,11 +1,14 @@
 package edu.furb.sistemanfe.rest;
 
+import edu.furb.sistemanfe.domain.Usuario;
+
 
 public class EmitenteDTO {
-	private Long id;
-	private String documento;
-	private String nome;
-	private String inscricaoEstadual;
+	private Long id= null;
+	private String documento= null;
+	private String nome= null;
+	private String inscricaoEstadual = null;
+	private Usuario usuario = null;
 	
 	public EmitenteDTO(){		
 	}
@@ -40,6 +43,14 @@ public class EmitenteDTO {
 
 	public void setInscricaoEstadual(String inscricaoEstadual) {
 		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }

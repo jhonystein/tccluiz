@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import edu.furb.sistemanfe.domain.Emitente;
+import edu.furb.sistemanfe.domain.Usuario;
 import edu.furb.sistemanfe.rest.EmitenteDTO;
 
 @PersistenceController
@@ -45,6 +46,11 @@ public class EmitenteDAO extends JPACrud<Emitente, Long> {
 		if (emitenteDTO.getNome() != null) {
 			Predicate p = builder.equal(emitente.<String> get("nome"),
 					emitenteDTO.getNome());
+			predicateList.add(p);
+		}
+		if (emitenteDTO.getUsuario() != null) {
+			Predicate p = builder.equal(emitente.<Usuario> get("usuario"),
+					emitenteDTO.getUsuario());
 			predicateList.add(p);
 		}
 		
