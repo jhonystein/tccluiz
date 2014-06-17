@@ -10,6 +10,8 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ClienteBC;
 import edu.furb.sistemanfe.domain.Cliente;
+import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
+import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 
 @ViewController
 @NextView("./cliente_edit.jsf")
@@ -25,7 +27,7 @@ public class ClienteListMB extends AbstractListPageBean<Cliente, Long> {
 	protected List<Cliente> handleResultList() {
 		return this.clienteBC.findAll();
 	}
-	
+		
 	@Transactional
 	public String deleteSelection() {
 		boolean delete;
@@ -40,4 +42,7 @@ public class ClienteListMB extends AbstractListPageBean<Cliente, Long> {
 		return getPreviousView();
 	}
 
+	public List<ClienteCurvaABC> getDadosCurvaABC(){
+		return clienteBC.getDadosCurvaABC();	
+	}
 }

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 
-public class ProdutoCurvaABC implements Serializable{
+public class ClienteCurvaABC implements Serializable{
 	
 	private static final long serialVersionUID = 6317308381080182432L;
-	private String codigo;
+	private String documento;
 	private String nome; 
 	private BigDecimal valorUnitario;
 	private Double quantidade;
@@ -17,8 +17,8 @@ public class ProdutoCurvaABC implements Serializable{
 	private int qualificacao;
 	private String classificacao;
 
-	public ProdutoCurvaABC() {
-		this.codigo = "";
+	public ClienteCurvaABC() {
+		this.documento = "";
 		this.nome = "";
 		this.valorUnitario = new BigDecimal(0.0);
 		this.quantidade = 0.0;
@@ -29,21 +29,21 @@ public class ProdutoCurvaABC implements Serializable{
 		this.classificacao = "";
 	}
 	
-	public ProdutoCurvaABC(String codigo, String nome, BigDecimal valorUnitario,
+	public ClienteCurvaABC(String documento, String nome, BigDecimal valorUnitario,
 			Double quantidade) {
 		super();
-		this.codigo = codigo;
+		this.documento = documento;
 		this.nome = nome;
 		this.valorUnitario = valorUnitario;
 		this.quantidade = quantidade;
 		this.consumo = this.valorUnitario.doubleValue() * this.quantidade;
 	}
 
-	public ProdutoCurvaABC(String codigo, String nome, BigDecimal valorUnitario,
+	public ClienteCurvaABC(String documento, String nome, BigDecimal valorUnitario,
 			Double quantidade, Double consumo, Double consumoAcumulado,
 			Double percentualAcumulado, int qualificacao) {
 		super();
-		this.codigo = codigo;
+		this.documento = documento;
 		this.nome = nome;
 		this.valorUnitario = valorUnitario;
 		this.quantidade = quantidade;
@@ -52,11 +52,11 @@ public class ProdutoCurvaABC implements Serializable{
 		this.percentualAcumulado = percentualAcumulado;
 		this.qualificacao = qualificacao;
 	}
-	public String getCodigo() {
-		return codigo;
+	public String getDocumento() {
+		return documento;
 	}
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 	public String getNome() {
 		return nome;

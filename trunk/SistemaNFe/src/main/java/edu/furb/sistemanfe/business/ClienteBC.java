@@ -9,6 +9,8 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.ClienteDAO;
+import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
+import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -71,6 +73,39 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		} else {
 			update(cliente);
 		}
+	}
+	
+	public List<ClienteCurvaABC> getDadosCurvaABC() {
+		List<ClienteCurvaABC> ret = getDelegate().clientesABC(credentials.getUsuario().getEmitente());
+		/**
+		 * Atribui a qualificação e calcula o consumo acumulado de cada item
+		 */
+		int qualificacao = 0;
+		Double consumoAcumulado = 0.0;
+		for (ClienteCurvaABC clienteCurvaABC : ret) {
+			qualificacao++;
+			consumoAcumulado += clienteCurvaABC.getConsumo();
+			clienteCurvaABC.setQualificacao(qualificacao);
+			clienteCurvaABC.setConsumoAcumulado(consumoAcumulado);			
+		}
+		/**
+		 * Calcula o percentual acumulado
+		 */
+		Double percentualAcumulado = 0.0;
+		for (ClienteCurvaABC clienteCurvaABC : ret) {
+			percentualAcumulado = (clienteCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
+			clienteCurvaABC.setPercentualAcumulado(percentualAcumulado);
+			if(clienteCurvaABC.getPercentualAcumulado() <=20.0){
+				clienteCurvaABC.setClassificacao("A");
+			}else if((clienteCurvaABC.getPercentualAcumulado() >20.0) &&
+					(clienteCurvaABC.getPercentualAcumulado() <=50.0)){
+				clienteCurvaABC.setClassificacao("B");
+			}else{
+				clienteCurvaABC.setClassificacao("C");
+			}
+		}	
+
+		return ret;
 	}
 
 }

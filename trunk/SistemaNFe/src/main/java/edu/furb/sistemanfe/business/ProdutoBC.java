@@ -36,6 +36,8 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		return getDelegate().pesquisar(dto);
 		// return super.findAll();
 	}
+	
+
 
 	/**
 	 * Carraga um produto com base em seu Código
@@ -108,12 +110,12 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 			percentualAcumulado = (produtoCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
 			produtoCurvaABC.setPercentualAcumulado(percentualAcumulado);
 			if(produtoCurvaABC.getPercentualAcumulado() <=20.0){
-				produtoCurvaABC.setClasse("A");
+				produtoCurvaABC.setClassificacao("A");
 			}else if((produtoCurvaABC.getPercentualAcumulado() >20.0) &&
 					(produtoCurvaABC.getPercentualAcumulado() <=50.0)){
-				produtoCurvaABC.setClasse("B");
+				produtoCurvaABC.setClassificacao("B");
 			}else{
-				produtoCurvaABC.setClasse("C");
+				produtoCurvaABC.setClassificacao("C");
 			}
 		}	
 
