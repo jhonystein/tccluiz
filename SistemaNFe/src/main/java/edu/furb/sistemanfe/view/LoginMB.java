@@ -22,7 +22,7 @@ public class LoginMB implements Serializable {
 	private static final long serialVersionUID = 6800185726427855295L;
 
 	private Usuario usuario;
-	private Emitente emitente;
+	//private Emitente emitente;
 	private String confirma_senha = "";
 	private String login;
 	private String senha;
@@ -70,6 +70,14 @@ public class LoginMB implements Serializable {
 		return String.format("(%s)-%s",
 				credentials.getUsuario().getTipoUsuario().getDescricao(), credentials.getUsuario().getLogin());
 	}
+	
+	public String getNomeEmitente() {		
+		if ((credentials.getUsuario() == null) || (credentials.getUsuario().getEmitente() == null)) {
+			return "Sem emitente";
+		}
+		return String.format("%s-%s",
+				credentials.getUsuario().getEmitente().getDocumento(), credentials.getUsuario().getEmitente().getNome());
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -80,12 +88,13 @@ public class LoginMB implements Serializable {
 	}
 
 	public Emitente getEmitente() {
-		return emitente;
+		
+		return (getUsuario().getEmitente()==null)?(null):(getUsuario().getEmitente());
 	}
 
-	public void setEmitente(Emitente emitente) {
-		this.emitente = emitente;
-	}
+	//public void setEmitente(Emitente emitente) {
+//		this.emitente = emitente;
+//	}
 
 	public String doLogin() {
 		try {
