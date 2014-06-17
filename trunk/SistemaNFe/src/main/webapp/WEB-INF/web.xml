@@ -47,37 +47,21 @@
 		</web-resource-collection>
 		<auth-constraint />
 	</security-constraint>
-	<!-- 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Área pública</web-resource-name>
-			<url-pattern>/login.jsf</url-pattern>
-			<url-pattern>/erro.jsf</url-pattern>
-		</web-resource-collection>
-	</security-constraint>
 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Área protegida</web-resource-name>
-			<description>Limita o acesso a todos os recursos JSF</description>
-			<url-pattern>*.jsf</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>*</role-name>
-		</auth-constraint>
-	</security-constraint>
- 	<login-config>
-		<auth-method>FORM</auth-method>
-		<form-login-config>
-			<form-login-page>/login.jsf</form-login-page>
-			<form-error-page>/erro.jsf</form-error-page>
-		</form-login-config>
-	</login-config>
-
-	<security-role>
-		<role-name>*</role-name>
-	</security-role>
-  -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/index.jsp</location>
+	</error-page>
+	<!-- <security-constraint> <web-resource-collection> <web-resource-name>Área 
+		pública</web-resource-name> <url-pattern>/login.jsf</url-pattern> <url-pattern>/erro.jsf</url-pattern> 
+		</web-resource-collection> </security-constraint> <security-constraint> <web-resource-collection> 
+		<web-resource-name>Área protegida</web-resource-name> <description>Limita 
+		o acesso a todos os recursos JSF</description> <url-pattern>*.jsf</url-pattern> 
+		</web-resource-collection> <auth-constraint> <role-name>*</role-name> </auth-constraint> 
+		</security-constraint> <login-config> <auth-method>FORM</auth-method> <form-login-config> 
+		<form-login-page>/login.jsf</form-login-page> <form-error-page>/erro.jsf</form-error-page> 
+		</form-login-config> </login-config> <security-role> <role-name>*</role-name> 
+		</security-role> -->
 
 
 </web-app>
