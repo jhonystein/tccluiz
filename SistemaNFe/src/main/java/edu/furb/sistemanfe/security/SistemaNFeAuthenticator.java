@@ -87,6 +87,8 @@ public class SistemaNFeAuthenticator implements Authenticator {
 
 	@Override
 	public void unauthenticate() throws Exception {
+		credentials.setUsername("");
+		credentials.setPassword("");
 		credentials.clear();
 		LoginMB loginMB = Beans.getReference(LoginMB.class);
 		loginMB.setUsuario(null);

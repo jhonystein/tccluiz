@@ -12,6 +12,7 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
+import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 
@@ -42,11 +43,11 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 					dto.getNome());
 			predicateList.add(p);
 		}
-//		if (dto.getEmitente() != null) {
-			Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
-					dto.getEmitente());
-			predicateList.add(p);
-//		}//TODO: Avaliar necessidade de criticar caso não tenha Emitente
+		// if (dto.getEmitente() != null) {
+		Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
+				dto.getEmitente());
+		predicateList.add(p);
+		// }//TODO: Avaliar necessidade de criticar caso não tenha Emitente
 
 		Predicate[] predicates = new Predicate[predicateList.size()];
 		predicateList.toArray(predicates);
@@ -55,7 +56,7 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 
 	}
 
-	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {		
+	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {
 		String sqlQuery = "SELECT new edu.furb.sistemanfe.pojo.ProdutoGraficoVendas(p.codigo, p.nome, sum(i.quantidade)) "
 				+ " from NotaFiscal as n, Produto as p "
 				+ " join n.itemNotaFiscal as i "
@@ -70,6 +71,39 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 				.getResultList();
 		System.out.println(pessoa.toString());
 		return pessoa;
+
+	}
+
+	public List<ProdutoCurvaABC> produtosABC(Emitente emitente) {
+		/*
+		 * ProdutoCurvaABC(String codigo, String nome, Double valorUnitario,
+		 * Double quantidade)
+		 */
+		String sqlQuery = "SELECT "
+				+ " new edu.furb.sistemanfe.pojo.ProdutoCurvaABC(p.codigo, p.nome, sum(i.valorUnitario), "
+				+ " sum(i.quantidade)) "
+				+ "  from NotaFiscal as n, Produto as p "
+				+ "  join n.itemNotaFiscal as i "
+				+ "  where p.codigo = i.produtoNotaFiscal.codigo and "
+				+ " p.emitente = n.emitente and n.emitente = ?1 "
+				+ "  group by p.codigo, p.nome order by sum(i.valorUnitario) * sum(i.quantidade) desc ";
+		javax.persistence.Query query3 = getEntityManager().createQuery(
+				sqlQuery, ProdutoCurvaABC.class);
+		query3.setParameter(1, emitente);
+		List<ProdutoCurvaABC> produtos = (List<ProdutoCurvaABC>) query3
+				.getResultList();
+		System.out.println(produtos.toString());
+		return produtos;
+
+		/*
+		 * select SUM(I.VLUNITARIO) as VALORUNITARIO, SUM(I.VLQUANTIDADE) as
+		 * QUANTIDADE, SUM(I.VLUNITARIO) * SUM(I.VLQUANTIDADE) AS CONSUMIDO,
+		 * P.DSCODIGO as CODIGO, P.NMPRODUTO as PRODUTO from TBITEMNOTAFISCAL as
+		 * I JOIN TBNOTAFISCAL as N on N.IDNOTAFISCAl = I.IDNOTAFISCAL_ID JOIN
+		 * TBPRODUTO P on P.DSCODIGO = I.DSCODIGO and P.IDEMITENTE =
+		 * N.IDEMITENTE -- where -- N.IDEMITENTE = 100 and N.DTEMISSAO >= '' and
+		 * N.DTEMISSAO <= '' group by P.DSCODIGO, P.NMPRODUTO order by 3 DESC;
+		 */
 
 	}
 
