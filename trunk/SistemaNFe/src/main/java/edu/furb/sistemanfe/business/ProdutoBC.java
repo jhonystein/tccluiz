@@ -11,6 +11,7 @@ import edu.furb.sistemanfe.domain.ItemNotaFiscal;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.persistence.ProdutoDAO;
+import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
@@ -21,6 +22,8 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 
 	@Inject
 	private SistemaNFeCredentials credentials;
+	@Inject 
+	private NotaFiscalBC notaFiscalBC;
 
 	/**
 	 * Sobrescreve o metodo ALL para garantir que somente seram exibidos
@@ -80,4 +83,40 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
 	}
 
+	
+	public List<ProdutoCurvaABC> getProdutoABC() {
+		
+		//notaFiscalBC.getValorTotal(credentials.getUsuario().getEmitente());
+		
+		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente());
+		/**
+		 * Atribui a qualificação e calcula o consumo acumulado de cada item
+		 */
+		int qualificacao = 0;
+		Double consumoAcumulado = 0.0;
+		for (ProdutoCurvaABC produtoCurvaABC : ret) {
+			qualificacao++;
+			consumoAcumulado += produtoCurvaABC.getConsumo();
+			produtoCurvaABC.setQualificacao(qualificacao);
+			produtoCurvaABC.setConsumoAcumulado(consumoAcumulado);			
+		}
+		/**
+		 * Calcula o percentual acumulado
+		 */
+		Double percentualAcumulado = 0.0;
+		for (ProdutoCurvaABC produtoCurvaABC : ret) {
+			percentualAcumulado = (produtoCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
+			produtoCurvaABC.setPercentualAcumulado(percentualAcumulado);
+			if(produtoCurvaABC.getPercentualAcumulado() <=20.0){
+				produtoCurvaABC.setClasse("A");
+			}else if((produtoCurvaABC.getPercentualAcumulado() >20.0) &&
+					(produtoCurvaABC.getPercentualAcumulado() <=50.0)){
+				produtoCurvaABC.setClasse("B");
+			}else{
+				produtoCurvaABC.setClasse("C");
+			}
+		}	
+
+		return ret;
+	}
 }

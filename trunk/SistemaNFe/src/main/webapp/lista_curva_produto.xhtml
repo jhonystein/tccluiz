@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			
+			<p:dataTable id="list" var="bean" value="#{produtoListMB.dadosCurvaABC}"
+				lazy="true" paginator="false"
+				>
+				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
+				
+
+				<p:column sortBy="#{bean.codigo}">
+					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
+					<h:outputText value="#{bean.codigo}" />					
+				</p:column>
+
+				<p:column sortBy="#{bean.nome}">
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.nome}" />					
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.consumo}" />					
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.consumoAcumulado}" />					
+				</p:column>				
+				<p:column>
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.percentualAcumulado}" />					
+				</p:column>				
+				<p:column>
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.qualificacao}" />					
+				</p:column>
+				<p:column >
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.classe}" style="font-weight:bold;background-color:#00ff00;"/>					
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
