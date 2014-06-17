@@ -8,11 +8,8 @@
 	<ui:define name="body">
 		<h:form id="meuForm">
 			<p:dataTable id="list" var="bean" value="#{clienteListMB.dadosCurvaABC}"
-				lazy="true" paginator="false"
-				>
+				lazy="true" paginator="false">
 				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
-				
-
 				<p:column sortBy="#{bean.documento}">
 					<f:facet name="header">#{messages['cliente.label.documento']}</f:facet>
 					<h:outputText value="#{bean.documento}" />					

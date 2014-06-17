@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -46,8 +46,9 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DSTIPOUSUARIO", length = 20)
 	private TipoUsuarioEnum tipoUsuario = TipoUsuarioEnum.CLIENTE;
-	//TODO: Rever metodo de cascata. 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+	//TODO: Rever metodo de cascata.
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+	//@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name="IDEMITENTE")
 	private Emitente emitente;
 		

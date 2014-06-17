@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import edu.furb.sistemanfe.domain.Emitente;
+import edu.furb.sistemanfe.domain.Usuario;
+import edu.furb.sistemanfe.enumeration.TipoUsuarioEnum;
 import edu.furb.sistemanfe.exception.ValidationException;
 import edu.furb.sistemanfe.persistence.EmitenteDAO;
 import edu.furb.sistemanfe.rest.EmitenteDTO;
@@ -27,12 +29,16 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 	@Inject
 	private SistemaNFeCredentials credentials;
 	
-//	@Override
-//	public List<Emitente> findAll() {
-//		EmitenteDTO dto = new EmitenteDTO();
-//		dto.set
-//		return super.findAll();
-//	}
+	@Override
+	public List<Emitente> findAll() {
+		if(credentials.getUsuario().getTipoUsuario().equals(TipoUsuarioEnum.ADMIN)){
+			return super.findAll();
+		}else{
+			EmitenteDTO dto = new EmitenteDTO();
+			dto.setUsuario(credentials.getUsuario());
+			return getDelegate().pesquisar(dto);
+		}		
+	}
 	
 	public Emitente buscaDocumento(String documento) {
 		EmitenteDTO dto = new EmitenteDTO();
@@ -87,6 +93,8 @@ public class EmitenteBC extends DelegateCrud<Emitente, Long, EmitenteDAO> {
 			/**
 			 * Inseri o emitente obtido
 			 */
+			Usuario us = usuarioBC.findByUsername(credentials.getUsuario().getLogin());
+			emit.setUsuario( us);
 			emit = insert(emit);
 			/**
 			 * Associa ao usuário da credencial e atualiza o cadastro do usuário.

@@ -8,7 +8,7 @@
 
 	<ui:define name="body">
 		<h:form prependId="false">
-			<p:toolbar>
+			<p:toolbar rendered="#{securityContext.hasRole('ADMIN')}">
 				<p:toolbarGroup align="left">
 					<p:commandButton value="#{messages['button.save']}"
 						action="#{usuarioEditMB.insert}"
@@ -16,12 +16,9 @@
 					<p:commandButton value="#{messages['button.save']}"
 						action="#{usuarioEditMB.update}"
 						rendered="#{usuarioEditMB.updateMode}" ajax="false" />
-					
 				</p:toolbarGroup>
 			</p:toolbar>
-
 			<br />
-
 			<p:fieldset legend="#{messages['usuario.label']}" toggleable="true"
 				toggleSpeed="500">
 				<h:panelGrid id="fieldsusuario" columns="3">
@@ -57,6 +54,14 @@
 						<f:selectItems value="#{usuarioEditMB.tiposAdministrador}" />
 					</p:selectOneMenu>
 					<p:message for="admin" />
+					
+					<h:outputLabel value="#{messages['usuario.label.emitente']}: "
+						for="emitenteDocumento" styleClass="text-input" />
+
+					<h:inputText id="emitenteDocumento" value="#{usuarioEditMB.bean.emitente.documento}"
+						title="#{messages['usuario.alt.emitente.documento']}" readonly="true" />
+					<h:inputText id="emitenteDocumento2" value="#{usuarioEditMB.bean.emitente.nome}"
+						title="#{messages['usuario.alt.emitente.nome']}" readonly="true" />
 				</h:panelGrid>
 			</p:fieldset>
 
