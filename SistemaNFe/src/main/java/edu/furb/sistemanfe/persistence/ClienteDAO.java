@@ -12,6 +12,8 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
+import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
+import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 
 @PersistenceController
@@ -55,5 +57,25 @@ public class ClienteDAO extends JPACrud<Cliente, Long> {
 		query.where(predicates);	
 		return getEntityManager().createQuery(query).getResultList();
 
+	}
+
+	public List<ClienteCurvaABC> clientesABC(Emitente emitente) {
+			String sqlQuery = "SELECT "
+					+ " new edu.furb.sistemanfe.pojo.ClienteCurvaABC(c.documento, c.nome, sum(i.valorUnitario), "
+					+ " sum(i.quantidade)) "
+					+ "  from NotaFiscal as n, Cliente as c "
+					+ "  join n.itemNotaFiscal as i "
+					+ "  where c.documento = n.clienteNotaFiscal.documento and "
+					+ " c.emitente = n.emitente and n.emitente = ?1 "
+					+ "  group by c.documento, c.nome order by sum(i.valorUnitario) * sum(i.quantidade) desc ";
+			javax.persistence.Query query3 = getEntityManager().createQuery(
+					sqlQuery, ClienteCurvaABC.class);
+			query3.setParameter(1, emitente);
+			List<ClienteCurvaABC> clientes = (List<ClienteCurvaABC>) query3
+					.getResultList();
+			System.out.println(clientes.toString());
+			return clientes;
+
+		
 	}
 }

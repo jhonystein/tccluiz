@@ -55,6 +55,7 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 		return getEntityManager().createQuery(query).getResultList();
 
 	}
+	
 
 	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {
 		String sqlQuery = "SELECT new edu.furb.sistemanfe.pojo.ProdutoGraficoVendas(p.codigo, p.nome, sum(i.quantidade)) "

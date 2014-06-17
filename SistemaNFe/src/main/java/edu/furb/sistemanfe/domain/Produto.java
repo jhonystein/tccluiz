@@ -27,7 +27,10 @@ public class Produto {
 	private String nome;
 	@ManyToOne(cascade = {CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
-	private Emitente emitente;
+	private Emitente emitente = null;
+	
+	public Produto() {
+	}
 
 	public Long getId() {
 		return id;

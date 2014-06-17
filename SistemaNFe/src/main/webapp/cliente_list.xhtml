@@ -5,7 +5,7 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:dataTable id="list" var="bean" value="#{clienteListMB.resultList}">
+			<p:dataTable id="list" var="bean" value="#{clienteListMB.resultList}"  widgetVar="carsTable">
 				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
 				<p:column sortBy="#{bean.documento}" width="15%">
 					<f:facet name="header">#{messages['idDocumento']}</f:facet>

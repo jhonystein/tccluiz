@@ -7,19 +7,19 @@
 
 	<ui:define name="body">
 		<h:form id="meuForm">
-			<p:dataTable id="list" var="bean" value="#{produtoListMB.dadosCurvaABC}"
+			<p:dataTable id="list" var="bean" value="#{clienteListMB.dadosCurvaABC}"
 				lazy="true" paginator="false"
 				>
-				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
+				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
 				
 
-				<p:column sortBy="#{bean.codigo}">
-					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
-					<h:outputText value="#{bean.codigo}" />					
+				<p:column sortBy="#{bean.documento}">
+					<f:facet name="header">#{messages['cliente.label.documento']}</f:facet>
+					<h:outputText value="#{bean.documento}" />					
 				</p:column>
 
 				<p:column sortBy="#{bean.nome}">
-					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
 					<h:outputText value="#{bean.nome}" />					
 				</p:column>
 				

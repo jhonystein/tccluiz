@@ -28,10 +28,10 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 
 	@Inject
 	private ProdutoBC produtoBC;
-	
+
 	//Paginação
 	private LazyDataModel<Produto> lazyModel;
-	
+
 	public ProdutoListMB() {
 		this.lazyModel = new LazyDataModel<Produto>() {
 			private static final long serialVersionUID = 1L;
@@ -43,14 +43,14 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 				Pagination pagination = getPagination();
 				pagination.setPageSize(pageSize);
 				pagination.setFirstResult(first);
-				
+				//long ii = ProdutoListMB.serialVersionUID; 
 				List<Produto> itensLista = produtoBC.findAll();// buscaCliente(codigo, nome, documento, sortField, sortOrder);
 				
 				lazyModel.setRowCount(pagination.getTotalResults());
 				return itensLista;
 			}
-			
-			
+
+
 //			@Override
 //			public List<Produto> load(int first, int pageSize,
 //					String sortField, SortOrder sortOrder,
