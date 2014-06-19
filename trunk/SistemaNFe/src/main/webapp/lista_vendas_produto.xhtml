@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form id="meuForm">
+			<p:dataTable id="list" var="bean" value="#{vendasProdutoMB.listaDados}"
+				lazy="true" paginator="false">
+				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
+				<p:column width="10%">
+					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
+					<h:outputText value="#{bean.produto.codigo}" />					
+				</p:column>
+				<p:column  width="*%">
+					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
+					<h:outputText value="#{bean.produto.nome}" />					
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">Quantidade</f:facet>
+					<h:outputText value="#{bean.quantidade}" >
+							<f:convertNumber pattern="#0.000"/>
+						</h:outputText>				
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{bean.valor}" >
+							<f:convertNumber pattern="#0.000"/>
+						</h:outputText>				
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

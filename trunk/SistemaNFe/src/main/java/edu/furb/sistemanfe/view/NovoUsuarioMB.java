@@ -7,8 +7,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.gov.frameworkdemoiselle.mail.Mail;
-import br.gov.frameworkdemoiselle.message.DefaultMessage;
-import br.gov.frameworkdemoiselle.message.Message;
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.message.SeverityType;
 import br.gov.frameworkdemoiselle.stereotype.ManagementController;
@@ -19,9 +17,6 @@ import edu.furb.sistemanfe.domain.Usuario;
 @ManagementController
 public class NovoUsuarioMB implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5678102207613023117L;
 
 	private Usuario usuario;

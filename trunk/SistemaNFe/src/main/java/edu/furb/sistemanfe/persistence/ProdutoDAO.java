@@ -1,6 +1,7 @@
 package edu.furb.sistemanfe.persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -15,6 +16,7 @@ import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
+import edu.furb.sistemanfe.pojo.ProdutoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 
 @PersistenceController
@@ -102,6 +104,31 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 		predicateList.add(p);
 		
 		return predicateList;
+	}
+
+	public List<ProdutoVendas> produtosVendas(Emitente emitente, Date dataIni,
+			Date dataFim) {
+		/*
+		 * ProdutoVendas(Produto produto, Double quantidade, Double valor)
+		 */
+		String sqlQuery = "SELECT "
+				+ " new edu.furb.sistemanfe.pojo.ProdutoVendas(p, sum(i.quantidade), "
+				+ " sum(i.valorTotal)) "
+				+ "  from NotaFiscal as n, Produto as p "
+				+ "  join n.itemNotaFiscal as i "
+				+ "  where p.codigo = i.produtoNotaFiscal.codigo and "
+				+ " p.emitente = n.emitente and n.emitente = ?1 and "
+				+ " n.dataEmissao between ?2 and ?3 "
+				+ "  group by p order by p.codigo asc ";
+		javax.persistence.Query query3 = getEntityManager().createQuery(
+				sqlQuery, ProdutoVendas.class);
+		query3.setParameter(1, emitente);
+		query3.setParameter(2, dataIni);
+		query3.setParameter(3, dataFim);
+		List<ProdutoVendas> produtos = (List<ProdutoVendas>) query3
+				.getResultList();
+		System.out.println(produtos.toString());
+		return produtos;
 	}
 
 }

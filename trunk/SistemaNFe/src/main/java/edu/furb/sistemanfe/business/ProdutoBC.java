@@ -1,5 +1,6 @@
 package edu.furb.sistemanfe.business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.persistence.ProdutoDAO;
 import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
+import edu.furb.sistemanfe.pojo.ProdutoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -125,6 +127,11 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 			}
 		}	
 
+		return ret;
+	}
+
+	public List<ProdutoVendas> getProdutosVendas(Date dataIni, Date dataFim) {
+		List<ProdutoVendas> ret = getDelegate().produtosVendas(credentials.getUsuario().getEmitente(), dataIni, dataFim);
 		return ret;
 	}
 }
