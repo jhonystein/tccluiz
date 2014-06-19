@@ -30,15 +30,15 @@
 						title="#{messages['usuario.alt.login']}" />
 
 					<p:message for="login" />
-					
+
 					<h:outputLabel value="#{messages['usuario.label.senha']}: "
 						for="senha" styleClass="text-input" />
 
 					<h:inputText id="senha" value="#{usuarioEditMB.bean.senha}"
 						title="#{messages['usuario.alt.senha']}" />
 
-					<p:message for="senha" />					
-					
+					<p:message for="senha" />
+
 					<h:outputLabel value="#{messages['usuario.label.status']}: "
 						for="status" styleClass="text-input" />
 					<p:selectOneMenu id="status" value="#{usuarioEditMB.bean.status}"
@@ -49,19 +49,26 @@
 
 					<h:outputLabel value="#{messages['usuario.label.admin']}: "
 						for="admin" styleClass="text-input" />
-					<p:selectOneMenu id="admin" value="#{usuarioEditMB.bean.tipoUsuario}"
-						effect="fade" title="#{messages['usuario.alt.admin']}">
+					<p:selectOneMenu id="admin"
+						value="#{usuarioEditMB.bean.tipoUsuario}" effect="fade"
+						title="#{messages['usuario.alt.admin']}">
 						<f:selectItems value="#{usuarioEditMB.tiposAdministrador}" />
 					</p:selectOneMenu>
 					<p:message for="admin" />
-					
+
 					<h:outputLabel value="#{messages['usuario.label.emitente']}: "
 						for="emitenteDocumento" styleClass="text-input" />
 
-					<h:inputText id="emitenteDocumento" value="#{usuarioEditMB.bean.emitente.documento}"
-						title="#{messages['usuario.alt.emitente.documento']}" readonly="true" />
-					<h:inputText id="emitenteDocumento2" value="#{usuarioEditMB.bean.emitente.nome}"
+					<h:inputText id="emitenteDocumento"
+						value="#{usuarioEditMB.bean.emitente.documento}"
+						title="#{messages['usuario.alt.emitente.documento']}"
+						readonly="true" />
+					<h:inputText id="emitenteDocumento2"
+						value="#{usuarioEditMB.bean.emitente.nome}"
 						title="#{messages['usuario.alt.emitente.nome']}" readonly="true" />
+
+					<h:commandButton value="Enviar email ativação" action="#{usuarioEditMB.emailConfirma}" />
+					
 				</h:panelGrid>
 			</p:fieldset>
 

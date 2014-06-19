@@ -16,20 +16,7 @@
 					<p:commandButton value="#{messages['button.save']}"
 						action="#{clienteEditMB.update}"
 						rendered="#{clienteEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}"
-						onclick="confirmation.show()"
-						rendered="#{clienteEditMB.updateMode}" type="button"
-						immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}"
-						showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert"
-						widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}"
-							action="#{clienteEditMB.delete}" immediate="true" ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}"
-							onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
+					</p:toolbarGroup>
 			</p:toolbar>
 
 			<br />
@@ -42,7 +29,7 @@
 						for="documento" styleClass="text-input" />
 
 					<h:inputText id="documento" value="#{clienteEditMB.bean.documento}"
-						title="#{messages['cliente.alt.documento']}" />
+						title="#{messages['cliente.alt.documento']}" disabled="true"/>
 
 					<p:message for="documento" />
 
@@ -50,7 +37,7 @@
 						for="nome" styleClass="text-input" />
 
 					<h:inputText id="nome" value="#{clienteEditMB.bean.nome}"
-						title="#{messages['cliente.alt.nome']}" />
+						title="#{messages['cliente.alt.nome']}" disabled="true"/>
 
 					<p:message for="nome" />
 
@@ -60,7 +47,7 @@
 
 					<h:inputText id="inscricaoEstadual"
 						value="#{clienteEditMB.bean.inscricaoEstadual}"
-						title="#{messages['cliente.alt.inscricaoEstadual']}" />
+						title="#{messages['cliente.alt.inscricaoEstadual']}" disabled="true"/>
 
 					<p:message for="inscricaoEstadual" />
 
@@ -86,7 +73,7 @@
 
 					<h:inputText id="enderecoSigla"
 						value="#{clienteEditMB.bean.endereco.estado.sigla}"
-						title="#{messages['cliente.alt.endereco']}" disabled="true" />
+						title="#{messages['cliente.alt.endereco']}" />
 
 					<p:message for="enderecoSigla" />
 
@@ -94,8 +81,8 @@
 						for="enderecoCidade" styleClass="text-input" />
 
 					<h:inputText id="enderecoCidade"
-						value="#{clienteEditMB.bean.endereco.estado.cidade}"
-						title="#{messages['cliente.alt.endereco']}" disabled="true" />
+						value="#{clienteEditMB.bean.endereco.estado.nome}"
+						title="#{messages['cliente.alt.endereco']}"  />
 
 					<p:message for="enderecoCidade" />
 
@@ -104,7 +91,7 @@
 
 					<h:inputText id="enderecoLogradouro"
 						value="#{clienteEditMB.bean.endereco.logradouro}"
-						title="#{messages['cliente.alt.endereco']}" disabled="true" />
+						title="#{messages['cliente.alt.endereco']}"  />
 
 					<p:message for="enderecoLogradouro" />
 
@@ -113,7 +100,7 @@
 
 					<h:inputText id="enderecoNumero"
 						value="#{clienteEditMB.bean.endereco.numero}"
-						title="#{messages['cliente.alt.endereco']}" disabled="true" />
+						title="#{messages['cliente.alt.endereco']}"  />
 
 					<p:message for="enderecoNumero" />
 
@@ -122,7 +109,7 @@
 
 					<h:inputText id="enderecoBairro"
 						value="#{clienteEditMB.bean.endereco.bairro}"
-						title="#{messages['cliente.alt.endereco']}" disabled="true" />
+						title="#{messages['cliente.alt.endereco']}"  />
 
 					<p:message for="enderecoBairro" />
 
@@ -131,7 +118,7 @@
 
 					<h:inputText id="enderecoCep"
 						value="#{clienteEditMB.bean.endereco.cep}"
-						title="#{messages['cliente.alt.endereco']}" readonly="false" />
+						title="#{messages['cliente.alt.endereco']}" />
 
 					<p:message for="enderecoCep" />
 

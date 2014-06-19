@@ -54,6 +54,10 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 	protected Usuario handleLoad(Long id) {
 		return this.usuarioBC.load(id);
 	}
+	
+	public void emailConfirma(){
+		usuarioBC.emailConfirma(getBean());
+	}
 
 	
 }

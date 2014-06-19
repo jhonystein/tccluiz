@@ -38,8 +38,8 @@ public class Usuario implements Serializable {
 	private String senha = null;
 	@Column(name = "NMNOME", length = 50, nullable=true)
 	private String nome = null;
-	@Column(name = "DSFONE1", length = 12, nullable=true)
-	private String fone1 = null;	
+	@Column(name = "DSFONE", length = 12, nullable=true)
+	private String fone = null;	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DSSTATUS", length = 20, nullable=false)
 	private StatusUsuarioEnum status = StatusUsuarioEnum.BLOQUEADO;
@@ -76,11 +76,11 @@ public class Usuario implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getFone1() {
-		return fone1;
+	public String getFone() {
+		return fone;
 	}
-	public void setFone1(String fone1) {
-		this.fone1 = fone1;
+	public void setFone(String fone1) {
+		this.fone = fone1;
 	}
 	public StatusUsuarioEnum getStatus() {
 		return status;
