@@ -17,7 +17,6 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ClienteBC;
 import edu.furb.sistemanfe.domain.Cliente;
-import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
 
 @ViewController

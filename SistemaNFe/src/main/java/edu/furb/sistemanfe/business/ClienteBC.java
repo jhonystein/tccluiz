@@ -31,7 +31,6 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setEmitente(credentials.getUsuario().getEmitente());
 		return getDelegate().pesquisar(dto);
-		// return super.findAll();
 	}
 	
 	public List<Cliente> buscaClientes(String sortField, SortOrder sortOrder){
