@@ -22,60 +22,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-//	public List<Produto> pesquisar(ProdutoDTO dto) {
-//		return montaQuery(dto).getResultList();
-//	}
-	
-//	private TypedQuery<Produto> montaQuery(ProdutoDTO dto){
-//		return this.montaQuery(dto, null, null);
-//	}
-//	
-//	private TypedQuery<Produto> montaQuery(ProdutoDTO dto, String sortField,
-//			SortOrder sortOrder){
-//		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-//		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
-//		Root<Produto> objeto = query.from(Produto.class);
-//		query.select(objeto);
-//		
-//		if(sortField!=null){
-//			if((sortOrder == null)||sortOrder.equals(SortOrder.ASCENDING)){
-//				query.orderBy(builder.asc(objeto.get(sortField)));
-//			}else{
-//				query.orderBy(builder.desc(objeto.get(sortField)));
-//			}			
-//		}
-//
-//		List<Predicate> predicateList = new ArrayList<Predicate>();
-//
-//		if (dto.getId() != null) {
-//			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
-//			predicateList.add(p);
-//		}
-//		if (dto.getCodigo() != null) {
-//			Predicate p = builder.equal(objeto.<String> get("codigo"),
-//					dto.getCodigo());
-//			predicateList.add(p);
-//		}
-//		if (dto.getNome() != null) {
-//			Predicate p = builder.equal(objeto.<String> get("nome"),
-//					dto.getNome());
-//			predicateList.add(p);
-//		}
-//		/**
-//		 * Sempre usa o critério de emitente atual na consulta
-//		 */
-//		Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
-//				dto.getEmitente());
-//		predicateList.add(p);
-//
-//		Predicate[] predicates = new Predicate[predicateList.size()];
-//		predicateList.toArray(predicates);
-//		query.where(predicates);
-//				
-//		return getEntityManager().createQuery(query);
-//	}
-	
-
 	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {
 		String sqlQuery = "SELECT new edu.furb.sistemanfe.pojo.ProdutoGraficoVendas(p.codigo, p.nome, sum(i.quantidade)) "
 				+ " from NotaFiscal as n, Produto as p "
@@ -115,16 +61,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 		System.out.println(produtos.toString());
 		return produtos;
 
-		/*
-		 * select SUM(I.VLUNITARIO) as VALORUNITARIO, SUM(I.VLQUANTIDADE) as
-		 * QUANTIDADE, SUM(I.VLUNITARIO) * SUM(I.VLQUANTIDADE) AS CONSUMIDO,
-		 * P.DSCODIGO as CODIGO, P.NMPRODUTO as PRODUTO from TBITEMNOTAFISCAL as
-		 * I JOIN TBNOTAFISCAL as N on N.IDNOTAFISCAl = I.IDNOTAFISCAL_ID JOIN
-		 * TBPRODUTO P on P.DSCODIGO = I.DSCODIGO and P.IDEMITENTE =
-		 * N.IDEMITENTE -- where -- N.IDEMITENTE = 100 and N.DTEMISSAO >= '' and
-		 * N.DTEMISSAO <= '' group by P.DSCODIGO, P.NMPRODUTO order by 3 DESC;
-		 */
-
 	}
 
 	/**
@@ -148,7 +84,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
 			predicateList.add(p);
 		}
-		//ProdutoDTO pDTO = (ProdutoDTO)dto;
 		if (dto.getCodigo() != null) {
 			Predicate p = builder.equal(objeto.<String> get("codigo"),
 					dto.getCodigo());

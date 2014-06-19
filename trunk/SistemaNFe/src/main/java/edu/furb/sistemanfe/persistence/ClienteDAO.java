@@ -21,48 +21,6 @@ public class ClienteDAO extends Crud<Cliente, Long, ClienteDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-//	public List<Cliente> pesquisar(ClienteDTO dto) {
-//		return montaQuery(dto).getResultList();
-//	}
-	
-	// public List<Cliente> pesquisar(ClienteDTO dto) {
-	//
-	// CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-	// CriteriaQuery<Cliente> query = builder.createQuery(Cliente.class);
-	// Root<Cliente> objeto = query.from(Cliente.class);
-	// query.select(objeto);
-	//
-	// List<Predicate> predicateList = new ArrayList<Predicate>();
-	//
-	// if (dto.getId() != null) {
-	// Predicate p = builder.equal(objeto.<Long> get("id"),
-	// dto.getId());
-	// predicateList.add(p);
-	// }
-	// if (dto.getDocumento() != null) {
-	// Predicate p = builder.equal(objeto.<String> get("documento"),
-	// dto.getDocumento());
-	// predicateList.add(p);
-	// }
-	// if (dto.getNome() != null) {
-	// Predicate p = builder.equal(objeto.<String> get("nome"),
-	// dto.getNome());
-	// predicateList.add(p);
-	// }
-	//
-	// //if (dto.getEmitente() != null) {
-	// Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
-	// dto.getEmitente());
-	// predicateList.add(p);
-	// //}//TODO: Avaliar necessidade de criticar caso não tenha Emitente
-	//
-	// Predicate[] predicates = new Predicate[predicateList.size()];
-	// predicateList.toArray(predicates);
-	// query.where(predicates);
-	// return getEntityManager().createQuery(query).getResultList();
-	//
-	// }
-
 	public List<ClienteCurvaABC> clientesABC(Emitente emitente) {
 		String sqlQuery = "SELECT "
 				+ " new edu.furb.sistemanfe.pojo.ClienteCurvaABC(c.documento, c.nome, sum(i.valorUnitario), "

@@ -16,7 +16,6 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ClienteBC;
 import edu.furb.sistemanfe.business.EmitenteBC;
 import edu.furb.sistemanfe.business.NotaFiscalBC;
-import edu.furb.sistemanfe.configuration.AppConfig;
 import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
@@ -83,7 +82,7 @@ public class NotaFiscalEditMB extends AbstractEditPageBean<NotaFiscal, Long> {
 	public void handleFileUpload(FileUploadEvent event) {
 
 		String type = (String) event.getComponent().getAttributes().get("type");
-		NotaFiscal evento = getBean();
+		//NotaFiscal evento = getBean();
 		UploadedFile logoFooter = event.getFile();
 		String nome = logoFooter.getFileName();
 		System.out.println("TESTE: "+ nome);

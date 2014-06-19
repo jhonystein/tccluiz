@@ -36,16 +36,13 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		ProdutoDTO dto = new ProdutoDTO();
 		dto.setEmitente(credentials.getUsuario().getEmitente());
 		return getDelegate().pesquisar(dto);
-		// return super.findAll();
-	}
-	
+	}	
 
 	public List<Produto> buscaProdutos(String sortField, SortOrder sortOrder){
 		ProdutoDTO dto = new ProdutoDTO();
 		dto.setEmitente(credentials.getUsuario().getEmitente());
 		return getDelegate().buscaProdutos(dto, sortField, sortOrder);
-	}
-	
+	}	
 
 	/**
 	 * Carraga um produto com base em seu Código
@@ -93,10 +90,11 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
 	}
 
-	
+	/**
+	 * Obtem dados para lisa de Curva ABC de produtos
+	 * @return
+	 */
 	public List<ProdutoCurvaABC> getProdutoABC() {
-		
-		//notaFiscalBC.getValorTotal(credentials.getUsuario().getEmitente());
 		
 		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente());
 		/**
