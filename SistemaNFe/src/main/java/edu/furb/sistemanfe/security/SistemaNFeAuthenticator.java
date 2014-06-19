@@ -92,7 +92,7 @@ public class SistemaNFeAuthenticator implements Authenticator {
 		credentials.clear();
 		LoginMB loginMB = Beans.getReference(LoginMB.class);
 		loginMB.setUsuario(null);
-		loginMB.setEmitente(null);
+		//loginMB.setEmitente(null);
 	}
 
 	@Override

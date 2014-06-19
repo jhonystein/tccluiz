@@ -44,7 +44,8 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 				pagination.setPageSize(pageSize);
 				pagination.setFirstResult(first);
 				//long ii = ProdutoListMB.serialVersionUID; 
-				List<Produto> itensLista = produtoBC.findAll();// buscaCliente(codigo, nome, documento, sortField, sortOrder);
+				//List<Produto> itensLista = produtoBC.findAll();// buscaCliente(codigo, nome, documento, sortField, sortOrder);
+				List<Produto> itensLista = produtoBC.buscaProdutos(sortField, sortOrder);
 				
 				lazyModel.setRowCount(pagination.getTotalResults());
 				return itensLista;

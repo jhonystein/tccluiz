@@ -3,13 +3,14 @@ package edu.furb.sistemanfe.persistence;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
-import br.gov.frameworkdemoiselle.template.JPACrud;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
@@ -17,44 +18,62 @@ import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 
 @PersistenceController
-public class ProdutoDAO extends JPACrud<Produto, Long> {
+public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	public List<Produto> pesquisar(ProdutoDTO dto) {
-		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
-		Root<Produto> objeto = query.from(Produto.class);
-		query.select(objeto);
-
-		List<Predicate> predicateList = new ArrayList<Predicate>();
-
-		if (dto.getId() != null) {
-			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
-			predicateList.add(p);
-		}
-		if (dto.getCodigo() != null) {
-			Predicate p = builder.equal(objeto.<String> get("codigo"),
-					dto.getCodigo());
-			predicateList.add(p);
-		}
-		if (dto.getNome() != null) {
-			Predicate p = builder.equal(objeto.<String> get("nome"),
-					dto.getNome());
-			predicateList.add(p);
-		}
-		// if (dto.getEmitente() != null) {
-		Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
-				dto.getEmitente());
-		predicateList.add(p);
-		// }//TODO: Avaliar necessidade de criticar caso não tenha Emitente
-
-		Predicate[] predicates = new Predicate[predicateList.size()];
-		predicateList.toArray(predicates);
-		query.where(predicates);
-		return getEntityManager().createQuery(query).getResultList();
-
-	}
+//	public List<Produto> pesquisar(ProdutoDTO dto) {
+//		return montaQuery(dto).getResultList();
+//	}
+	
+//	private TypedQuery<Produto> montaQuery(ProdutoDTO dto){
+//		return this.montaQuery(dto, null, null);
+//	}
+//	
+//	private TypedQuery<Produto> montaQuery(ProdutoDTO dto, String sortField,
+//			SortOrder sortOrder){
+//		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+//		CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
+//		Root<Produto> objeto = query.from(Produto.class);
+//		query.select(objeto);
+//		
+//		if(sortField!=null){
+//			if((sortOrder == null)||sortOrder.equals(SortOrder.ASCENDING)){
+//				query.orderBy(builder.asc(objeto.get(sortField)));
+//			}else{
+//				query.orderBy(builder.desc(objeto.get(sortField)));
+//			}			
+//		}
+//
+//		List<Predicate> predicateList = new ArrayList<Predicate>();
+//
+//		if (dto.getId() != null) {
+//			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
+//			predicateList.add(p);
+//		}
+//		if (dto.getCodigo() != null) {
+//			Predicate p = builder.equal(objeto.<String> get("codigo"),
+//					dto.getCodigo());
+//			predicateList.add(p);
+//		}
+//		if (dto.getNome() != null) {
+//			Predicate p = builder.equal(objeto.<String> get("nome"),
+//					dto.getNome());
+//			predicateList.add(p);
+//		}
+//		/**
+//		 * Sempre usa o critério de emitente atual na consulta
+//		 */
+//		Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
+//				dto.getEmitente());
+//		predicateList.add(p);
+//
+//		Predicate[] predicates = new Predicate[predicateList.size()];
+//		predicateList.toArray(predicates);
+//		query.where(predicates);
+//				
+//		return getEntityManager().createQuery(query);
+//	}
 	
 
 	public List<ProdutoGraficoVendas> novoTeste3(Emitente emitente) {
@@ -106,6 +125,48 @@ public class ProdutoDAO extends JPACrud<Produto, Long> {
 		 * N.DTEMISSAO <= '' group by P.DSCODIGO, P.NMPRODUTO order by 3 DESC;
 		 */
 
+	}
+
+	/**
+	 * Busca a lista de produtos paginada
+	 * @param dto Critério de filtro 
+	 * @param sortField campo de ordenação
+	 * @param sortOrder critério de ordenação
+	 * @return Lista de produtos
+	 */
+	public List<Produto> buscaProdutos(ProdutoDTO dto, String sortField,
+			SortOrder sortOrder) {
+		TypedQuery<Produto> query = montaQuery(dto, sortField, sortOrder);
+		return this.paginacao(query);
+	}
+
+	@Override
+	protected List<Predicate> montaPredicadosConsulta(ProdutoDTO dto, CriteriaBuilder builder, Root<Produto> objeto) {
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
+		if (dto.getId() != null) {
+			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
+			predicateList.add(p);
+		}
+		//ProdutoDTO pDTO = (ProdutoDTO)dto;
+		if (dto.getCodigo() != null) {
+			Predicate p = builder.equal(objeto.<String> get("codigo"),
+					dto.getCodigo());
+			predicateList.add(p);
+		}
+		if (dto.getNome() != null) {
+			Predicate p = builder.equal(objeto.<String> get("nome"),
+					dto.getNome());
+			predicateList.add(p);
+		}
+		/**
+		 * Sempre usa o critério de emitente atual na consulta
+		 */
+		Predicate p = builder.equal(objeto.<Emitente> get("emitente"),
+				dto.getEmitente());
+		predicateList.add(p);
+		
+		return predicateList;
 	}
 
 }

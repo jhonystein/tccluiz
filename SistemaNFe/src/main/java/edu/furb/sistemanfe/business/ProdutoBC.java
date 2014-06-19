@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -38,6 +40,12 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 	}
 	
 
+	public List<Produto> buscaProdutos(String sortField, SortOrder sortOrder){
+		ProdutoDTO dto = new ProdutoDTO();
+		dto.setEmitente(credentials.getUsuario().getEmitente());
+		return getDelegate().buscaProdutos(dto, sortField, sortOrder);
+	}
+	
 
 	/**
 	 * Carraga um produto com base em seu Código

@@ -4,13 +4,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.ClienteDAO;
 import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
-import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -31,6 +32,12 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		dto.setEmitente(credentials.getUsuario().getEmitente());
 		return getDelegate().pesquisar(dto);
 		// return super.findAll();
+	}
+	
+	public List<Cliente> buscaClientes(String sortField, SortOrder sortOrder){
+		ClienteDTO dto = new ClienteDTO();
+		dto.setEmitente(credentials.getUsuario().getEmitente());
+		return getDelegate().buscaClientes(dto, sortField, sortOrder);
 	}
 
 	/**
