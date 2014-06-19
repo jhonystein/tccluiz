@@ -11,16 +11,17 @@
 				<f:facet name="header">Gerar Informações de Produtos</f:facet>
 				<h:outputLabel for="dataIni" value="Data Inicial: " />
 				<p:calendar value="#{vendasProdutoMB.dataIni}" id="dataIni" label="Data Inicial"
-					showOn="button" locale="pt_BR">
+					showOn="button" locale="pt_BR" pattern="#{messages['label.date.pattern']}">
 					<f:validateRequired for="dataIni" style="color:red"/>
 				</p:calendar>
 				<p:message for="dataIni" />
+				
 				<h:outputLabel for="dataFim" value="Data Final: " />
 				<p:calendar value="#{vendasProdutoMB.dataFim}" id="dataFim" label="Data Final"
-					showOn="button" autocomplete="true" locale="pt_BR" pattern="dd/MM/yyyy">
+					showOn="button" autocomplete="true" locale="pt_BR" pattern="#{messages['label.date.pattern']}">
 					<f:validateRequired for="dataFim" style="color:red"/>
 				</p:calendar>
-				<p:message for="dataIni" />
+				<p:message for="dataFim" />
 
 				<f:facet name="footer">
 					<h:commandButton value="Relátorio" icon="ui-icon-clipboard"
