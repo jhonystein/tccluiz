@@ -37,7 +37,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 		query3.setParameter(1, emitente);
 		List<ProdutoGraficoVendas> pessoa = (List<ProdutoGraficoVendas>) query3
 				.getResultList();
-		System.out.println(pessoa.toString());
 		return pessoa;
 
 	}
@@ -60,7 +59,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 		query3.setParameter(1, emitente);
 		List<ProdutoCurvaABC> produtos = (List<ProdutoCurvaABC>) query3
 				.getResultList();
-		System.out.println(produtos.toString());
 		return produtos;
 
 	}
@@ -127,7 +125,6 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 		query3.setParameter(3, dataFim);
 		List<ProdutoVendas> produtos = (List<ProdutoVendas>) query3
 				.getResultList();
-		System.out.println(produtos.toString());
 		return produtos;
 	}
 
