@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.gov.frameworkdemoiselle.mail.Mail;
 import br.gov.frameworkdemoiselle.message.DefaultMessage;
 import br.gov.frameworkdemoiselle.message.Message;
 import br.gov.frameworkdemoiselle.message.MessageContext;
@@ -30,6 +31,8 @@ public class NovoUsuarioMB implements Serializable {
 	private MessageContext messageContext;
 	@Inject
 	private UsuarioBC usuarioBC;
+	@Inject
+	private Mail mail;
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -52,6 +55,24 @@ public class NovoUsuarioMB implements Serializable {
 		this.usuario = new Usuario();
 	}
 
+	private void email(Usuario usuario) {
+		String texto = String.format(" Cliente %s solicitou cadastro no sistema. \n Email: %s \n Telefone: %s", usuario.getNome(),usuario.getLogin(), usuario.getFone());
+		mail
+
+		.to("contatosistemanfe@gmail.com")
+
+		.from("contatosistemanfe@gmail.com")
+
+		.body().text(texto)
+
+		.subject("Solicitação de Acesso")
+
+		//.importance().high()
+
+		.send();
+
+	}
+
 	public String cadastrarNew() {
 		try {
 			if (!this.getUsuario().getSenha().equals(confirmaSenha)) {
@@ -65,13 +86,14 @@ public class NovoUsuarioMB implements Serializable {
 			// usuario.setLogin(login);
 			// usuario.setSenha(senha);
 			this.usuarioBC.insert(usuario);
+			this.email(usuario);
 			messageContext.add("Solicitação fetuada com sucesso!!!",
 					SeverityType.INFO);
 			return "login";
 
 		} catch (Exception ex) {
-			messageContext.add("Erro: {0}",
-					SeverityType.ERROR, ex.getMessage());
+			messageContext
+					.add("Erro: {0}", SeverityType.ERROR, ex.getMessage());
 			return "usuario_new";
 		}
 	}

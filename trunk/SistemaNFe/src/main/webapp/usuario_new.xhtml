@@ -9,31 +9,56 @@
 		<p:fieldset legend="#{messages['novousuario.caption']}">
 			<h:form>
 				<h:panelGrid columns="3">
+					<h:outputLabel value="#{messages['usuario.label.nome']}: "
+						for="nome" styleClass="text-input" />
+
+					<h:inputText id="nome" value="#{novoUsuarioMB.usuario.nome}">
+						<f:validateRequired for="nome"></f:validateRequired>
+						<f:validateLength for="nome" minimum="3"></f:validateLength>
+					</h:inputText>
+
+					<p:message for="nome" />
+					<h:outputLabel value="#{messages['usuario.label.fone']}: "
+						for="fone" styleClass="text-input" />
+
+					<h:inputText id="fone" value="#{novoUsuarioMB.usuario.fone}">
+					<f:validateRequired for="fone"></f:validateRequired>
+						<f:validateLength for="fone" minimum="8"></f:validateLength>
+					</h:inputText>
+					<p:message for="fone" />
 					<h:outputLabel value="#{messages['usuario.label.login']}: "
 						for="login" styleClass="text-input" />
 
 					<h:inputText id="login" value="#{novoUsuarioMB.usuario.login}"
-						title="#{messages['usuario.alt.login']}" >
-											
-						</h:inputText>
+						title="#{messages['usuario.alt.login']}">
+						<f:validateRequired for="login"></f:validateRequired>
+						<f:validateLength for="login" minimum="8"></f:validateLength>
+					</h:inputText>
 
 					<p:message for="login" />
-					
+
 					<h:outputLabel value="#{messages['usuario.label.senha']}: "
 						for="senha" styleClass="text-input" />
 
 					<h:inputSecret id="senha" value="#{novoUsuarioMB.usuario.senha}"
-						title="#{messages['usuario.alt.senha']}" />
+						title="#{messages['usuario.alt.senha']}">
+						<f:validateRequired for="senha"></f:validateRequired>
+						<f:validateLength for="senha" minimum="3"></f:validateLength>
+					</h:inputSecret>
+					<p:message for="senha" />
 
-					<p:message for="senha" />	
-					
-					<h:outputLabel value="#{messages['usuario.label.confirma_senha']}: "
+					<h:outputLabel
+						value="#{messages['usuario.label.confirma_senha']}: "
 						for="confirma_senha" styleClass="text-input" />
 
-					<h:inputSecret id="confirma_senha" value="#{novoUsuarioMB.confirmaSenha}"
-						title="#{messages['usuario.alt.senha']}" />
+					<h:inputSecret id="confirma_senha"
+						value="#{novoUsuarioMB.confirmaSenha}"
+						title="#{messages['usuario.alt.senha']}">
+						<f:validateRequired for="confirma_senha"></f:validateRequired>
+						<f:validateLength for="confirma_senha" minimum="3"></f:validateLength>
+					</h:inputSecret>
 
-					<p:message for="confirma_senha" />	
+					<p:message for="confirma_senha" />
 
 					<p:spacer />
 					<p:spacer />
@@ -41,7 +66,7 @@
 					<p:spacer />
 					<h:commandButton value="#{messages['novousuario.enviar']}"
 						action="#{novoUsuarioMB.cadastrarNew}" />
-				
+					
 				</h:panelGrid>
 			</h:form>
 		</p:fieldset>

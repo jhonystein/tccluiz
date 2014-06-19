@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.lifecycle.Startup;
+import br.gov.frameworkdemoiselle.mail.Mail;
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -19,7 +21,8 @@ import edu.furb.sistemanfe.rest.UsuarioDTO;
 public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 
 	private static final long serialVersionUID = 1L;
-
+	@Inject
+	private Mail mail;
 	@Startup
 	@Transactional
 	public void load() {
@@ -47,7 +50,25 @@ public class UsuarioBC extends DelegateCrud<Usuario, Long, UsuarioDAO> {
 			insert(u);
 		}
 	}
+	
+	public void emailConfirma(Usuario usuario) {		
 		
+		String texto = String.format(" Prezado, %s \n \n Sua conta foi ativada com sucesso!!! \n \n Login: %s \n Senha: %s", usuario.getNome(),usuario.getLogin(), usuario.getSenha());
+		mail
+
+		.to(usuario.getLogin())
+
+		.from("contatosistemanfe@gmail.com")
+
+		.body().text(texto)
+
+		.subject("Ativação de conta Sistema NF-e")
+
+		//.importance().high()
+
+		.send();
+
+	}
 	/***
 	 * Obtem uma lista de objetos para popular um Select do tipo Tipo Admin
 	 * @return Lista de objetos
