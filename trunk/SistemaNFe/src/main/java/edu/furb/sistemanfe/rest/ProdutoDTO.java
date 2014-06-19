@@ -3,7 +3,7 @@ package edu.furb.sistemanfe.rest;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Produto;
 
-public class ProdutoDTO {
+public class ProdutoDTO implements BaseDTO {
 	private Long id = null;
 	private String codigo = null;
 	private String nome = null;

@@ -4,7 +4,8 @@ import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.Endereco;
 
-public class ClienteDTO {
+public class ClienteDTO implements BaseDTO {
+	
 	private Long id = null;
 	private String documento = null;
 	private String nome = null;
