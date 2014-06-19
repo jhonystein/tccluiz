@@ -3,6 +3,7 @@ package edu.furb.sistemanfe.view;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,6 +16,7 @@ import edu.furb.sistemanfe.domain.Usuario;
 
 @Named
 @ManagementController
+@RequestScoped
 public class NovoUsuarioMB implements Serializable {
 
 	private static final long serialVersionUID = 5678102207613023117L;

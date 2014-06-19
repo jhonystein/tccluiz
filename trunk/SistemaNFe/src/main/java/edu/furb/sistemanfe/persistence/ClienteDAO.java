@@ -23,13 +23,12 @@ public class ClienteDAO extends Crud<Cliente, Long, ClienteDTO> {
 
 	public List<ClienteCurvaABC> clientesABC(Emitente emitente) {
 		String sqlQuery = "SELECT "
-				+ " new edu.furb.sistemanfe.pojo.ClienteCurvaABC(c.documento, c.nome, sum(i.valorUnitario), "
-				+ " sum(i.quantidade)) "
+				+ " new edu.furb.sistemanfe.pojo.ClienteCurvaABC(c.documento, c.nome, sum(n.valorTotalNota), count(c.id) "
+				+ " ) "
 				+ "  from NotaFiscal as n, Cliente as c "
-				+ "  join n.itemNotaFiscal as i "
 				+ "  where c.documento = n.clienteNotaFiscal.documento and "
 				+ " c.emitente = n.emitente and n.emitente = ?1 "
-				+ "  group by c.documento, c.nome order by sum(i.valorUnitario) * sum(i.quantidade) desc ";
+				+ "  group by c.documento, c.nome order by sum(n.valorTotalNota) desc ";
 		javax.persistence.Query query3 = getEntityManager().createQuery(
 				sqlQuery, ClienteCurvaABC.class);
 		query3.setParameter(1, emitente);

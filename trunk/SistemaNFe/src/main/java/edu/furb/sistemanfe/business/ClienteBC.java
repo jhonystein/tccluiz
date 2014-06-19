@@ -1,5 +1,6 @@
 package edu.furb.sistemanfe.business;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -87,30 +88,37 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		 * Atribui a qualificação e calcula o consumo acumulado de cada item
 		 */
 		int qualificacao = 0;
-		Double consumoAcumulado = 0.0;
+		BigDecimal consumoAcumulado = new BigDecimal(0);
 		for (ClienteCurvaABC clienteCurvaABC : ret) {
 			qualificacao++;
-			consumoAcumulado += clienteCurvaABC.getConsumo();
+			
+			consumoAcumulado = consumoAcumulado.add(clienteCurvaABC.getValorTotal());
 			clienteCurvaABC.setQualificacao(qualificacao);
-			clienteCurvaABC.setConsumoAcumulado(consumoAcumulado);			
+			clienteCurvaABC.setValortTotalAcumulado(consumoAcumulado);			
 		}
-		/**
-		 * Calcula o percentual acumulado
-		 */
+		long classificacaoA = Math.round(  ret.size() * 0.2D);
+		long classificacaoB = Math.round(ret.size() * 0.3D);
+		//long classificacaoC = Math.round(ret.size() * 0.5D);
+		
 		Double percentualAcumulado = 0.0;
+		/**
+		 * Atribui a classificacao e calcula o percentual acumulado
+		 */
 		for (ClienteCurvaABC clienteCurvaABC : ret) {
-			percentualAcumulado = (clienteCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
-			clienteCurvaABC.setPercentualAcumulado(percentualAcumulado);
-			if(clienteCurvaABC.getPercentualAcumulado() <=20.0){
-				clienteCurvaABC.setClassificacao("A");
-			}else if((clienteCurvaABC.getPercentualAcumulado() >20.0) &&
-					(clienteCurvaABC.getPercentualAcumulado() <=50.0)){
+			if (clienteCurvaABC.getQualificacao() <= classificacaoA){
+				clienteCurvaABC.setClassificacao("A");			
+			}else if((clienteCurvaABC.getQualificacao() > classificacaoA ) && (clienteCurvaABC.getQualificacao() <= classificacaoB)){
 				clienteCurvaABC.setClassificacao("B");
-			}else{
+			}else {
 				clienteCurvaABC.setClassificacao("C");
 			}
-		}	
-
+			
+			BigDecimal teste = clienteCurvaABC.getValortTotalAcumulado().divide(consumoAcumulado, 3);
+			percentualAcumulado = teste.doubleValue();
+			percentualAcumulado  = (percentualAcumulado ) * 100;			
+			clienteCurvaABC.setPercentualAcumulado(percentualAcumulado);			
+		}
+		
 		return ret;
 	}
 
