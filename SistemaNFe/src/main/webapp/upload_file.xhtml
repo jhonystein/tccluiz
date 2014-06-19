@@ -12,8 +12,8 @@
 			
 			<p:fileUpload id="logoBanner" label="#{messages['upload.label.arquivo']}" cancelLabel="#{messages['upload.label.cancelar']}" uploadLabel="#{messages['upload.label.enviar']}"
 				fileUploadListener="#{arquivoXMLEditMB.handleFileUpload}"
-				mode="advanced" dragDropSupport="true" update=":form:growl"
-				auto="false" fileLimit="5" allowTypes="/(\.|\/)(xml)$/">
+				mode="advanced" dragDropSupport="true" update=":form:growl" multiple="true"
+				auto="false" fileLimit="20" allowTypes="/(\.|\/)(xml)$/">
 				<f:attribute name="type" value="notafiscal" />
 			</p:fileUpload>
 		</h:form>
