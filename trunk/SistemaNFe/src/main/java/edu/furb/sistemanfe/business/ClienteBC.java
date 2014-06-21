@@ -1,6 +1,7 @@
 package edu.furb.sistemanfe.business;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,8 @@ import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.ClienteDAO;
 import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
+import edu.furb.sistemanfe.pojo.ClienteVendas;
+import edu.furb.sistemanfe.pojo.ProdutoVendas;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -121,5 +124,8 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		
 		return ret;
 	}
-
+	public List<ClienteVendas> getClientesVendas(Date dataIni, Date dataFim) {
+		List<ClienteVendas> ret = getDelegate().clientesVendas(credentials.getUsuario().getEmitente(), dataIni, dataFim);
+		return ret;
+	}
 }

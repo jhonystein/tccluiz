@@ -1,6 +1,7 @@
 package edu.furb.sistemanfe.persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
@@ -14,6 +15,7 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
+import edu.furb.sistemanfe.pojo.ClienteVendas;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 
 @PersistenceController
@@ -66,10 +68,31 @@ public class ClienteDAO extends Crud<Cliente, Long, ClienteDTO> {
 		predicateList.add(p);
 		return predicateList;
 	}
-	
+
 	public List<Cliente> buscaClientes(ClienteDTO dto, String sortField,
 			SortOrder sortOrder) {
 		TypedQuery<Cliente> query = montaQuery(dto, sortField, sortOrder);
 		return this.paginacao(query);
+	}
+
+	public List<ClienteVendas> clientesVendas(Emitente emitente, Date dataIni,
+			Date dataFim) {
+		
+		String sqlQuery = "SELECT "
+				+ " new edu.furb.sistemanfe.pojo.ClienteVendas(c.documento, "
+				+ " sum(n.valorTotalNota)) "
+				+ "  from NotaFiscal as n, Cliente as c "
+				+ " where c.documento = n.clienteNotaFiscal.documento and "
+				+ "c.emitente = n.emitente and n.emitente = ?1 and "
+				+ " n.dataEmissao between ?2 and ?3 "
+				+ "  group by c.documento order by sum(n.valorTotalNota) desc ";
+		javax.persistence.Query query3 = getEntityManager().createQuery(
+				sqlQuery, ClienteVendas.class);
+		query3.setParameter(1, emitente);
+		query3.setParameter(2, dataIni);
+		query3.setParameter(3, dataFim);
+		List<ClienteVendas> clientes = (List<ClienteVendas>) query3
+				.getResultList();
+		return clientes;
 	}
 }
