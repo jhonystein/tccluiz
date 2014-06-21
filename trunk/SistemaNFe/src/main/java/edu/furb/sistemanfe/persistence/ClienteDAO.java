@@ -23,20 +23,22 @@ public class ClienteDAO extends Crud<Cliente, Long, ClienteDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	public List<ClienteCurvaABC> clientesABC(Emitente emitente) {
+	public List<ClienteCurvaABC> clientesABC(Emitente emitente, Date dataIni, Date dataFim) {
 		String sqlQuery = "SELECT "
 				+ " new edu.furb.sistemanfe.pojo.ClienteCurvaABC(c.documento, c.nome, sum(n.valorTotalNota), count(c.id) "
 				+ " ) "
 				+ "  from NotaFiscal as n, Cliente as c "
 				+ "  where c.documento = n.clienteNotaFiscal.documento and "
-				+ " c.emitente = n.emitente and n.emitente = ?1 "
+				+ " c.emitente = n.emitente and n.emitente = ?1 and "
+				+ " n.dataEmissao between ?2 and ?3 "
 				+ "  group by c.documento, c.nome order by sum(n.valorTotalNota) desc ";
 		javax.persistence.Query query3 = getEntityManager().createQuery(
 				sqlQuery, ClienteCurvaABC.class);
 		query3.setParameter(1, emitente);
+		query3.setParameter(2, dataIni);
+		query3.setParameter(3, dataFim);
 		List<ClienteCurvaABC> clientes = (List<ClienteCurvaABC>) query3
 				.getResultList();
-		System.out.println(clientes.toString());
 		return clientes;
 
 	}

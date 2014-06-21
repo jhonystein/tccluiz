@@ -17,7 +17,6 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ClienteBC;
 import edu.furb.sistemanfe.domain.Cliente;
-import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
 
 @ViewController
 @NextView("./cliente_edit.jsf")
@@ -25,9 +24,13 @@ import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
 public class ClienteListMB extends AbstractListPageBean<Cliente, Long> {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Inject
 	private ClienteBC clienteBC;
+	
+	public LazyDataModel<Cliente> getLazyModel() {
+		return lazyModel;
+	}
 
 	// Paginação
 	private LazyDataModel<Cliente> lazyModel;
@@ -50,11 +53,7 @@ public class ClienteListMB extends AbstractListPageBean<Cliente, Long> {
 				return itensLista;
 			}
 		};
-	}
-
-	public LazyDataModel<Cliente> getLazyModel() {
-		return lazyModel;
-	}
+	}	
 
 	@Override
 	protected List<Cliente> handleResultList() {
@@ -74,9 +73,5 @@ public class ClienteListMB extends AbstractListPageBean<Cliente, Long> {
 			}
 		}
 		return getPreviousView();
-	}
-
-	public List<ClienteCurvaABC> getDadosCurvaABC() {
-		return clienteBC.getDadosCurvaABC();
 	}
 }
