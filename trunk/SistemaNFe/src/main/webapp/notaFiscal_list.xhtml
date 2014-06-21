@@ -9,7 +9,8 @@
 	<ui:define name="body">
 		<h:form>
 			<p:dataTable id="list" var="bean"
-				value="#{notaFiscalListMB.resultList}">
+				value="#{notaFiscalListMB.lazyModel}" lazy="true" paginator="true"
+				first="#{messages['page.first']}" rows="#{messages['page.rows']}">
 				<f:facet name="header">#{messages['notaFiscal.list.table.title']}</f:facet>
 				<p:column width="5%" sortBy="#{bean.serie}">
 					<f:facet name="header">#{messages['notaFiscal.label.serie']}</f:facet>
@@ -60,7 +61,7 @@
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.valorTotalNota}">
-							<f:convertNumber pattern="#0.000"/>
+							<f:convertNumber pattern="#0.000" />
 						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>

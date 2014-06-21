@@ -67,7 +67,7 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 	public void atualizaCadastro(NotaFiscal nfRet) {
 		Cliente cliente = buscaPorDocumento(nfRet.getClienteNotaFiscal()
 				.getDocumento());
-		if ((cliente == null) || (cliente.getId() == 0)) {
+		if ((cliente == null) || (cliente.getId() == null) || (cliente.getId() == 0)) {
 			cliente = new Cliente();
 			cliente.setDocumento(nfRet.getClienteNotaFiscal().getDocumento());
 			cliente.setEmitente(nfRet.getEmitente());

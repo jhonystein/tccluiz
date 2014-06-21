@@ -117,7 +117,7 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 				+ "  where p.codigo = i.produtoNotaFiscal.codigo and "
 				+ " p.emitente = n.emitente and n.emitente = ?1 and "
 				+ " n.dataEmissao between ?2 and ?3 "
-				+ "  group by p order by p.codigo asc ";
+				+ "  group by p order by sum(i.valorTotal) desc ";
 		javax.persistence.Query query3 = getEntityManager().createQuery(
 				sqlQuery, ProdutoVendas.class);
 		query3.setParameter(1, emitente);
