@@ -45,7 +45,7 @@
 				<p:column width="20%">
 					<f:facet name="header">#{messages['label.cidade']}</f:facet>
 					<h:commandLink action="#{clienteListMB.getNextView}" actionListener="#{clienteListMB.clear}">
-						<h:outputText value="#{bean.endereco.estado.nome}" />
+						<h:outputText value="#{bean.endereco.municipio.nome}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
