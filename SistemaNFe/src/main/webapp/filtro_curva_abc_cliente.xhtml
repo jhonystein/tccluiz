@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/template/main.xhtml">
+
+	<ui:define name="body">
+		<h:form id="form">
+			<p:panelGrid columns="3">
+				<f:facet name="header">Gerar Informações de Curva ABC de Clientes</f:facet>
+				<h:outputLabel for="dataIni" value="Data Inicial: " />
+				<p:calendar value="#{curvaABCClienteMB.dataIni}" id="dataIni"
+					label="Data Inicial" showOn="button" locale="pt_BR"
+					pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataIni" style="color:red" />
+				</p:calendar>
+				<p:message for="dataIni" />
+
+				<h:outputLabel for="dataFim" value="Data Final: " />
+				<p:calendar value="#{curvaABCClienteMB.dataFim}" id="dataFim"
+					label="Data Final" showOn="button" autocomplete="true"
+					locale="pt_BR" pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataFim" style="color:red" />
+				</p:calendar>
+				<p:message for="dataFim" />
+
+				<f:facet name="footer">
+					<p:commandButton value="Relátorio" icon="ui-icon-clipboard"
+						style="margin:0" action="#{curvaABCClienteMB.consultarRegistros}" />
+					<p:commandButton type="button" value="Gráfico"
+						icon="ui-icon-bookmark" style="margin:0"
+						action="" />
+				</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

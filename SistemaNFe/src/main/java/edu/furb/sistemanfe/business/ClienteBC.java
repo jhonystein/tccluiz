@@ -84,8 +84,8 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		}
 	}
 	
-	public List<ClienteCurvaABC> getDadosCurvaABC() {
-		List<ClienteCurvaABC> ret = getDelegate().clientesABC(credentials.getUsuario().getEmitente());
+	public List<ClienteCurvaABC> getDadosCurvaABC(Date dataIni, Date dataFim) {
+		List<ClienteCurvaABC> ret = getDelegate().clientesABC(credentials.getUsuario().getEmitente(), dataIni, dataFim);
 		/**
 		 * Atribui a qualificação e calcula o consumo acumulado de cada item
 		 */
