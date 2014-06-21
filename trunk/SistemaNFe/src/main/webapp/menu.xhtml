@@ -17,9 +17,7 @@
 				<p:menuitem value="Início" outcome="/welcome.jsf"
 					icon="ui-icon-signal"
 					rendered="#{securityContext.hasRole('ADMIN')}" />
-
 			</p:submenu>
-
 			<p:submenu label="Consultas"
 				rendered="#{securityContext.hasRole('CLIENTE')}">
 				<p:submenu label="Curva ABC" icon="ui-icon-extlink">

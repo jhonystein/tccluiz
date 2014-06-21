@@ -6,24 +6,31 @@
 	template="/template/main.xhtml">
 
 	<ui:define name="body">
-		<h:form id="form" enctype="multipart/form-data">
+		<h:form id="form">
 			<p:panelGrid columns="2">
-				<f:facet name="header">
-        Gerar Informações da Região que mais compra
-    </f:facet>
+				<f:facet name="header">Gerar Informações da Região que mais compra</f:facet>
+				<h:outputLabel for="dataIni" value="Data Inicial: " />
+				<p:calendar value="#{vendasRegiaoMB.dataIni}" id="dataIni"
+					label="Data Inicial" showOn="button" locale="pt_BR"
+					pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataIni" style="color:red" />
+				</p:calendar>
+				<p:message for="dataIni" />
 
-				<h:outputLabel for="dataInicio" value="Data Inicial: " />
-				<p:calendar value="#{calendarBean.date1}" id="popupButtonCal1"
-					showOn="button" />
 				<h:outputLabel for="dataFim" value="Data Final: " />
-				<p:calendar value="#{calendarBean.date2}" id="popupButtonCal2"
-					showOn="button" />
+				<p:calendar value="#{vendasRegiaoMB.dataFim}" id="dataFim"
+					label="Data Final" showOn="button" autocomplete="true"
+					locale="pt_BR" pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataFim" style="color:red" />
+				</p:calendar>
+				<p:message for="dataFim" />
 
 				<f:facet name="footer">
-					<p:commandButton type="button" value="Relátorio"
-						icon="ui-icon-clipboard" style="margin:0" />
-					<p:commandButton type="button" value="Gráfico"
-						icon="ui-icon-bookmark" style="margin:0" />
+					<h:commandButton value="Relátorio" icon="ui-icon-clipboard"
+						style="margin:0" action="#{vendasRegiaoMB.consultarRegistros}" />
+					<h:commandButton type="button" value="Gráfico"
+						icon="ui-icon-bookmark" style="margin:0"
+						action="./exibe_grafico_produto.jsf" />
 				</f:facet>
 			</p:panelGrid>
 		</h:form>
