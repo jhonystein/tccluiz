@@ -39,8 +39,8 @@
 				</p:column>
 				<p:column sortBy="#{bean.clienteNotaFiscal.nome}">
 					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
-					<h:commandLink action="#{clienteListMB.getNextView}"
-						actionListener="#{clienteListMB.clear}">
+					<h:commandLink action="#{notaFiscalListMB.getNextView}"
+						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.clienteNotaFiscal.nome}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
@@ -50,7 +50,7 @@
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.dataEmissao}">
-							<f:convertDateTime pattern="dd/MM/yyyy" />
+							<f:convertDateTime pattern="#{messages['label.date.pattern']}"/>
 						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
@@ -61,7 +61,7 @@
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.valorTotalNota}">
-							<f:convertNumber pattern="#0.000" />
+							<f:convertNumber  pattern="#{messages['label.valor.pattern']}"/>
 						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
@@ -71,7 +71,7 @@
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
 						<h:outputText value="#{bean.valorTotalTributos}">
-							<f:convertNumber pattern="#0.000" />
+							<f:convertNumber  pattern="#{messages['label.valor.pattern']}"/>
 						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
