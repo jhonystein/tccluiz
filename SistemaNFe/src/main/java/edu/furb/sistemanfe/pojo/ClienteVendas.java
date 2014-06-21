@@ -13,13 +13,13 @@ public class ClienteVendas implements Serializable{
 	 */
 	private static final long serialVersionUID = -1654101589880986050L;
 	private Cliente cliente;
-	private Double quantidade;
+	private Long quantidade;
 	private BigDecimal valor;
 	
 	public ClienteVendas() {
 	}
 
-	public ClienteVendas(Cliente cliente, Double quantidade, BigDecimal valor) {
+	public ClienteVendas(Cliente cliente, Long quantidade, BigDecimal valor) {
 		super();
 		this.cliente = cliente;
 		this.quantidade = quantidade;
@@ -34,11 +34,11 @@ public class ClienteVendas implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public Double getQuantidade() {
+	public Long getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Double quantidade) {
+	public void setQuantidade(Long quantidade) {
 		this.quantidade = quantidade;
 	}
 
