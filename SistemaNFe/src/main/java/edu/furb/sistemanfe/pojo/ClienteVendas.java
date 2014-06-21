@@ -7,11 +7,8 @@ import edu.furb.sistemanfe.domain.Cliente;
 
 public class ClienteVendas implements Serializable{
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1654101589880986050L;
+	
 	private Cliente cliente;
 	private Long quantidade;
 	private BigDecimal valor;

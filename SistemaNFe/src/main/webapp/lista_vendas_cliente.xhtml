@@ -27,15 +27,15 @@
 					<h:outputText value="#{bean.cliente.endereco.municipio.nome}" />					
 				</p:column>
 				<p:column width="10%">
-					<f:facet name="header">Quantidade</f:facet>
+					<f:facet name="header">#{messages['label.lista.vendas.quantidade']}</f:facet>
 					<h:outputText value="#{bean.quantidade}" >
-							<f:convertNumber pattern="#0.00#"/>
+							<f:convertNumber pattern="#{messages['label.quantidade.pattern']}"/>
 						</h:outputText>				
 				</p:column>
 				<p:column width="10%">
-					<f:facet name="header">Valor</f:facet>
+					<f:facet name="header">#{messages['label.lista.vendas.valor']}</f:facet>
 					<h:outputText value="#{bean.valor}" >
-							<f:convertNumber pattern="#0.00#"/>
+							<f:convertNumber pattern="#{messages['label.valor.pattern']}"/>
 						</h:outputText>				
 				</p:column>
 			</p:dataTable>

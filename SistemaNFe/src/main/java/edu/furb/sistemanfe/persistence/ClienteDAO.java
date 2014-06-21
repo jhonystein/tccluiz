@@ -80,7 +80,7 @@ public class ClienteDAO extends Crud<Cliente, Long, ClienteDTO> {
 		
 		String sqlQuery = "SELECT "
 				+ " new edu.furb.sistemanfe.pojo.ClienteVendas(c, "
-				+ " sum(c.id), sum(n.valorTotalNota)) "
+				+ " count(c.id), sum(n.valorTotalNota)) "
 				+ "  from NotaFiscal as n, Cliente as c "
 				+ " where c.documento = n.clienteNotaFiscal.documento and "
 				+ "c.emitente = n.emitente and n.emitente = ?1 and "

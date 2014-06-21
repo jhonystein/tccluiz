@@ -123,6 +123,8 @@ public class ClienteBC extends DelegateCrud<Cliente, Long, ClienteDAO> {
 		
 		return ret;
 	}
+	
+	
 	public List<ClienteVendas> getClientesVendas(Date dataIni, Date dataFim) {
 		List<ClienteVendas> ret = getDelegate().clientesVendas(credentials.getUsuario().getEmitente(), dataIni, dataFim);
 		return ret;

@@ -18,7 +18,6 @@ import br.gov.frameworkdemoiselle.stereotype.ManagementController;
 @RequestScoped
 public class VendasClienteMB implements Serializable {
 
-
 	private static final long serialVersionUID = -7051142694100439527L;
 
 	@Inject
