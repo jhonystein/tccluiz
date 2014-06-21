@@ -12,7 +12,6 @@ import br.gov.frameworkdemoiselle.stereotype.ManagementController;
 import edu.furb.sistemanfe.business.NotaFiscalBC;
 import edu.furb.sistemanfe.pojo.RegiaoVendas;
 
-
 @Named
 @ManagementController
 @RequestScoped

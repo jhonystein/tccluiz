@@ -7,19 +7,21 @@
 
 	<ui:define name="body">
 		<h:form id="form">
-			<p:panelGrid columns="3" >
+			<p:panelGrid columns="3">
 				<f:facet name="header">Gerar Informações de Clientes</f:facet>
 				<h:outputLabel for="dataIni" value="Data Inicial: " />
-				<p:calendar value="#{vendasClienteMB.dataIni}" id="dataIni" label="Data Inicial"
-					showOn="button" locale="pt_BR" pattern="#{messages['label.date.pattern']}">
-					<f:validateRequired for="dataIni" style="color:red"/>
+				<p:calendar value="#{vendasClienteMB.dataIni}" id="dataIni"
+					label="Data Inicial" showOn="button" locale="pt_BR"
+					pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataIni" style="color:red" />
 				</p:calendar>
 				<p:message for="dataIni" />
-				
+
 				<h:outputLabel for="dataFim" value="Data Final: " />
-				<p:calendar value="#{vendasClienteMB.dataFim}" id="dataFim" label="Data Final"
-					showOn="button" autocomplete="true" locale="pt_BR" pattern="#{messages['label.date.pattern']}">
-					<f:validateRequired for="dataFim" style="color:red"/>
+				<p:calendar value="#{vendasClienteMB.dataFim}" id="dataFim"
+					label="Data Final" showOn="button" autocomplete="true"
+					locale="pt_BR" pattern="#{messages['label.date.pattern']}">
+					<f:validateRequired for="dataFim" style="color:red" />
 				</p:calendar>
 				<p:message for="dataFim" />
 
