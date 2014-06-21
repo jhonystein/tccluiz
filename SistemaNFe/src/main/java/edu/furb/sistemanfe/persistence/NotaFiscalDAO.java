@@ -4,67 +4,72 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
+import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.pojo.RegiaoVendas;
+import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.rest.NotaFiscalDTO;
 
 @PersistenceController
-//public class NotaFiscalDAO extends JPACrud<NotaFiscal, Long> {
+// public class NotaFiscalDAO extends JPACrud<NotaFiscal, Long> {
 public class NotaFiscalDAO extends Crud<NotaFiscal, Long, NotaFiscalDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-//	public List<NotaFiscal> pesquisar(NotaFiscalDTO notaFiscalDTO) {
-//
-//		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-//		CriteriaQuery<NotaFiscal> query = builder.createQuery(NotaFiscal.class);
-//		Root<NotaFiscal> notaFiscal = query.from(NotaFiscal.class);
-//		query.select(notaFiscal);
-//
-//		List<Predicate> predicateList = new ArrayList<Predicate>();
-//
-//		if (notaFiscalDTO.getId() != null) {
-//			Predicate p = builder.equal(notaFiscal.<Long> get("id"),
-//					notaFiscalDTO.getId());
-//			predicateList.add(p);
-//		}
-//		if (notaFiscalDTO.getChaveNfe() != null) {
-//			Predicate p = builder.equal(notaFiscal.<String> get("chaveNfe"),
-//					notaFiscalDTO.getChaveNfe());
-//			predicateList.add(p);
-//		}
-//		if (notaFiscalDTO.getNumero() != null) {
-//			Predicate p = builder.equal(notaFiscal.<String> get("numero"),
-//					notaFiscalDTO.getNumero());
-//			predicateList.add(p);
-//		}
-//		if (notaFiscalDTO.getSerie() != null) {
-//			Predicate p = builder.equal(notaFiscal.<String> get("serie"),
-//					notaFiscalDTO.getSerie());
-//			predicateList.add(p);
-//		}
-//		if (notaFiscalDTO.getEmitente() != null) {
-//			Predicate p = builder.equal(notaFiscal.<Emitente> get("emitente"),
-//					notaFiscalDTO.getEmitente());
-//			predicateList.add(p);
-//		}
-//		try {
-//			Predicate[] predicates = new Predicate[predicateList.size()];
-//			predicateList.toArray(predicates);
-//			query.where(predicates);
-//			return getEntityManager().createQuery(query).getResultList();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//
-//	}
+	// public List<NotaFiscal> pesquisar(NotaFiscalDTO notaFiscalDTO) {
+	//
+	// CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+	// CriteriaQuery<NotaFiscal> query = builder.createQuery(NotaFiscal.class);
+	// Root<NotaFiscal> notaFiscal = query.from(NotaFiscal.class);
+	// query.select(notaFiscal);
+	//
+	// List<Predicate> predicateList = new ArrayList<Predicate>();
+	//
+	// if (notaFiscalDTO.getId() != null) {
+	// Predicate p = builder.equal(notaFiscal.<Long> get("id"),
+	// notaFiscalDTO.getId());
+	// predicateList.add(p);
+	// }
+	// if (notaFiscalDTO.getChaveNfe() != null) {
+	// Predicate p = builder.equal(notaFiscal.<String> get("chaveNfe"),
+	// notaFiscalDTO.getChaveNfe());
+	// predicateList.add(p);
+	// }
+	// if (notaFiscalDTO.getNumero() != null) {
+	// Predicate p = builder.equal(notaFiscal.<String> get("numero"),
+	// notaFiscalDTO.getNumero());
+	// predicateList.add(p);
+	// }
+	// if (notaFiscalDTO.getSerie() != null) {
+	// Predicate p = builder.equal(notaFiscal.<String> get("serie"),
+	// notaFiscalDTO.getSerie());
+	// predicateList.add(p);
+	// }
+	// if (notaFiscalDTO.getEmitente() != null) {
+	// Predicate p = builder.equal(notaFiscal.<Emitente> get("emitente"),
+	// notaFiscalDTO.getEmitente());
+	// predicateList.add(p);
+	// }
+	// try {
+	// Predicate[] predicates = new Predicate[predicateList.size()];
+	// predicateList.toArray(predicates);
+	// query.where(predicates);
+	// return getEntityManager().createQuery(query).getResultList();
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// return null;
+	// }
+	//
+	// }
 
 	public List<RegiaoVendas> regiaoVendas(Emitente emitente, Date dataIni,
 			Date dataFim) {
@@ -72,8 +77,7 @@ public class NotaFiscalDAO extends Crud<NotaFiscal, Long, NotaFiscalDTO> {
 				+ " new edu.furb.sistemanfe.pojo.RegiaoVendas(m, "
 				+ " count(m.id), sum(n.valorTotalNota)) "
 				+ "  from NotaFiscal as n "
-				+ "  join n.endereco.municipio as m"
-				+ " where  "
+				+ "  join n.endereco.municipio as m" + " where  "
 				+ "  n.emitente = ?1 and "
 				+ "  n.dataEmissao between ?2 and ?3 "
 				+ "  group by m order by m.nome asc ";
@@ -93,8 +97,7 @@ public class NotaFiscalDAO extends Crud<NotaFiscal, Long, NotaFiscalDTO> {
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
 		if (dto.getId() != null) {
-			Predicate p = builder.equal(objeto.<Long> get("id"),
-					dto.getId());
+			Predicate p = builder.equal(objeto.<Long> get("id"), dto.getId());
 			predicateList.add(p);
 		}
 		if (dto.getChaveNfe() != null) {
@@ -119,5 +122,11 @@ public class NotaFiscalDAO extends Crud<NotaFiscal, Long, NotaFiscalDTO> {
 				dto.getEmitente());
 		predicateList.add(p);
 		return predicateList;
+	}
+
+	public List<NotaFiscal> buscaNotas(NotaFiscalDTO dto, String sortField,
+			SortOrder sortOrder) {
+		TypedQuery<NotaFiscal> query = montaQuery(dto, sortField, sortOrder);
+		return this.paginacao(query);
 	}
 }

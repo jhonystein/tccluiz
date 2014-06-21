@@ -6,12 +6,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.primefaces.model.SortOrder;
+
 import br.gov.frameworkdemoiselle.stereotype.BusinessController;
 import br.gov.frameworkdemoiselle.template.DelegateCrud;
+import edu.furb.sistemanfe.domain.Cliente;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.NotaFiscalDAO;
 import edu.furb.sistemanfe.pojo.RegiaoVendas;
+import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.rest.NotaFiscalDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -49,6 +53,12 @@ public class NotaFiscalBC extends DelegateCrud<NotaFiscal, Long, NotaFiscalDAO> 
 		NotaFiscalDTO dto = new NotaFiscalDTO();
 		dto.setEmitente(credentials.getUsuario().getEmitente());
 		return getDelegate().pesquisar(dto);
+	}
+	
+	public List<NotaFiscal> buscaNotasFiscais(String sortField, SortOrder sortOrder){
+		NotaFiscalDTO dto = new NotaFiscalDTO();
+		dto.setEmitente(credentials.getUsuario().getEmitente());
+		return getDelegate().buscaNotas(dto, sortField, sortOrder);
 	}
 
 	public List<NotaFiscal> findByEmitente(Emitente emitente) {

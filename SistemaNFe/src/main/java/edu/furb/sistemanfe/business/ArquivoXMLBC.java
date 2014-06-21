@@ -28,10 +28,6 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 	@Inject
 	private NotaFiscalBC notaFiscalBC;
 
-	public void teste() {
-
-	}
-
 	@Override
 	@Transactional
 	// Não é possível com JAAS.
