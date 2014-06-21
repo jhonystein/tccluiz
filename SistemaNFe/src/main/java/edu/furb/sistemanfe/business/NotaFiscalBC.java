@@ -1,6 +1,7 @@
 
 package edu.furb.sistemanfe.business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import br.gov.frameworkdemoiselle.template.DelegateCrud;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.NotaFiscalDAO;
+import edu.furb.sistemanfe.pojo.RegiaoVendas;
 import edu.furb.sistemanfe.rest.NotaFiscalDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 
@@ -65,5 +67,10 @@ public class NotaFiscalBC extends DelegateCrud<NotaFiscal, Long, NotaFiscalDAO> 
 		dto.setEmitente(emitente);
 		List<NotaFiscal> ret = getDelegate().pesquisar(dto);
 		return (ret==null)?(-1):(ret.size());
+	}
+
+	public List<RegiaoVendas> getRegiaoVendas(Date dataIni, Date dataFim) {
+		List<RegiaoVendas> ret = getDelegate().regiaoVendas(credentials.getUsuario().getEmitente(), dataIni, dataFim);
+		return ret;
 	}
 }

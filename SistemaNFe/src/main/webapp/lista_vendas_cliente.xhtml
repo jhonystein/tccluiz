@@ -26,6 +26,18 @@
 					<f:facet name="header">#{messages['label.cidade']}</f:facet>
 					<h:outputText value="#{bean.cliente.endereco.municipio.nome}" />					
 				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">Quantidade</f:facet>
+					<h:outputText value="#{bean.quantidade}" >
+							<f:convertNumber pattern="#0.00#"/>
+						</h:outputText>				
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">Valor</f:facet>
+					<h:outputText value="#{bean.valor}" >
+							<f:convertNumber pattern="#0.00#"/>
+						</h:outputText>				
+				</p:column>
 			</p:dataTable>
 		</h:form>
 

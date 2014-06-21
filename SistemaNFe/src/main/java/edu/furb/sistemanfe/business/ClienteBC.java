@@ -15,7 +15,6 @@ import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.persistence.ClienteDAO;
 import edu.furb.sistemanfe.pojo.ClienteCurvaABC;
 import edu.furb.sistemanfe.pojo.ClienteVendas;
-import edu.furb.sistemanfe.pojo.ProdutoVendas;
 import edu.furb.sistemanfe.rest.ClienteDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
 

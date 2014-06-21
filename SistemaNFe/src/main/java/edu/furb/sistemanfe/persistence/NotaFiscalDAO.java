@@ -1,6 +1,7 @@
 package edu.furb.sistemanfe.persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,6 +13,8 @@ import br.gov.frameworkdemoiselle.stereotype.PersistenceController;
 import br.gov.frameworkdemoiselle.template.JPACrud;
 import edu.furb.sistemanfe.domain.Emitente;
 import edu.furb.sistemanfe.domain.NotaFiscal;
+import edu.furb.sistemanfe.pojo.ClienteVendas;
+import edu.furb.sistemanfe.pojo.RegiaoVendas;
 import edu.furb.sistemanfe.rest.NotaFiscalDTO;
 
 @PersistenceController
@@ -63,5 +66,26 @@ public class NotaFiscalDAO extends JPACrud<NotaFiscal, Long> {
 			return null;
 		}
 
+	}
+
+	public List<RegiaoVendas> regiaoVendas(Emitente emitente, Date dataIni,
+			Date dataFim) {
+		String sqlQuery = "SELECT "
+				+ " new edu.furb.sistemanfe.pojo.RegiaoVendas(m, "
+				+ " count(m.id), sum(n.valorTotalNota)) "
+				+ "  from NotaFiscal as n "
+				+ "  join n.endereco.municipio as m"
+				+ " where  "
+				+ "  n.emitente = ?1 and "
+				+ "  n.dataEmissao between ?2 and ?3 "
+				+ "  group by m order by m.nome asc ";
+		javax.persistence.Query query3 = getEntityManager().createQuery(
+				sqlQuery, RegiaoVendas.class);
+		query3.setParameter(1, emitente);
+		query3.setParameter(2, dataIni);
+		query3.setParameter(3, dataFim);
+		List<RegiaoVendas> lstRetorno = (List<RegiaoVendas>) query3
+				.getResultList();
+		return lstRetorno;
 	}
 }
