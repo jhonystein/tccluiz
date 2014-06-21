@@ -105,7 +105,7 @@
 					<p:message for="emitente" />								  
 								 
 					<h:outputLabel value="#{messages['cliente.label']}: " for="cliente" styleClass="text-input" />
-				    <p:selectOneMenu id="cliente" value="#{notaFiscalEditMB.bean.cliente}"  effect="fade" converter="ConversorCliente">
+				    <p:selectOneMenu id="cliente" value="#{notaFiscalEditMB.bean.cliente.documento}"  effect="fade" converter="ConversorCliente">
 						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItems value="#{notaFiscalEditMB.clienteList}" var="varCliente" itemLabel="#{varCliente.id}"  itemValue="#{varCliente}" />						
 					</p:selectOneMenu>
