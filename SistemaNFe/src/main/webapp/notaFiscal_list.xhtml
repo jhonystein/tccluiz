@@ -11,7 +11,7 @@
 			<p:dataTable id="list" var="bean"
 				value="#{notaFiscalListMB.resultList}">
 				<f:facet name="header">#{messages['notaFiscal.list.table.title']}</f:facet>
-				<p:column sortBy="#{bean.serie}">
+				<p:column width="5%" sortBy="#{bean.serie}">
 					<f:facet name="header">#{messages['notaFiscal.label.serie']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
@@ -20,7 +20,7 @@
 					</h:commandLink>
 				</p:column>
 
-				<p:column sortBy="#{bean.numero}">
+				<p:column width="8%" sortBy="#{bean.numero}">
 					<f:facet name="header">#{messages['notaFiscal.label.numero']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
@@ -28,7 +28,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.modelo}">
+				<p:column width="7%" sortBy="#{bean.modelo}">
 					<f:facet name="header">#{messages['notaFiscal.label.modelo']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
@@ -44,7 +44,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.dataEmissao}">
+				<p:column width="10%" sortBy="#{bean.dataEmissao}">
 					<f:facet name="header">#{messages['notaFiscal.label.dataEmissao']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
@@ -55,7 +55,7 @@
 					</h:commandLink>
 				</p:column>
 
-				<p:column sortBy="#{bean.valorTotalNota}">
+				<p:column width="15%" sortBy="#{bean.valorTotalNota}">
 					<f:facet name="header">#{messages['notaFiscal.label.valorTotalNota']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
@@ -65,7 +65,7 @@
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.valorTotalTributos}">
+				<p:column width="15%" sortBy="#{bean.valorTotalTributos}">
 					<f:facet name="header">#{messages['notaFiscal.label.valorTotalTributos']}</f:facet>
 					<h:commandLink action="#{notaFiscalListMB.getNextView}"
 						actionListener="#{notaFiscalListMB.clear}">
