@@ -13,6 +13,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.HorizontalBarChartModel;
 
 import br.gov.frameworkdemoiselle.stereotype.ManagementController;
 import edu.furb.sistemanfe.business.NotaFiscalBC;
@@ -27,7 +28,7 @@ public class VendasRegiaoMB implements Serializable {
 
 	@Inject
 	private NotaFiscalBC notaFiscalBC;
-	private BarChartModel graficoBarraVendas;
+	private HorizontalBarChartModel graficoBarraVendas;
 	
 	private Date dataIni = null;
 	private Date dataFim = null;
@@ -69,8 +70,12 @@ public class VendasRegiaoMB implements Serializable {
 	}
 	
 	private void createBarModel() {
+		
 		BigDecimal maiorValor = new BigDecimal(0);
 		BigDecimal menorValor = new BigDecimal(0);
+		/*
+		 * Obtendos os dados de limite superior e inferior do gráfico;
+		 */
 		for (RegiaoVendas objeto : this.listaDados) {
 			if(objeto.getValor().compareTo(maiorValor)==1){
 				maiorValor = objeto.getValor();
@@ -80,29 +85,29 @@ public class VendasRegiaoMB implements Serializable {
 			}
 		}
 		
-		maiorValor = maiorValor.add(maiorValor.multiply(new BigDecimal(0.10)));
-		
 		graficoBarraVendas = initBarModel();
 
 		graficoBarraVendas.setTitle("Vendas por município");
 		graficoBarraVendas.setLegendPosition("ne");
 
 		Axis xAxis = graficoBarraVendas.getAxis(AxisType.X);
-		xAxis.setLabel("Municípios");
+		xAxis.setLabel("Valores");
 
 		Axis yAxis = graficoBarraVendas.getAxis(AxisType.Y);
-		yAxis.setLabel("Valores");
+		yAxis.setLabel("Municípios");
 		yAxis.setMin(menorValor);
 		yAxis.setMax(maiorValor);
 	}
 	
-	private BarChartModel initBarModel() {
+	private HorizontalBarChartModel initBarModel() {
 	
-		BarChartModel model = new BarChartModel();
+		HorizontalBarChartModel model = new HorizontalBarChartModel();
 
 		ChartSeries boys = new ChartSeries();
 		boys.setLabel("Municípios");
-		
+		/**
+		 * Carregando os dados no gráfico
+		 */
 		for (RegiaoVendas objeto : this.listaDados) {
 			boys.set(objeto.getMunicipio().getNome(), objeto.getValor());
 		}		
