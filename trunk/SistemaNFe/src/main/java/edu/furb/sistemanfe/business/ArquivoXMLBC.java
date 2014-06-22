@@ -27,6 +27,10 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 	private LeitorXMLNFe nfeXmlReader;
 	@Inject
 	private NotaFiscalBC notaFiscalBC;
+	@Inject
+	private ProdutoBC produtoBC;
+	@Inject
+	private ClienteBC clienteBC;
 
 	@Override
 	@Transactional
@@ -94,9 +98,16 @@ public class ArquivoXMLBC extends DelegateCrud<ArquivoXML, Long, ArquivoXMLDAO> 
 			notaFiscal.setArquivoXML(arquivo);				
 			notaFiscalBC.update(notaFiscal);
 			arquivo.setNotaFiscal(notaFiscal);
-			
-			super.update(arquivo);			
-			
+			super.update(arquivo);
+			/**
+			 * Chama o metodo atualizar cadastro de produto
+			 */
+			produtoBC.atualizaCadastro(notaFiscal);
+			/**
+			 * Chama o metodo atualizar cadastro de Cliente
+			 */
+			clienteBC.atualizaCadastro(notaFiscal);			
+
 		} finally {
 			try {
 				File fdel = new File(localArquivo);
