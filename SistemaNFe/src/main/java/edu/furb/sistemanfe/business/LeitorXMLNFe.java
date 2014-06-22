@@ -387,16 +387,16 @@ public class LeitorXMLNFe {
 									}
 								}
 							}
-							System.out.println(nfRet.toString());
+							//System.out.println(nfRet.toString());
 							nfRet = notaFiscalBC.insert(nfRet);
-							/**
-							 * Chama o metodo atualizar cadastro de produto
-							 */
-							produtoBC.atualizaCadastro(nfRet);
-							/**
-							 * Chama o metodo atualizar cadastro de Cliente
-							 */
-							clienteBC.atualizaCadastro(nfRet);
+//							/**
+//							 * Chama o metodo atualizar cadastro de produto
+//							 */
+//							produtoBC.atualizaCadastro(nfRet);
+//							/**
+//							 * Chama o metodo atualizar cadastro de Cliente
+//							 */
+//							clienteBC.atualizaCadastro(nfRet);
 						}
 					}
 				}
