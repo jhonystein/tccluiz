@@ -11,6 +11,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CategoryAxis;
+import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
@@ -35,6 +40,7 @@ public class CurvaABCClienteMB implements Serializable {
 	private Date dataFim = null;
 	private List<ClienteCurvaABC> listaDados = null;
 	private PieChartModel pieModel1;
+	private LineChartModel lineModel1;
 
 	public Date getDataIni() {
 		return dataIni;
@@ -65,6 +71,7 @@ public class CurvaABCClienteMB implements Serializable {
 		try{
 			listaDados = clienteBC.getDadosCurvaABC(this.dataIni, this.dataFim);
 			createPieModel();
+			createLineModels();
 			return "grafico_curva_abc_cliente";
 		}catch(Exception ex){
 			messageContext
@@ -98,7 +105,45 @@ public class CurvaABCClienteMB implements Serializable {
         pieModel1.setLegendPosition("w");
     }
 	
+	private void createLineModels() {
+		lineModel1 = initLinearModel();
+        lineModel1.setTitle("Pontos por Classificação");
+        lineModel1.setLegendPosition("e");
+        lineModel1.setShowPointLabels(true);
+        lineModel1.getAxes().put(AxisType.X, new CategoryAxis("Classificação"));
+        Axis yAxis = lineModel1.getAxis(AxisType.Y);
+        yAxis.setLabel("Percentual");
+        yAxis.setTickAngle(15);
+        yAxis.setMin(0);
+        yAxis.setMax(110);
+    }
+	
+	private LineChartModel initLinearModel() {
+        LineChartModel model = new LineChartModel();
+ 
+        ChartSeries boys = new ChartSeries();
+        boys.setLabel("Período");
+        Map<String, Double> listDados = new HashMap<String, Double>();
+        
+        for (ClienteCurvaABC object : listaDados) {
+        	if(!listDados.containsKey(object.getClassificacao())){        		
+        		listDados.put(object.getClassificacao(), object.getPercentualAcumulado());
+        	}
+		}
+        for (String key : listDados.keySet()) {
+        	boys.set(key, listDados.get(key));
+		}
+ 
+        model.addSeries(boys);
+         
+        return model;
+    }
+	
 	public PieChartModel getGraficoCurvaABC() {
 		return pieModel1;
+	}
+	
+	public LineChartModel getGraficoLineCurvaABC() {
+		return lineModel1;
 	}
 }
