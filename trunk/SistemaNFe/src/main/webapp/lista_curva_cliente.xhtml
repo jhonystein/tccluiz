@@ -6,46 +6,54 @@
 	template="/template/main.xhtml">
 
 	<ui:define name="body">
+		<p:commandButton value="Imprimir" type="button" icon="ui-icon-print"
+			style="display:block;margin-bottom: 20px">
+			<p:printer target="meuForm" />
+		</p:commandButton>
 		<h:form id="meuForm">
-			<p:dataTable id="list" var="bean" value="#{curvaABCClienteMB.dadosCurvaABC}"
-				lazy="true" paginator="false">
+			<p:dataTable id="list" var="bean"
+				value="#{curvaABCClienteMB.dadosCurvaABC}" lazy="true"
+				paginator="false">
 				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
-				<p:column sortBy="#{bean.documento}">
+				<p:column width="15%">
 					<f:facet name="header">#{messages['cliente.label.documento']}</f:facet>
-					<h:outputText value="#{bean.documento}" />					
+					<h:outputText value="#{bean.documento}">
+						<f:converter converterId="CnpjCpfConverter" />
+					</h:outputText>
 				</p:column>
 
-				<p:column sortBy="#{bean.nome}">
+				<p:column width="*%">
 					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
-					<h:outputText value="#{bean.nome}" />					
+					<h:outputText value="#{bean.nome}" />
 				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Consumo</f:facet>
-					<h:outputText value="#{bean.valorTotal}" >
-							<f:convertNumber pattern="#0.000"/>
-						</h:outputText>				
+
+				<p:column width="10%">
+					<f:facet name="header">Consumo R$</f:facet>
+					<h:outputText value="#{bean.valorTotal}">
+						<f:convertNumber pattern="#{messages['label.numerico.pattern']}" />
+					</h:outputText>
 				</p:column>
-				
-				<p:column>
-					<f:facet name="header">Consumo acumulado</f:facet>
-					<h:outputText value="#{bean.valortTotalAcumulado}" >
-							<f:convertNumber pattern="#0.000"/>
-						</h:outputText>				
-				</p:column>				
-				<p:column>
+
+				<p:column width="10%">
+					<f:facet name="header">Consumo acumulado R$</f:facet>
+					<h:outputText value="#{bean.valortTotalAcumulado}">
+						<f:convertNumber pattern="#{messages['label.numerico.pattern']}" />
+					</h:outputText>
+				</p:column>
+				<p:column width="10%">
 					<f:facet name="header">% acumulado</f:facet>
-					<h:outputText value="#{bean.percentualAcumulado}" >
-							<f:convertNumber pattern="#0.00"/>
-						</h:outputText>					
-				</p:column>				
-				<p:column>
-					<f:facet name="header">Qualificação</f:facet>
-					<h:outputText value="#{bean.qualificacao}" />					
+					<h:outputText value="#{bean.percentualAcumulado}">
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
 				</p:column>
-				<p:column >
+				<p:column width="10%">
+					<f:facet name="header">Qualificação</f:facet>
+					<h:outputText value="#{bean.qualificacao}" />
+				</p:column>
+				<p:column width="10%">
 					<f:facet name="header">Classificação</f:facet>
-					<h:outputText value="#{bean.classificacao}" style="font-weight:bold;background-color:#00ff00;"/>					
+					<h:outputText value="#{bean.classificacao}"
+						style="font-weight:bold;background-color:#00ff00;" />
 				</p:column>
 
 			</p:dataTable>

@@ -7,36 +7,38 @@
 
 	<ui:define name="body">
 		<h:form id="meuForm">
-			<p:dataTable id="list" var="bean" value="#{vendasClienteMB.listaDados}"
-				lazy="true" paginator="false">
+			<p:dataTable id="list" var="bean"
+				value="#{vendasClienteMB.listaDados}" lazy="true" paginator="false">
 				<f:facet name="header">#{messages['cliente.list.table.title']}</f:facet>
 				<p:column width="17%">
 					<f:facet name="header">#{messages['cliente.label.documento']}</f:facet>
-					<h:outputText value="#{bean.cliente.documento}" />					
+					<h:outputText value="#{bean.cliente.documento}">
+						<f:converter converterId="CnpjCpfConverter" />
+					</h:outputText>
 				</p:column>
-				<p:column  width="*%">
+				<p:column width="*%">
 					<f:facet name="header">#{messages['cliente.label.nome']}</f:facet>
-					<h:outputText value="#{bean.cliente.nome}" />					
+					<h:outputText value="#{bean.cliente.nome}" />
 				</p:column>
 				<p:column width="5%">
 					<f:facet name="header">#{messages['label.uf']}</f:facet>
-					<h:outputText value="#{bean.cliente.endereco.estado.sigla}"  />					
+					<h:outputText value="#{bean.cliente.endereco.estado.sigla}" />
 				</p:column>
-				<p:column  width="15%">
+				<p:column width="15%">
 					<f:facet name="header">#{messages['label.cidade']}</f:facet>
-					<h:outputText value="#{bean.cliente.endereco.municipio.nome}" />					
+					<h:outputText value="#{bean.cliente.endereco.municipio.nome}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">#{messages['label.lista.vendas.quantidade']}</f:facet>
-					<h:outputText value="#{bean.quantidade}" >
-							<f:convertNumber pattern="#{messages['label.quantidade.pattern']}"/>
-						</h:outputText>				
+					<h:outputText value="#{bean.quantidade}">
+						<f:convertNumber pattern="#{messages['label.quantidade.pattern']}" />
+					</h:outputText>
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">#{messages['label.lista.vendas.valor']}</f:facet>
-					<h:outputText value="#{bean.valor}" >
-							<f:convertNumber pattern="#{messages['label.valor.pattern']}"/>
-						</h:outputText>				
+					<h:outputText value="#{bean.valor}">
+						<f:convertNumber pattern="#{messages['label.valor.pattern']}" />
+					</h:outputText>
 				</p:column>
 			</p:dataTable>
 		</h:form>
