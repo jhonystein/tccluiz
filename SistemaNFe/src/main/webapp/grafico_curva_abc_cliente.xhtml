@@ -9,9 +9,12 @@
 		<h:form id="form" enctype="multipart/form-data">
 			<p:panelGrid columns="1" style="width: 98%; height: 99%">
 				<f:facet name="header">Gráfico de curva ABC de clientes</f:facet>
-				<p:toolbarGroup align="left">
-					<p:commandLink value="Voltar" action="./filtro_curva_abc_cliente.jsp"></p:commandLink>
-				</p:toolbarGroup>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandLink value="Voltar"
+							action="./filtro_curva_abc_cliente.jsp"></p:commandLink>
+					</f:facet>
+				</p:toolbar>
 				<p:chart type="pie" model="#{curvaABCClienteMB.graficoCurvaABC}"
 					style="height:530px;" />
 					<p:chart type="line" model="#{curvaABCClienteMB.graficoLineCurvaABC}" style="height:300px;"/>
