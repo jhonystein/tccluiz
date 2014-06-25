@@ -130,9 +130,11 @@ public class CurvaABCClienteMB implements Serializable {
         		listDados.put(object.getClassificacao(), object.getPercentualAcumulado());
         	}
 		}
+        boys.set("0", 0);
         for (String key : listDados.keySet()) {
         	boys.set(key, listDados.get(key));
 		}
+        boys.set("100", 100);
  
         model.addSeries(boys);
          
