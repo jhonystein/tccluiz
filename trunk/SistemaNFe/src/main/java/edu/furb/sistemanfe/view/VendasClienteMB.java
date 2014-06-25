@@ -92,6 +92,8 @@ public class VendasClienteMB implements Serializable {
 
 		Axis xAxis = graficoBarraVendas.getAxis(AxisType.X);
 		xAxis.setLabel("Valores");
+		xAxis.setTickAngle(35);
+
 
 		Axis yAxis = graficoBarraVendas.getAxis(AxisType.Y);
 		yAxis.setLabel("Clientes");
