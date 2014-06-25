@@ -15,9 +15,11 @@
 							action="./filtro_curva_abc_cliente.jsp"></p:commandLink>
 					</f:facet>
 				</p:toolbar>
+				<p:chart type="line"
+					model="#{curvaABCClienteMB.graficoLineCurvaABC}"
+					style="height:300px;" />
 				<p:chart type="pie" model="#{curvaABCClienteMB.graficoCurvaABC}"
-					style="height:530px;" />
-					<p:chart type="line" model="#{curvaABCClienteMB.graficoLineCurvaABC}" style="height:300px;"/>
+					style="height:400px;" />
 			</p:panelGrid>
 		</h:form>
 	</ui:define>
