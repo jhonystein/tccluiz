@@ -52,14 +52,12 @@ public class ArquivoXML implements Serializable{
 	}
 	
 	public ArquivoXML(Empresa empresa, String nome, byte[] arquivo) {
-//		this.empresa = empresa;
 		this.nome = nome;
 		this.arquivo = arquivo;
 		this.status = "N";
 	}
 	
 	public ArquivoXML(Empresa empresa, String nome, byte[] arquivo, String status) {
-//		this.empresa = empresa;
 		this.nome = nome;
 		this.arquivo = arquivo;
 		this.status = status;
@@ -105,15 +103,6 @@ public class ArquivoXML implements Serializable{
 		this.status = status;
 	}
 
-//	public Empresa getEmpresa() {
-//		return empresa;
-//	}
-//
-//	public void setEmpresa(Empresa empresa) {
-//		this.empresa = empresa;
-//	}
-	
-
 	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
 	}
@@ -130,7 +119,6 @@ public class ArquivoXML implements Serializable{
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((dataUpload == null) ? 0 : dataUpload.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
-//		result = prime * result + ((empresa == null) ? 0 : empresa.hashCode());
 		return result;
 	}
 
@@ -163,11 +151,6 @@ public class ArquivoXML implements Serializable{
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
-//		if (empresa == null) {
-//			if (other.empresa != null)
-//				return false;
-//		} else if (!empresa.equals(other.empresa))
-//			return false;
 		return true;
 	}
 	
