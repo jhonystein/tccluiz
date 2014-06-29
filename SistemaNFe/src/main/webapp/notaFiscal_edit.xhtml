@@ -17,7 +17,8 @@
 
 					<h:inputText id="chaveNfe"
 						value="#{notaFiscalEditMB.bean.chaveNfe}"
-						title="#{messages['notaFiscal.alt.chaveNfe']}" disabled="true" size="43"/>
+						title="#{messages['notaFiscal.alt.chaveNfe']}" disabled="true"
+						size="43" />
 
 					<p:message for="chaveNfe" />
 
@@ -27,7 +28,8 @@
 
 					<h:inputText id="naturezaOperacao"
 						value="#{notaFiscalEditMB.bean.naturezaOperacao}"
-						title="#{messages['notaFiscal.alt.naturezaOperacao']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.naturezaOperacao']}"
+						disabled="true" />
 
 					<p:message for="naturezaOperacao" />
 
@@ -43,7 +45,7 @@
 						for="serie" styleClass="text-input" />
 
 					<h:inputText id="serie" value="#{notaFiscalEditMB.bean.serie}"
-						title="#{messages['notaFiscal.alt.serie']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.serie']}" disabled="true" />
 
 					<p:message for="serie" />
 
@@ -51,7 +53,7 @@
 						for="numero" styleClass="text-input" />
 
 					<h:inputText id="numero" value="#{notaFiscalEditMB.bean.numero}"
-						title="#{messages['notaFiscal.alt.numero']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.numero']}" disabled="true" />
 
 					<p:message for="numero" />
 
@@ -63,7 +65,7 @@
 						value="#{notaFiscalEditMB.bean.dataEmissao}"
 						pattern="#{messages['label.date.pattern']}" navigator="true"
 						showButtonPanel="true" locale="#{locales.currentLocale}"
-						title="#{messages['notaFiscal.alt.dataEmissao']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.dataEmissao']}" disabled="true" />
 
 					<p:message for="dataEmissao" />
 
@@ -73,7 +75,7 @@
 
 					<h:inputText id="tipoEmissao"
 						value="#{notaFiscalEditMB.bean.tipoEmissao}"
-						title="#{messages['notaFiscal.alt.tipoEmissao']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.tipoEmissao']}" disabled="true" />
 
 					<p:message for="tipoEmissao" />
 
@@ -83,7 +85,10 @@
 
 					<h:inputText id="valorTotalNota"
 						value="#{notaFiscalEditMB.bean.valorTotalNota}"
-						title="#{messages['notaFiscal.alt.valorTotalNota']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.valorTotalNota']}"
+						disabled="true">
+						<f:convertNumber pattern="#{messages['label.valor.pattern']}" />
+					</h:inputText>
 
 					<p:message for="valorTotalNota" />
 
@@ -93,7 +98,10 @@
 
 					<h:inputText id="valorTotalTributos"
 						value="#{notaFiscalEditMB.bean.valorTotalTributos}"
-						title="#{messages['notaFiscal.alt.valorTotalTributos']}" disabled="true"/>
+						title="#{messages['notaFiscal.alt.valorTotalTributos']}"
+						disabled="true">
+						<f:convertNumber pattern="#{messages['label.valor.pattern']}" />
+					</h:inputText>
 
 					<p:message for="valorTotalTributos" />
 
@@ -101,14 +109,50 @@
 						styleClass="text-input" />
 					<h:outputLabel
 						value="#{notaFiscalEditMB.bean.clienteNotaFiscal.documento}"
-						styleClass="text-input" >						
+						styleClass="text-input">
 						<f:converter converterId="CnpjCpfConverter" />
-						</h:outputLabel>
+					</h:outputLabel>
 					<h:outputLabel
 						value="#{notaFiscalEditMB.bean.clienteNotaFiscal.nome}"
 						styleClass="text-input" />
 
 				</h:panelGrid>
+				<p:dataTable id="list" var="bean"
+					value="#{notaFiscalEditMB.bean.itemNotaFiscal}">
+					<f:facet name="header">#{messages['itemNotaFiscal.list.table.title']}</f:facet>
+					<p:column width="15%">
+						<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
+						<h:outputText value="#{bean.produto.codigo}" />
+					</p:column>
+					<p:column width="25%">
+						<f:facet name="header">#{messages['itemNotaFiscal.label.produto']}</f:facet>
+						<h:outputText value="#{bean.produto.nome}" />
+					</p:column>
+					<p:column width="8%">
+						<f:facet name="header">#{messages['itemNotaFiscal.label.quantidade']}</f:facet>
+						<h:outputText value="#{bean.quantidade}" >
+							<f:convertNumber  pattern="#{messages['label.quantidade.pattern']}"/>
+						</h:outputText>
+					</p:column>
+					<p:column width="10%">
+						<f:facet name="header">#{messages['itemNotaFiscal.label.valorUnitario']}</f:facet>
+						<h:outputText value="#{bean.valorUnitario}" >
+							<f:convertNumber  pattern="#{messages['label.numerico.pattern']}"/>
+						</h:outputText>
+					</p:column>
+					<p:column width="10%">
+						<f:facet name="header">#{messages['itemNotaFiscal.label.valorTotal']}</f:facet>
+						<h:outputText value="#{bean.valorTotal}" >
+							<f:convertNumber  pattern="#{messages['label.numerico.pattern']}"/>
+						</h:outputText>
+					</p:column>
+					<p:column width="10%">
+						<f:facet name="header">#{messages['itemNotaFiscal.label.valorTotalTributos']}</f:facet>
+						<h:outputText value="#{bean.valorTotalTributos}" >
+							<f:convertNumber  pattern="#{messages['label.numerico.pattern']}"/>
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
 			</p:fieldset>
 
 		</h:form>
