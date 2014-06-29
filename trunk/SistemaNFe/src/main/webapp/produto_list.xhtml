@@ -14,7 +14,7 @@
 				<f:facet name="header">#{messages['produto.list.table.title']}</f:facet>
 				
 
-				<p:column sortBy="#{bean.codigo}">
+				<p:column sortBy="#{bean.codigo}" width="25%">
 					<f:facet name="header">#{messages['produto.label.codigo']}</f:facet>
 					<h:commandLink action="#{produtoListMB.getNextView}"
 						actionListener="#{produtoListMB.clear}">
@@ -23,7 +23,7 @@
 					</h:commandLink>
 				</p:column>
 
-				<p:column sortBy="#{bean.nome}">
+				<p:column sortBy="#{bean.nome}" width="*%">
 					<f:facet name="header">#{messages['produto.label.nome']}</f:facet>
 					<h:commandLink action="#{produtoListMB.getNextView}"
 						actionListener="#{produtoListMB.clear}">

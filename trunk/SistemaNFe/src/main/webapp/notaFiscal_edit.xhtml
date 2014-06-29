@@ -101,7 +101,9 @@
 						styleClass="text-input" />
 					<h:outputLabel
 						value="#{notaFiscalEditMB.bean.clienteNotaFiscal.documento}"
-						styleClass="text-input" />
+						styleClass="text-input" >						
+						<f:converter converterId="CnpjCpfConverter" />
+						</h:outputLabel>
 					<h:outputLabel
 						value="#{notaFiscalEditMB.bean.clienteNotaFiscal.nome}"
 						styleClass="text-input" />
