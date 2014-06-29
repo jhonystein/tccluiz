@@ -92,13 +92,57 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
 	}
 
-	/**
-	 * Obtem dados para lisa de Curva ABC de produtos
-	 * @return
-	 */
-	public List<ProdutoCurvaABC> getProdutoABC() {
-		
-		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente());
+//	/**
+//	 * Obtem dados para lisa de Curva ABC de produtos
+//	 * @return
+//	 */
+//	public List<ProdutoCurvaABC> getProdutoABC() {
+//		
+//		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente());
+//		/**
+//		 * Atribui a qualificação e calcula o consumo acumulado de cada item
+//		 */
+//		int qualificacao = 0;
+//		Double consumoAcumulado = 0.0;
+//		for (ProdutoCurvaABC produtoCurvaABC : ret) {
+//			qualificacao++;
+//			consumoAcumulado += produtoCurvaABC.getConsumo();
+//			produtoCurvaABC.setQualificacao(qualificacao);
+//			produtoCurvaABC.setConsumoAcumulado(consumoAcumulado);			
+//		}
+//		float valorBase = Math.round (ret.size()*0.20);
+//		int qualificaA = Math.round (valorBase);
+//		valorBase = Math.round (ret.size()*0.30);
+//		int qualificaB = Math.round (valorBase);
+//		/**
+//		 * Calcula o percentual acumulado
+//		 */
+//		Double percentualAcumulado = 0.0;
+//		for (ProdutoCurvaABC produtoCurvaABC : ret) {
+//			percentualAcumulado = (produtoCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
+//			produtoCurvaABC.setPercentualAcumulado(percentualAcumulado);
+//			if(produtoCurvaABC.getQualificacao() <= qualificaA){
+//				produtoCurvaABC.setClassificacao("A");
+//			}else if(produtoCurvaABC.getQualificacao() <= qualificaB){
+//				produtoCurvaABC.setClassificacao("B");
+//			}else{
+//				produtoCurvaABC.setClassificacao("C");
+//			}
+////			if(produtoCurvaABC.getPercentualAcumulado() <=20.0){
+////				produtoCurvaABC.setClassificacao("A");
+////			}else if((produtoCurvaABC.getPercentualAcumulado() >20.0) &&
+////					(produtoCurvaABC.getPercentualAcumulado() <=50.0)){
+////				produtoCurvaABC.setClassificacao("B");
+////			}else{
+////				produtoCurvaABC.setClassificacao("C");
+////			}
+//		}	
+//
+//		return ret;
+//	}
+	
+	public List<ProdutoCurvaABC> getDadosCurvaABC(Date dataIni, Date dataFim) {
+		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente(), dataIni, dataFim);
 		/**
 		 * Atribui a qualificação e calcula o consumo acumulado de cada item
 		 */
@@ -110,6 +154,13 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 			produtoCurvaABC.setQualificacao(qualificacao);
 			produtoCurvaABC.setConsumoAcumulado(consumoAcumulado);			
 		}
+		/*
+		 * Obtem os limites por classificação
+		 */
+		float valorBase = Math.round (ret.size()*0.20);
+		int qualificaA = Math.round (valorBase);
+		valorBase = Math.round (ret.size()*0.30);
+		int qualificaB = Math.round (valorBase);
 		/**
 		 * Calcula o percentual acumulado
 		 */
@@ -117,10 +168,9 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 		for (ProdutoCurvaABC produtoCurvaABC : ret) {
 			percentualAcumulado = (produtoCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
 			produtoCurvaABC.setPercentualAcumulado(percentualAcumulado);
-			if(produtoCurvaABC.getPercentualAcumulado() <=20.0){
+			if(produtoCurvaABC.getQualificacao() <= qualificaA){
 				produtoCurvaABC.setClassificacao("A");
-			}else if((produtoCurvaABC.getPercentualAcumulado() >20.0) &&
-					(produtoCurvaABC.getPercentualAcumulado() <=50.0)){
+			}else if(produtoCurvaABC.getQualificacao() <= qualificaB){
 				produtoCurvaABC.setClassificacao("B");
 			}else{
 				produtoCurvaABC.setClassificacao("C");

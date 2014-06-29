@@ -41,25 +41,58 @@ public class ProdutoDAO extends Crud<Produto, Long, ProdutoDTO> {
 
 	}
 
-	public List<ProdutoCurvaABC> produtosABC(Emitente emitente) {
-		/*
-		 * ProdutoCurvaABC(String codigo, String nome, Double valorUnitario,
-		 * Double quantidade)
-		 */
+//	/**
+//	 * Obtem a lista com os dados de produto para gerar a CurvaABC de produto; 
+//	 * @param emitente Emitente
+//	 * @return Lista de ProdutoCurvaABC com os dados preenchidos.
+//	 */
+//	public List<ProdutoCurvaABC> produtosABC(Emitente emitente) {
+//		/*
+//		 * ProdutoCurvaABC(String codigo, String nome, Double valorUnitario,
+//		 * Double quantidade)
+//		 */
+//		String sqlQuery = "SELECT "
+//				+ " new edu.furb.sistemanfe.pojo.ProdutoCurvaABC(p.codigo, p.nome, sum(i.valorUnitario), "
+//				+ " sum(i.quantidade)) "
+//				+ "  from NotaFiscal as n, Produto as p "
+//				+ "  join n.itemNotaFiscal as i "
+//				+ "  where p.codigo = i.produtoNotaFiscal.codigo and "
+//				+ " p.emitente = n.emitente and n.emitente = ?1 "
+//				+ "  group by p.codigo, p.nome order by sum(i.valorUnitario) * sum(i.quantidade) desc ";
+//		javax.persistence.Query query3 = getEntityManager().createQuery(
+//				sqlQuery, ProdutoCurvaABC.class);
+//		query3.setParameter(1, emitente);
+//		List<ProdutoCurvaABC> produtos = (List<ProdutoCurvaABC>) query3
+//				.getResultList();
+//		return produtos;
+//
+//	}
+	/**
+	 * Obtem os dados da curva ABC filtrando por emitente e período.
+	 * @param emitente
+	 * @param dataIni
+	 * @param dataFim
+	 * @return Lista de dados para curva ABC
+	 */
+	public List<ProdutoCurvaABC> produtosABC(Emitente emitente, Date dataIni, Date dataFim) {
 		String sqlQuery = "SELECT "
 				+ " new edu.furb.sistemanfe.pojo.ProdutoCurvaABC(p.codigo, p.nome, sum(i.valorUnitario), "
 				+ " sum(i.quantidade)) "
 				+ "  from NotaFiscal as n, Produto as p "
 				+ "  join n.itemNotaFiscal as i "
 				+ "  where p.codigo = i.produtoNotaFiscal.codigo and "
-				+ " p.emitente = n.emitente and n.emitente = ?1 "
+				+ " p.emitente = n.emitente and n.emitente = ?1  and "
+				+ " n.dataEmissao between ?2 and ?3 "
 				+ "  group by p.codigo, p.nome order by sum(i.valorUnitario) * sum(i.quantidade) desc ";
+		
 		javax.persistence.Query query3 = getEntityManager().createQuery(
 				sqlQuery, ProdutoCurvaABC.class);
 		query3.setParameter(1, emitente);
-		List<ProdutoCurvaABC> produtos = (List<ProdutoCurvaABC>) query3
+		query3.setParameter(2, dataIni);
+		query3.setParameter(3, dataFim);
+		List<ProdutoCurvaABC> dadosCurvaABC = (List<ProdutoCurvaABC>) query3
 				.getResultList();
-		return produtos;
+		return dadosCurvaABC;
 
 	}
 
