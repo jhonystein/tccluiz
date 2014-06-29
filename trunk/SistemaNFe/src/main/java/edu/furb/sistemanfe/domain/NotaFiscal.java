@@ -21,6 +21,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 @Table(name = "TBNOTAFISCAL")
 @TableGenerator(name = "GenNotaFiscal", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "NOTAFISCALSEQ", valueColumnName = "VLSEQUENCIA")
@@ -53,6 +55,7 @@ public class NotaFiscal implements Serializable {
 	private String versao;
 	@ManyToOne(cascade = {CascadeType.REFRESH })
 	@JoinColumn(name = "IDEMITENTE")
+	@ForeignKey(name="FK_TBNOTAFISCAL_TBEMITENTE_ID")
 	private Emitente emitente;
 	@Embedded
 	private ClienteNotaFiscal clienteNotaFiscal;
@@ -65,6 +68,7 @@ public class NotaFiscal implements Serializable {
 	private Date dataImportacao;
 	//@Column(name = "IDARQUIVOXML")
 	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE },  optional = true)
+	@ForeignKey(name="FK_TBNOTAFISCAL_TBARQUIVOXML_ID")
 	private ArquivoXML arquivoXML;
 
 	public void addItem(ItemNotaFiscal itemNotaFiscal) {

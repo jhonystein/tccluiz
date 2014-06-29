@@ -17,8 +17,8 @@ public class SistemaNFeInitializer {
     public void initialize() {  
 
 		try{
-			estadoBC.InicializaListaEstados();
-			municipioBC.InicializaListaMunicipios();
+			estadoBC.inicializaListaEstados();
+			municipioBC.inicializaListaMunicipios();
 		}catch(RuntimeException re){
 			System.out.println("Falha ao inicializar dados básicos");
 			re.printStackTrace();
