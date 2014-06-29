@@ -112,8 +112,13 @@ public class LeitorXMLNFe {
 							String versaoProt = elementNFeCapa.getAttribute(
 									"versao").getValue();
 							/**
-							 * Se a nota já existe na base, deve remover.
+							 * Remove o prefixo NFE que pode existir na chave;
 							 */
+							chaveNfe = chaveNfe.trim().toUpperCase()
+									.replaceAll("NFE", "");
+							/**
+							 * Se a nota já existe na base, deve remover.
+							 */							
 							nfRet = notaFiscalBC.buscaChaveNfe(chaveNfe);
 							if (nfRet != null) {
 								notaFiscalBC.delete(nfRet.getId());
@@ -151,8 +156,7 @@ public class LeitorXMLNFe {
 							/** 
 							 * Guarda só a parte numérica da chave
 							 */
-							nfRet.setChaveNfe(chaveNfe.trim().toUpperCase()
-									.replaceAll("NFE", ""));
+							nfRet.setChaveNfe(chaveNfe);
 							nfRet.setVersao(versaoProt);
 							nfRet.setDataImportacao(Calendar.getInstance()
 									.getTime());
