@@ -17,7 +17,6 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 
 import br.gov.frameworkdemoiselle.stereotype.ManagementController;
 import edu.furb.sistemanfe.business.ProdutoBC;
-import edu.furb.sistemanfe.pojo.ClienteVendas;
 import edu.furb.sistemanfe.pojo.ProdutoVendas;
 
 

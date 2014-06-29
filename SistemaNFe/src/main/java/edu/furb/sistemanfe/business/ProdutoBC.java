@@ -15,7 +15,6 @@ import edu.furb.sistemanfe.domain.NotaFiscal;
 import edu.furb.sistemanfe.domain.Produto;
 import edu.furb.sistemanfe.persistence.ProdutoDAO;
 import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
-import edu.furb.sistemanfe.pojo.ProdutoGraficoVendas;
 import edu.furb.sistemanfe.pojo.ProdutoVendas;
 import edu.furb.sistemanfe.rest.ProdutoDTO;
 import edu.furb.sistemanfe.security.SistemaNFeCredentials;
@@ -86,61 +85,6 @@ public class ProdutoBC extends DelegateCrud<Produto, Long, ProdutoDAO> {
 
 	}
 
-	public List<ProdutoGraficoVendas> getteste() {
-		// getDelegate().teste2(1L);
-		// getDelegate().novoTeste2();
-		return getDelegate().novoTeste3(credentials.getUsuario().getEmitente());
-	}
-
-//	/**
-//	 * Obtem dados para lisa de Curva ABC de produtos
-//	 * @return
-//	 */
-//	public List<ProdutoCurvaABC> getProdutoABC() {
-//		
-//		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente());
-//		/**
-//		 * Atribui a qualificação e calcula o consumo acumulado de cada item
-//		 */
-//		int qualificacao = 0;
-//		Double consumoAcumulado = 0.0;
-//		for (ProdutoCurvaABC produtoCurvaABC : ret) {
-//			qualificacao++;
-//			consumoAcumulado += produtoCurvaABC.getConsumo();
-//			produtoCurvaABC.setQualificacao(qualificacao);
-//			produtoCurvaABC.setConsumoAcumulado(consumoAcumulado);			
-//		}
-//		float valorBase = Math.round (ret.size()*0.20);
-//		int qualificaA = Math.round (valorBase);
-//		valorBase = Math.round (ret.size()*0.30);
-//		int qualificaB = Math.round (valorBase);
-//		/**
-//		 * Calcula o percentual acumulado
-//		 */
-//		Double percentualAcumulado = 0.0;
-//		for (ProdutoCurvaABC produtoCurvaABC : ret) {
-//			percentualAcumulado = (produtoCurvaABC.getConsumoAcumulado() / consumoAcumulado) * 100;			
-//			produtoCurvaABC.setPercentualAcumulado(percentualAcumulado);
-//			if(produtoCurvaABC.getQualificacao() <= qualificaA){
-//				produtoCurvaABC.setClassificacao("A");
-//			}else if(produtoCurvaABC.getQualificacao() <= qualificaB){
-//				produtoCurvaABC.setClassificacao("B");
-//			}else{
-//				produtoCurvaABC.setClassificacao("C");
-//			}
-////			if(produtoCurvaABC.getPercentualAcumulado() <=20.0){
-////				produtoCurvaABC.setClassificacao("A");
-////			}else if((produtoCurvaABC.getPercentualAcumulado() >20.0) &&
-////					(produtoCurvaABC.getPercentualAcumulado() <=50.0)){
-////				produtoCurvaABC.setClassificacao("B");
-////			}else{
-////				produtoCurvaABC.setClassificacao("C");
-////			}
-//		}	
-//
-//		return ret;
-//	}
-	
 	public List<ProdutoCurvaABC> getDadosCurvaABC(Date dataIni, Date dataFim) {
 		List<ProdutoCurvaABC> ret = getDelegate().produtosABC(credentials.getUsuario().getEmitente(), dataIni, dataFim);
 		/**
