@@ -3,14 +3,12 @@ package edu.furb.sistemanfe.rest;
 import java.util.Date;
 
 import edu.furb.sistemanfe.domain.ArquivoXML;
-import edu.furb.sistemanfe.domain.Empresa;
 
 public class ArquivoXMLDTO {
 	private Long id = null;
 	private String nome = null;
 	private Date dataUpload = null;
 	private String status = null;
-	private Empresa empresa = null;
 	
 	public ArquivoXMLDTO(Long id, String nome, String status){
 		this.id = id;
@@ -26,7 +24,6 @@ public class ArquivoXMLDTO {
 		this.id = arquivoXML.getId();
 		this.nome = arquivoXML.getNome();
 		this.status = arquivoXML.getStatus();
-		//this.empresa = arquivoXML.getEmpresa();
 	}
 
 	public Long getId() {
@@ -59,13 +56,5 @@ public class ArquivoXMLDTO {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
 	}
 }

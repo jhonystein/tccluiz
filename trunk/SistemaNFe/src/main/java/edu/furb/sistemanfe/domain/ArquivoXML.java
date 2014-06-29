@@ -51,13 +51,13 @@ public class ArquivoXML implements Serializable{
 		
 	}
 	
-	public ArquivoXML(Empresa empresa, String nome, byte[] arquivo) {
+	public ArquivoXML(String nome, byte[] arquivo) {
 		this.nome = nome;
 		this.arquivo = arquivo;
 		this.status = "N";
 	}
 	
-	public ArquivoXML(Empresa empresa, String nome, byte[] arquivo, String status) {
+	public ArquivoXML(String nome, byte[] arquivo, String status) {
 		this.nome = nome;
 		this.arquivo = arquivo;
 		this.status = status;

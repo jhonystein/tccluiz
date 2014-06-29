@@ -38,12 +38,7 @@ public class ArquivoXMLDAO extends JPACrud<ArquivoXML, Long> {
 			predicateList.add(p);
 		}
 		//TODO: mimplementar os demais campos;
-		if (arquivoXMLDTO.getEmpresa() != null) {
-//			Predicate p = builder.equal(ArquivoXML.<String> get("nome"),
-//					ArquivoXMLDTO.getNome());
-//			predicateList.add(p);
-		}
-		
+				
 		Predicate[] predicates = new Predicate[predicateList.size()];
 		predicateList.toArray(predicates);
 		query.where(predicates);	
