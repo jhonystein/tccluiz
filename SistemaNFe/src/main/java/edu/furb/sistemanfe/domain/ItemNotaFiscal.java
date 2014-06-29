@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 @Table(name = "TBITEMNOTAFISCAL")
 @TableGenerator(name = "GenItemNotaFiscal", table = "TBSEQUENCIAS", pkColumnName = "CDSEQUENCIA", pkColumnValue = "ITEMNOTAFISCALSEQ", valueColumnName = "VLSEQUENCIA")
@@ -42,6 +44,7 @@ public class ItemNotaFiscal implements Serializable {
 	private BigDecimal valorTotalTributos;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IDNOTAFISCAL_ID")
+	@ForeignKey(name="FK_TBITEMNOTAFISCAL_TBNOTAFISCAL_ID")
 	private NotaFiscal notafiscal;
 	@Embedded
 	private ProdutoNotaFiscal produtoNotaFiscal = null;

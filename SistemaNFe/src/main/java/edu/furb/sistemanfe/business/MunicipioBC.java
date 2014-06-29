@@ -36,7 +36,7 @@ public class MunicipioBC extends DelegateCrud<Municipio, Long, MunicipioDAO> {
 	}
 
 	@Transactional
-	public int InicializaListaMunicipios() {
+	public int inicializaListaMunicipios() {
 		int linhas = 0;
 		try {
 			if (super.findAll().size() == 0) {

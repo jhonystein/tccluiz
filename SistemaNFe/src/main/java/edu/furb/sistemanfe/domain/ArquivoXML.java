@@ -16,6 +16,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ForeignKey;
+
 @Entity
 @Table(name="TBARQUIVOXML")
 @TableGenerator(name="GenArquivoXML", table="TBSEQUENCIAS", pkColumnName="CDSEQUENCIA", pkColumnValue="ARQUIVOXMLSEQ", valueColumnName="VLSEQUENCIA")
@@ -42,6 +44,7 @@ public class ArquivoXML implements Serializable{
 //	@JoinColumn(name = "IDEMPRESA")
 //	private Empresa empresa;
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@ForeignKey(name="FK_TBARQUIVOXML_TBNOTAFISCAL_ID")
 	private NotaFiscal notaFiscal;
 	
 	public ArquivoXML() {

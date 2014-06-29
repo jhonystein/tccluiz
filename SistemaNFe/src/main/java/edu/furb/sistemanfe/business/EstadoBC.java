@@ -38,7 +38,7 @@ public class EstadoBC extends DelegateCrud<Estado, Long, EstadoDAO> {
 	}
 
 	@Transactional
-	public int InicializaListaEstados() {
+	public int inicializaListaEstados() {
 		int linhas = 0;
 		if (super.findAll().size() == 0) {
 			System.out.println("INICILIZANDO ESTADOS");
