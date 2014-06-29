@@ -16,7 +16,9 @@
 				<p:column width="15%" sortBy="#{bean.documento}">
 					<f:facet name="header">#{messages['idDocumento']}</f:facet>
 					<h:commandLink action="#{emitenteListMB.getNextView}" actionListener="#{emitenteListMB.clear}">
-						<h:outputText value="#{bean.documento}" />
+						<h:outputText value="#{bean.documento}" >						
+						<f:converter converterId="CnpjCpfConverter" />
+						</h:outputText>
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
