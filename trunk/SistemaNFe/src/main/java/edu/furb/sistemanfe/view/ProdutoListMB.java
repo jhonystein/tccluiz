@@ -17,7 +17,6 @@ import br.gov.frameworkdemoiselle.template.AbstractListPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 import edu.furb.sistemanfe.business.ProdutoBC;
 import edu.furb.sistemanfe.domain.Produto;
-import edu.furb.sistemanfe.pojo.ProdutoCurvaABC;
 
 @ViewController
 @NextView("./produto_edit.jsf")
@@ -92,8 +91,8 @@ public class ProdutoListMB extends AbstractListPageBean<Produto, Long> {
 		return getPreviousView();
 	}
 	
-	public List<ProdutoCurvaABC> getDadosCurvaABC(){
-		return produtoBC.getProdutoABC();	
-	}
+//	public List<ProdutoCurvaABC> getDadosCurvaABC(){
+//		return produtoBC.getProdutoABC();	
+//	}
 
 }
