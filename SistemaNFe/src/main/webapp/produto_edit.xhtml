@@ -11,14 +11,7 @@
 						rendered="#{!produtoEditMB.updateMode}" ajax="false" />
 					<p:commandButton value="#{messages['button.save']}" action="#{produtoEditMB.update}"
 						rendered="#{produtoEditMB.updateMode}" ajax="false" />
-					<p:commandButton value="#{messages['button.delete']}" onclick="confirmation.show()"
-						rendered="#{produtoEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.delete']}" severity="alert" widgetVar="confirmation">
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{produtoEditMB.delete}" immediate="true"
-							ajax="false" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
+					
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -27,11 +20,7 @@
 			<p:fieldset legend="#{messages['produto.label']}" toggleable="true" toggleSpeed="500">
 				<h:panelGrid id="fieldsproduto" columns="3">
 				
-					<h:outputLabel value="#{messages['produto.label.id']}: " for="id" styleClass="text-input" />
-										
-					<h:outputText id="id" value="#{produtoEditMB.bean.id}" />
 					
-					<p:message for="id" />
 						
 					<h:outputLabel value="#{messages['produto.label.codigo']}: " for="codigo" styleClass="text-input" />
 					
@@ -47,12 +36,7 @@
 					
 					<p:message for="nome" />
 						
-					<h:outputLabel value="#{messages['emitente.label']}: " for="emitente" styleClass="text-input" />
-				    <p:selectOneMenu id="emitente" value="#{produtoEditMB.bean.emitente}"  effect="fade" converter="ConversorEmitente">
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{produtoEditMB.emitenteList}" var="varEmitente" itemLabel="#{varEmitente.id}"  itemValue="#{varEmitente}" />						
-					</p:selectOneMenu>
-					<p:message for="emitente" />								  
+													  
 								 
 				</h:panelGrid>
 			</p:fieldset>
