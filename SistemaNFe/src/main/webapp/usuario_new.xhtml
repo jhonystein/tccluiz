@@ -12,7 +12,7 @@
 					<h:outputLabel value="#{messages['usuario.label.nome']}: "
 						for="nome" styleClass="text-input" />
 
-					<h:inputText id="nome" value="#{novoUsuarioMB.usuario.nome}">
+					<h:inputText id="nome" value="#{novoUsuarioMB.nome}" maxlength="50">
 						<f:validateRequired for="nome"></f:validateRequired>
 						<f:validateLength for="nome" minimum="3"></f:validateLength>
 					</h:inputText>
@@ -21,7 +21,7 @@
 					<h:outputLabel value="#{messages['usuario.label.fone']}: "
 						for="fone" styleClass="text-input" />
 
-					<h:inputText id="fone" value="#{novoUsuarioMB.usuario.fone}">
+					<h:inputText id="fone" value="#{novoUsuarioMB.fone}" maxlength="12">
 					<f:validateRequired for="fone"></f:validateRequired>
 						<f:validateLength for="fone" minimum="8"></f:validateLength>
 					</h:inputText>
@@ -29,7 +29,7 @@
 					<h:outputLabel value="#{messages['usuario.label.login']}: "
 						for="login" styleClass="text-input" />
 
-					<h:inputText id="login" value="#{novoUsuarioMB.usuario.login}"
+					<h:inputText id="login" value="#{novoUsuarioMB.login}" maxlength="250"
 						title="#{messages['usuario.alt.login']}">
 						<f:validateRequired for="login"></f:validateRequired>
 						<f:validateLength for="login" minimum="8"></f:validateLength>
@@ -40,8 +40,8 @@
 					<h:outputLabel value="#{messages['usuario.label.senha']}: "
 						for="senha" styleClass="text-input" />
 
-					<h:inputSecret id="senha" value="#{novoUsuarioMB.usuario.senha}"
-						title="#{messages['usuario.alt.senha']}">
+					<h:inputSecret id="senha" value="#{novoUsuarioMB.senha}"
+						title="#{messages['usuario.alt.senha']}" maxlength="20">
 						<f:validateRequired for="senha"></f:validateRequired>
 						<f:validateLength for="senha" minimum="3"></f:validateLength>
 					</h:inputSecret>
@@ -53,7 +53,7 @@
 
 					<h:inputSecret id="confirma_senha"
 						value="#{novoUsuarioMB.confirmaSenha}"
-						title="#{messages['usuario.alt.senha']}">
+						title="#{messages['usuario.alt.senha']}" maxlength="20">
 						<f:validateRequired for="confirma_senha"></f:validateRequired>
 						<f:validateLength for="confirma_senha" minimum="3"></f:validateLength>
 					</h:inputSecret>

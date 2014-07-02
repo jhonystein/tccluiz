@@ -2,7 +2,6 @@ package edu.furb.sistemanfe.view;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,8 +20,11 @@ public class NovoUsuarioMB implements Serializable {
 
 	private static final long serialVersionUID = 5678102207613023117L;
 
-	private Usuario usuario;
 	private String confirmaSenha;
+	private String nome;
+	private String fone;
+	private String login;
+	private String senha;
 
 	@Inject
 	private MessageContext messageContext;
@@ -31,12 +33,36 @@ public class NovoUsuarioMB implements Serializable {
 	@Inject
 	private Mail mail;
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getConfirmaSenha() {
@@ -47,13 +73,11 @@ public class NovoUsuarioMB implements Serializable {
 		this.confirmaSenha = confirmaSenha;
 	}
 
-	@PostConstruct
-	private void ini() {
-		this.usuario = new Usuario();
-	}
-
 	private void email(Usuario usuario) {
-		String texto = String.format(" Cliente %s solicitou cadastro no sistema. \n Email: %s \n Telefone: %s", usuario.getNome(),usuario.getLogin(), usuario.getFone());
+		String texto = String
+				.format(" Cliente %s solicitou cadastro no sistema. \n Email: %s \n Telefone: %s",
+						usuario.getNome(), usuario.getLogin(),
+						usuario.getFone());
 		mail
 
 		.to("contatosistemanfe@gmail.com")
@@ -64,28 +88,35 @@ public class NovoUsuarioMB implements Serializable {
 
 		.subject("Solicitação de Acesso")
 
-		//.importance().high()
+		// .importance().high()
 
-		.send();
+				.send();
 
 	}
 
 	public String cadastrarNew() {
 		try {
-			if (!this.getUsuario().getSenha().equals(confirmaSenha)) {
-
+			if (!this.getSenha().equals(confirmaSenha)) {
 				throw new Exception("Senha não confere.");
 			}
-			if (this.usuarioBC.findByUsername(this.getUsuario().getLogin()) != null) {
+			if (this.usuarioBC.findByUsername(this.getLogin()) != null) {
 				throw new Exception("Usuário já cadastrado.");
 			}
-			// Usuario usuario = new Usuario();
-			// usuario.setLogin(login);
-			// usuario.setSenha(senha);
+			Usuario usuario = new Usuario();
+			usuario.setLogin(login);
+			usuario.setSenha(senha);
+			usuario.setFone(fone);
+			usuario.setNome(nome);
+
 			this.usuarioBC.insert(usuario);
 			this.email(usuario);
 			messageContext.add("Solicitação fetuada com sucesso!!!",
 					SeverityType.INFO);
+
+			login = "";
+			senha = "";
+			fone = "";
+			nome = "";
 			return "login";
 
 		} catch (Exception ex) {
