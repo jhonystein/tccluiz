@@ -6,50 +6,26 @@
 	<ui:define name="body">
 		<h:form>
 			<p:toolbar>
-				<p:toolbarGroup align="left">
+				<f:facet name="left">
 					<p:commandButton title="#{messages['button.new']}" icon="ui-icon-document" action="#{usuarioListMB.getNextView}"
 						actionListener="#{usuarioListMB.clear}" ajax="false" />
-
-					<p:commandButton title="#{messages['button.delete']}" icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" immediate="true" ajax="false" />
-
-					<p:confirmDialog message="#{messages['label.confirm.delete']}" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-
-						<h:commandButton value="#{messages['button.dialog.yes']}" action="#{usuarioListMB.deleteSelection}"
-							actionListener="#{usuarioListMB.clear}" />
-						<h:commandButton value="#{messages['button.dialog.no']}" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-				</p:toolbarGroup>
+				</f:facet>
 			</p:toolbar>
 			<p:dataTable id="list" var="bean" value="#{usuarioListMB.resultList}">
 				<f:facet name="header">#{messages['usuario.list.table.title']}</f:facet>
-				<p:column style="width:2%;">
-					<h:selectBooleanCheckbox value="#{usuarioListMB.selection[bean.id]}"></h:selectBooleanCheckbox>
-				</p:column>
-				
-				<p:column style="width:5%;" sortBy="#{bean.id}">
+				<p:column  width="5%" sortBy="#{bean.id}">
 					<f:facet name="header">#{messages['usuario.label.id']}</f:facet>
 					<h:outputText value="#{bean.id}" />
 				</p:column>
 						
-				<p:column sortBy="#{bean.login}">
+				<p:column sortBy="#{bean.login}" width="*%">
 					<f:facet name="header">#{messages['usuario.label.login']}</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.login}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<!-- 	
-				<p:column sortBy="#{bean.senha}">
-					<f:facet name="header">#{messages['usuario.label.senha']}</f:facet>
-					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
-						<h:outputText value="#{bean.senha}" />
-						<f:param name="id" value="#{bean.id}" />
-					</h:commandLink>
-				</p:column>
-				 -->	
-				<p:column sortBy="#{bean.status}">
+				<p:column sortBy="#{bean.status}"  width="12%">
 					<f:facet name="header">#{messages['usuario.label.status']}</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.status.descricao}" />
@@ -57,14 +33,13 @@
 					</h:commandLink>
 				</p:column>	
 				
-				<p:column sortBy="#{bean.tipoUsuario}">
+				<p:column sortBy="#{bean.tipoUsuario}" width="15%">
 					<f:facet name="header">#{messages['usuario.label.admin']}</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.tipoUsuario.descricao}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>		
-				
 					
 			</p:dataTable>
 		</h:form>

@@ -6,6 +6,8 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
 import br.gov.frameworkdemoiselle.annotation.PreviousView;
+import br.gov.frameworkdemoiselle.message.MessageContext;
+import br.gov.frameworkdemoiselle.message.SeverityType;
 import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
@@ -20,6 +22,8 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 
 	@Inject
 	private UsuarioBC usuarioBC;
+	@Inject
+	private MessageContext messageContext;
 	
 	public List<SelectItem> getTiposAdministrador() {
 		return usuarioBC.getTiposAdministrador();
@@ -56,7 +60,14 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long> {
 	}
 	
 	public void emailConfirma(){
-		usuarioBC.emailConfirma(getBean());
+		try {
+			usuarioBC.emailConfirma(getBean());
+			messageContext
+			.add("Email enviado", SeverityType.INFO);
+		} catch (Exception ex) {
+			messageContext
+					.add("Erro ao solicitar envio de email: {0}", SeverityType.ERROR, ex.getMessage());
+		}
 	}
 
 	
