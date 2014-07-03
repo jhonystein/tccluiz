@@ -22,7 +22,20 @@
 			<p:fieldset legend="#{messages['usuario.label']}" toggleable="true"
 				toggleSpeed="500">
 				<h:panelGrid id="fieldsusuario" columns="3">
+					<h:outputLabel value="#{messages['usuario.label.nome']}: "
+						for="nome" styleClass="text-input" />
 
+					<h:inputText id="nome" value="#{usuarioEditMB.bean.nome}"/>
+
+					<p:message for="nome" />
+					
+					<h:outputLabel value="#{messages['usuario.label.fone']}: "
+						for="fone" styleClass="text-input" />
+
+					<h:inputText id="fone" value="#{usuarioEditMB.bean.fone}"/>
+
+					<p:message for="fone" />
+					
 					<h:outputLabel value="#{messages['usuario.label.login']}: "
 						for="login" styleClass="text-input" />
 
